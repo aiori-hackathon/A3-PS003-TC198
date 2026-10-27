@@ -6,8 +6,8 @@
 - **Problem Statement ID:** PS-003
 - **Hackathon:** AIORI 3
 - **Project Name:** TrafficPulse-X
-- **Team Leader:** Adarsh Singh (`adarsh04455@gmail.com`)
-- **Team Member:** Shaurya Singh (`shauryapratapsingh723@gmail.com`)
+- **Team Leader:** Adarsh Singh 
+- **Team Member:** Shaurya Singh 
 - **Faculty Mentor:** Aditya Sir
 
 ---
@@ -52,7 +52,6 @@ Our AIORI project presentation is available here:
 
 ## Working Demo & Video Links
 
-### links are here:
 
 1. **Working Demo Link**:
    - `[Live Working Demo Link to be added here]`
@@ -71,7 +70,6 @@ Our AIORI project presentation is available here:
 
 ## Project Documentation
 
-### all documents are here:
 
 Our comprehensive technical and project documentation is available here:
 
