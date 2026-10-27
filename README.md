@@ -1,13 +1,13 @@
-# AIORI 3 Hackathon – Team A3-PS003-TC198
+# TrafficPulse-X
 
-## Team Details
+## AIORI 3 Hackathon — Team A3-PS003-TC198
 
 - **Team Code:** A3-PS003-TC198
 - **Problem Statement ID:** PS-003
 - **Hackathon:** AIORI 3
 - **Project Name:** TrafficPulse-X
-- **Team Leader:** Adarsh Singh 
-- **Team Member:** Shaurya Singh 
+- **Team Leader:** Adarsh Singh
+- **Team Member:** Shaurya Singh
 - **Faculty Mentor:** Aditya Sir
 
 ---
@@ -16,97 +16,105 @@
 
 **Federated Traffic-Flow Prediction with Communication-Cost Evaluation**
 
-The problem focuses on building a traffic forecasting system using federated learning while also evaluating the communication required between distributed clients and a central server.
+Building a decentralized traffic forecasting system using federated learning across regional road networks, while evaluating the trade-off between prediction accuracy and communication payload across distributed clients.
 
 ---
 
-## Our Proposed Solution
+## Project Overview & Key Capabilities
 
-Our solution is **TrafficPulse-X**.
+TrafficPulse-X is a communication-aware decentralized traffic intelligence system. Instead of continuously transmitting raw sensor data from municipal highway networks to a central server, regional client nodes train locally on road subgraphs and share model updates through federated aggregation.
 
-TrafficPulse-X uses historical traffic sensor data to forecast future traffic conditions while allowing regional clients to train locally.
-
-Instead of continuously sending all raw traffic data to a central server, regional clients train locally and share model updates for federated aggregation.
-
-Our proposed solution includes:
-
-- Graph + LSTM based traffic-speed forecasting (`SpatialGraphLSTM`)
-- Federated Learning using FedAvg across regional client sectors
-- Regional non-IID client partitions (METR-LA and PeMS08)
-- Communication-cost evaluation (dual application and transport wire accounting)
-- Selective client participation (50% communication reduction via CCV)
-- Decision Intelligence (9-factor Need Score & Sensor Jury consensus)
-- Interactive traffic analysis dashboard (React 19, Leaflet, 34,272-step replay)
-
-The aim is to study whether federated traffic forecasting can maintain useful prediction quality while reducing unnecessary communication.
-
----
-
-## Project Presentation
-
-Our AIORI project presentation is available here:
-
-[View Project Presentation](./A3-PS003-TC198-Presentation.pdf)
-
----
-
-## Working Demo & Video Links
-
-
-1. **Working Demo Link**:
-   - `[Live Working Demo Link to be added here]`
-   - *(Runbook for local execution is provided in [`src/README.md`](./src/README.md))*
-
-2. **Team Member Intro and Problem Statement Explanation Video**:
-   - [Watch Team Introduction Video](https://youtu.be/kbMFY39V_l4)
-   - `[Video Link to be added here]`
-
-3. **Dashboard Explanation Video**:
-   - `[Dashboard Explanation Video Link to be added here]`
-
-*(Full details and video descriptions are also available in [`working demo and video link/README.md`](./working%20demo%20and%20video%20link/README.md))*
-
----
-
-## Project Documentation
-
-
-Our comprehensive technical and project documentation is available here:
-
-[View Project Documentation](./documentation/FULL_PROJECT_DOCUMENTATION.md)
+### Key Capabilities:
+- **Spatio-Temporal Forecasting:** Chebyshev spectral graph convolutions coupled with recurrent LSTM cells (`SpatialGraphLSTM`) to capture road topology and temporal dynamics.
+- **Federated Model Aggregation:** Target-weighted `FedAvg` consensus across 4 regional non-IID client sectors on the METR-LA (207 sensors) and PeMS08 (170 sensors) benchmarks.
+- **Communication-Cost Accounting:** Empirical measurement of serialized tensor payload (110,271 bytes per client update round) alongside transport socket wire overhead.
+- **Selective Client Participation:** Client Contribution Value (CCV) scheduling to evaluate trade-offs between communication payload reduction and forecasting quality.
+- **Decision Intelligence Engine:** Rule-based 9-factor Need Score scoring and sensor agreement consensus for operational anomaly triage.
+- **Interactive Operations Console:** Single-page dashboard (React 19 / Vite, Leaflet mapping) featuring multi-horizon predictions and deterministic historical dataset replay.
 
 ---
 
 ## Submission Status (Steps 01 – 10)
 
-- **Step 01:** GitHub collaboration setup completed
-- **Step 02:** Repository naming completed (`A3-PS003-TC198`)
-- **Step 03:** AIORI GitHub collaboration completed
-- **Step 04:** Repository ownership transferred to AIORI
-- **Step 05:** Project presentation uploaded ([`A3-PS003-TC198-Presentation.pdf`](./A3-PS003-TC198-Presentation.pdf))
-- **Step 06:** Team introduction video created
-- **Step 07:** YouTube video link added
-- **Step 08:** Mentoring sessions attended with Faculty Mentor
-- **Step 09:** Complete source code ([`src/`](./src/)) and project documentation ([`documentation/`](./documentation/)) submitted
-- **Step 10:** Working demo link and video demonstration provided
+- **Step 01 (GitHub Collaboration):** **Completed** — Repository initialized from the official AIORI template.
+- **Step 02 (Repository Name):** **Completed** — Repository named strictly according to team code: `A3-PS003-TC198`.
+- **Step 03 (Add AIORI GitHub Account):** **Completed** — `aiori-hackathon` collaborator access confirmed.
+- **Step 04 (Transfer Repository Ownership):** **Completed** — Repository ownership transferred to `aiori-hackathon`.
+- **Step 05 (Upload Presentation):** **Completed** — Presentation uploaded at repository root ([`A3-PS003-TC198-Presentation.pdf`](./A3-PS003-TC198-Presentation.pdf)).
+- **Step 06 (Create Team Introduction Video):** **Completed** — Team member introduction and problem statement walkthrough recorded.
+- **Step 07 (Add YouTube Video Link):** **Partially Completed** — Team introduction video linked ([https://youtu.be/kbMFY39V_l4](https://youtu.be/kbMFY39V_l4)); final dashboard demonstration video pending upload.
+- **Step 08 (Attend Mentoring Sessions):** **Completed** — Mentoring sessions attended under the guidance of Faculty Mentor Aditya Sir.
+- **Step 09 (Submission of Code):** **Completed** — Production source code submitted in [`src/`](./src/), and technical documentation submitted in [`documentation/`](./documentation/).
+- **Step 10 (Working Demo):** **Pending Link** — Local setup and runbook available in [`src/README.md`](./src/README.md); live deployment link pending paste.
 
 ---
 
-## Repository Structure (Kahan Par Kya Hai)
+## Working Demo & Video Links
+
+- **Working Demo:**
+  - **Status:** Pending — add link
+  - **URL:** `[PASTE_WORKING_DEMO_URL_HERE]`
+  - *(Instructions for local execution are documented in [`src/README.md`](./src/README.md))*
+
+- **Team Member Introduction and Problem Statement Explanation Video:**
+  - **Status:** Available
+  - **URL:** [https://youtu.be/kbMFY39V_l4](https://youtu.be/kbMFY39V_l4)
+  - *(Optional updated link placeholder: `[PASTE_INTRO_VIDEO_URL_HERE]`)*
+
+- **Dashboard Explanation / Project Demonstration Video:**
+  - **Status:** Pending — add link
+  - **URL:** `[PASTE_DASHBOARD_VIDEO_URL_HERE]`
+
+*(Video outlines and descriptions are documented in [`working demo and video link/README.md`](./working%20demo%20and%20video%20link/README.md))*
+
+---
+
+## Project Presentation & Documentation
+
+- **Project Presentation:**
+  - **Status:** Available
+  - **File:** [View Project Presentation Deck (`A3-PS003-TC198-Presentation.pdf`)](./A3-PS003-TC198-Presentation.pdf) (located at repository root)
+
+- **Full Project Documentation:**
+  - **Status:** Available
+  - **Specifications:** [View Full Project Documentation (`documentation/FULL_PROJECT_DOCUMENTATION.md`)](./documentation/FULL_PROJECT_DOCUMENTATION.md)
+  - **Documentation Index:** [`documentation/README.md`](./documentation/README.md)
+
+---
+
+## Repository Structure
 
 ```text
 A3-PS003-TC198/
 ├── A3-PS003-TC198-Presentation.pdf   # Official Hackathon Project Presentation Slide Deck
-├── README.md                         # Main Repository Overview & Submission Status (Steps 01-10)
-├── documentation/                    # Project Documentation (Architecture, Specs, Audit)
-├── working demo and video link/       # Working Demo Link & Video Demonstrations
-└── src/                              # Source Code (React Frontend, FastAPI Backend, ML Models, Datasets, 343 Tests)
+├── README.md                         # Main Repository Overview, Submission Status & Links
+├── documentation/                    # Technical & Scientific Documentation
+│   ├── FULL_PROJECT_DOCUMENTATION.md # Comprehensive documentation index
+│   └── README.md                     # Documentation table of contents
+├── working demo and video link/      # Working demo link and video explanation documentation
+│   └── README.md                     # Video demonstration details and submission placeholders
+└── src/                              # Production Source Code (Frontend, Backend, ML Models, Datasets)
+    ├── backend/                      # FastAPI REST application
+    ├── data/                         # METR-LA and PeMS08 traffic datasets
+    ├── ml/                           # PyTorch spatio-temporal and federated learning models
+    ├── app/ & pages/                 # React 19 / Vite operations dashboard
+    └── README.md                     # Local setup, runbook, and verification commands
 ```
+
+---
+
+## Final Link-Completion Checklist
+
+The following placeholders require manual link insertion before the submission portal closes:
+
+- [ ] `[PASTE_WORKING_DEMO_URL_HERE]` — Insert the deployed live web demo URL in the [Working Demo & Video Links](#working-demo--video-links) section.
+- [ ] `[PASTE_DASHBOARD_VIDEO_URL_HERE]` — Insert the YouTube / Loom URL for the dashboard walkthrough in the [Working Demo & Video Links](#working-demo--video-links) section.
+- [ ] `[PASTE_INTRO_VIDEO_URL_HERE]` — *(Optional)* Update the team intro video URL if re-recorded (current verified video: [https://youtu.be/kbMFY39V_l4](https://youtu.be/kbMFY39V_l4)).
 
 ---
 
 ## Team Member Roles & Responsibilities
 
 - **Adarsh Singh (Team Leader)**: FastAPI backend architecture, tactical React dashboard, communication benchmarks & temporal replay engine.
-- **Shaurya Singh (Team Member)**: Spatio-temporal graph neural networks (`SpatialGraphLSTM`), decentralized FedAvg, CCV scheduling & differential privacy.
+- **Shaurya Singh (Team Member)**: Spatio-temporal graph neural networks (`SpatialGraphLSTM`), decentralized FedAvg, CCV scheduling & differential privacy experiments.
 - **Aditya Sir (Faculty Mentor)**: Academic supervision, spatial graph formulations, non-IID client partitioning & empirical evaluation advisory.
