@@ -110,72 +110,62 @@ flowchart TD
 ### D. Complete Project Directory & File Tree (`src/`)
 ```text
 src/
-|-- app/                               # Application shell and routing
-|   |-- App.jsx                        # Root React layout, navigation bar, and replay context frame
-|   `-- routes.jsx                     # Client-side router for all 7 dashboard modules
-|
-|-- backend/                           # FastAPI high-performance REST backend
-|   |-- assistant.py                   # Embedded operations assistant & AI traffic copilot
-|   |-- config.py                      # Server settings, telemetry thresholds, and environment flags
-|   |-- data_source.py                 # Telemetry stream orchestrator (Historical vs External Live)
-|   |-- graph.py                       # Network graph topology router (adjacency, edges, coordinates)
-|   |-- main.py                        # FastAPI entrypoint exposing 53 production REST endpoints
-|   |-- communication_intelligence/    # CCV scheduling policies, byte accounting, and telemetry savings
-|   |-- data_sources/                  # Dataset streaming adapters (METR-LA and PeMS08)
-|   |-- datasets/                      # Graph loaders, normalized Laplacian calculation, distance matrices
-|   |-- decision/                      # 9-Factor Need Score engine, spatial jury, and kinematics gate
-|   |-- experiments/                   # PeMS08 flow router, network accounting, and transport benchmarks
-|   |-- federated/                     # Federated consensus service, client profiles, and round history
-|   |-- privacy/                       # Differential privacy accountant router and secure aggregation
-|   `-- test_*.py (22 files)           # Automated integration test suite (343 passing test cases)
-|
-|-- components/                        # Modular React UI components
-|   |-- alerts/                        # Alert stream tables, secondary analytics, and alert inspectors
-|   |-- assistant/                     # Floating conversational operational assistant widget
-|   |-- common/                        # Metric cards, scientific badges, status badges, data tables
-|   |-- communication/                 # CCV donut charts, hero flow streams, and Pareto trade-off curves
-|   |-- decision/                      # Need Score breakdown, evidence chains, and counterfactual query cards
-|   |-- federated/                     # Convergence charts, non-IID client cards, and DP privacy panels
-|   |-- intro/                         # Onboarding and executive opening experience modal
-|   |-- overview/                      # Hero console, outlook timeline, and multi-model benchmark bars
-|   |-- prediction/                    # Multi-horizon forecast cards, Recharts time-series, insights panel
-|   |-- timeline/                      # 5-minute historical replay timeline scrubber and speed controls
-|   `-- traffic/                       # Leaflet map canvas, sensor detail panel, heatmaps, blind spots
-|
-|-- context/                           # Global state management
-|   |-- ReplayContext.jsx              # Deterministic 34,272-step replay state machine and playhead clock
-|   `-- ThemeContext.jsx               # Dark/Light high-contrast tactical operations theme provider
-|
-|-- data/                              # Real traffic sensor datasets and graph matrices
-|   |-- processed/metr-la/             # Preprocessed METR-LA arrays and regional partitions
-|   |-- raw/metr-la/                   # Sensor locations, distances, and 207-node adj_mx.pkl
-|   `-- raw/pems08/                    # Caltrans PeMS08 flow distance matrix and traffic volume npz
-|
-|-- ml/                                # Machine learning models and training pipelines
-|   |-- baselines/                     # LastValue, HistoricalAverage, and RidgeRegression forecasters
-|   |-- temporal/                      # TemporalLSTM and TemporalGRU models with Masked-MAE loss
-|   |-- graph/                         # SpatialGCN with Chebyshev normalized Laplacian
-|   |-- spatiotemporal/                # End-to-end SpatialGraphLSTM neural network
-|   |-- federated/                     # FedAvg client/server orchestrator, round checkpoints (Rounds 0-13)
-|   |-- privacy/                       # Opacus DP-SGD gradient clipping, Gaussian noise, pairwise masking
-|   `-- experiments/                   # PeMS08 flow training, non-IID partition generators, benchmarks
-|
-|-- pages/                             # 7 Core Operations Dashboard Pages
-|   |-- Overview/                      # Executive KPI console, regional map, and 7-model benchmark
-|   |-- TrafficNetwork/                # Tactical Leaflet map, laser connection edges, sensor telemetry panel
-|   |-- Prediction/                    # Multi-horizon forecasting (+5m to +60m) and uncertainty bands
-|   |-- FederatedLearning/             # Decentralized training convergence, client nodes, and DP privacy
-|   |-- DecisionIntelligence/          # 9-Factor Need Score prioritizer, spatial jury, and query ranking
-|   |-- Alerts/                        # Instantaneous speed drift detection and anomaly stream
-|   `-- Communication/                 # CCV policy evaluation, byte tracking, and 75% bandwidth reduction
-|
-|-- public/                            # Favicons, vector icons, and static assets
-|-- services/api.js                    # Comprehensive Axios/Fetch API client communicating with FastAPI
-|-- utils/formatters.js                # Geospatial distance, velocity, and timestamp formatting utilities
-|-- index.html                         # Vite HTML template
-|-- package.json                       # Frontend dependencies and dev scripts
-|-- requirements.txt                   # Python backend and ML dependencies
-`-- vite.config.js                     # Vite build and proxy configuration
+├── app/                               # Application shell and client-side routing
+│   ├── App.jsx                        # Root React layout, navigation bar, and replay context frame
+│   └── routes.jsx                     # Router registering all 7 dashboard modules
+├── backend/                           # FastAPI high-performance REST backend (53 endpoints)
+│   ├── assistant.py                   # Embedded operations copilot & telemetry assistant
+│   ├── config.py                      # Global server thresholds, paths, and environment settings
+│   ├── data_source.py                 # Telemetry orchestrator (Historical Replay vs Live Adapter)
+│   ├── graph.py                       # Network topology router (nodes, coordinates, adjacencies)
+│   ├── main.py                        # FastAPI entrypoint exposing production REST endpoints
+│   ├── communication_intelligence/    # CCV scheduling policies & wire byte benchmarks
+│   ├── data_sources/                  # Dataset streaming adapters (METR-LA & PeMS08)
+│   ├── datasets/                      # Graph loaders & normalized Laplacian builders
+│   ├── decision/                      # 9-Factor Need Score engine, Sensor Jury, Kinematics Gate
+│   ├── experiments/                   # PeMS08 flow router & localhost transport benchmarks
+│   ├── federated/                     # FedAvg consensus service & regional partitions
+│   ├── privacy/                       # Differential privacy accountant & secure aggregation
+│   └── test_*.py (22 files)           # Automated integration test suite (343 passing tests)
+├── components/                        # Modular React UI component library
+│   ├── alerts/                        # Speed drift detectors & anomaly event stream
+│   ├── assistant/                     # Floating conversational operational copilot widget
+│   ├── common/                        # Metric cards, status badges, and data tables
+│   ├── communication/                 # CCV policy cards, donut charts, and Pareto curves
+│   ├── decision/                      # Need Score breakdown, evidence chains, and query ranking
+│   ├── federated/                     # Convergence charts, non-IID client cards, DP panels
+│   ├── intro/                         # Executive welcome modal & system guide
+│   ├── overview/                      # Executive KPI console & 7-model benchmark bars
+│   ├── prediction/                    # Multi-horizon forecast cards (+5m to +60m) & uncertainty
+│   ├── timeline/                      # 34,272-step historical replay scrubber & clock controls
+│   └── traffic/                       # Leaflet GIS canvas, 207 GPS sensors, polygon clusters
+├── context/                           # Global application state providers
+│   ├── ReplayContext.jsx              # Deterministic 34,272-step replay state machine
+│   └── ThemeContext.jsx               # Tactical high-contrast Dark/Light theme provider
+├── data/                              # Preprocessed sensor datasets & graph matrices
+│   ├── processed/metr-la/             # METR-LA arrays, regional partitions, and trained weights
+│   └── processed/pems08/              # PeMS08 flow extension data & model checkpoints
+├── ml/                                # Machine learning architectures & training routines
+│   ├── baselines/                     # Classical baselines (Historical Average, Last Value, Linear)
+│   ├── experiments/                   # 3-seed reproducibility & centralized ablation suites
+│   ├── federated/                     # FedAvg simulation engine & CCV client scheduler
+│   ├── graph/                         # Spatial GCN & Chebyshev spectral graph convolutions
+│   ├── privacy/                       # Opacus DP-SGD training harness
+│   ├── spatiotemporal/                # Flagship SpatialGraphLSTM neural network
+│   └── temporal/                      # Recurrent TemporalLSTM & TemporalGRU baselines
+├── pages/                             # 7 Canonical Dashboard View Modules
+│   ├── Overview/                      # Executive operational summary & next 60m outlook
+│   ├── TrafficNetwork/                # Tactical 207-sensor Leaflet map & regional cluster telemetry
+│   ├── Prediction/                    # Multi-horizon forecasts & uncertainty intervals
+│   ├── FederatedLearning/             # FedAvg Round 8 convergence & 4 client partition cards
+│   ├── DecisionIntelligence/          # 9-factor Need Score prioritizer & Sensor Jury consensus
+│   ├── Alerts/                        # Live telemetry stream with speed anomaly indicators
+│   └── Communication/                 # CCV selective policies & 50% payload reduction
+├── services/api.js                    # Centralized frontend API gateway (single source of truth)
+├── index.html                         # Vite application entrypoint HTML
+├── package.json                       # Frontend dependencies & npm scripts
+├── requirements.txt                   # Backend Python dependencies
+└── vite.config.js                     # Vite build and server configuration
 ```
 
 ---
@@ -184,7 +174,7 @@ src/
 
 | Layer | Technologies Used | Purpose & Implementation Details |
 |---|---|---|
-| **Frontend Framework** | **React 19** & **Vite 6** | Ultra-responsive component architecture with sub-second hot module reloading. |
+| **Frontend Framework** | **React 19** & **Vite 8** | Ultra-responsive component architecture with sub-second hot module reloading. |
 | **Styling & UI Components** | **Tailwind CSS 4** & **Lucide React** | Tactical high-contrast operations UI with seamless Dark/Light theme switching. |
 | **Geospatial Mapping** | **Leaflet** & **React-Leaflet** | Watermark-free GIS canvas rendering 207 GPS sensors, polygons, and laser graph lines. |
 | **Data Visualization** | **Recharts** | Real-time multi-horizon time-series, uncertainty bounds, and convergence charts. |
@@ -879,4 +869,4 @@ docker run -d -p 8000:8000 -p 5173:5173 --name trafficpulse-prod trafficpulse-x:
 10. **Communication-Efficient Federated Learning on Non-IID Data**: Sattler et al. [IEEE Xplore](https://ieeexplore.ieee.org/document/8889996)
 
 ---
-*End of Technical Documentation — TrafficPulse-X • A3-PS003-TC198 • AIORI 3 Grand Finale*
+*Submission Freeze Checkpoint — Code Updated Here • TrafficPulse-X • A3-PS003-TC198 • AIORI 3 Grand Finale*
