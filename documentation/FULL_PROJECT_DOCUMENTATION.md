@@ -1,6 +1,6 @@
 # Full Project Documentation
 
-**Documentations uploaded here**
+### all documents are here
 
 This directory contains the complete technical, architectural, and scientific documentation for **TrafficPulse-X** (Problem Statement: **PS-003**, Team Code: **A3-PS003-TC198**).
 

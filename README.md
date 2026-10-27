@@ -71,6 +71,8 @@ Our AIORI project presentation is available here:
 
 ## Project Documentation
 
+### all documents are here:
+
 Our comprehensive technical and project documentation is available here:
 
 [View Project Documentation](./documentation/FULL_PROJECT_DOCUMENTATION.md)
