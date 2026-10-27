@@ -96,19 +96,16 @@ A3-PS003-TC198/
 ├── A3-PS003-TC198-Presentation.pdf      # Official Hackathon Presentation Slide Deck
 ├── README.md                            # Root Repository Overview & Submission Task Tracker
 │
-├── documentation/                       # Comprehensive Architecture, Scientific Contracts & Audit Reports
+├── documentation/                       # Core Technical, Scientific & Audit Specifications
 │   ├── README.md                        # Documentation Table of Contents
-│   ├── ARCHITECTURE.md                  # Detailed system decomposition & data flow pipelines
-│   ├── SCIENTIFIC_CONTRACT.md           # Scientific evaluation criteria & formal contracts
+│   ├── ARCHITECTURE.md                  # System decomposition & data flow pipelines
+│   ├── SCIENTIFIC_CONTRACT.md           # Formal mathematical contracts & methodology
 │   ├── SCIENTIFIC_SCOPE.md              # Research boundaries, historical replay scope & DP bounds
 │   ├── DEVELOPMENT.md                   # Engineering guide & deployment runbook
-│   ├── DEMO_VIVA.md                     # Viva questions & oral presentation guide
-│   ├── AUDIT_REPORT.md                  # Release verification & artifact checksums
 │   ├── EXPERIMENTS.md                   # Multi-horizon and ablation experiment records
 │   ├── FLOW_DATASET_EXTENSION.md        # PeMS08 traffic flow volume benchmark documentation
 │   ├── API.md                           # Complete REST API route specifications
-│   ├── TrafficPulse-X_Complete_Documentation.pdf # Comprehensive compiled PDF documentation
-│   └── screenshots/                     # 7 Canonical UI view screenshots
+│   └── AUDIT_REPORT.md                  # Release verification & 343 passing test cases audit
 │
 ├── vdo link/                            # Team Introduction, PS Explanation & Video Links
 │   └── README.md                        # Team bio, PS-003 summary, YouTube demo & dashboard video links
