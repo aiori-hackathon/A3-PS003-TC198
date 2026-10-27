@@ -39,53 +39,78 @@ Our proposed solution includes:
 - **Decision Intelligence**: Dynamic 9-factor Need Score engine and Sensor Jury consensus.
 - **Interactive Traffic Analysis Dashboard**: React 19 / Vite single-page application with Leaflet spatial mapping and a 34,272-step historical replay engine.
 
-The aim is to study whether federated traffic forecasting can maintain useful prediction quality while reducing unnecessary communication.
-
 ---
 
-## Project Presentation
+## Hackathon Submission Milestones & Task Progress (Steps 01 – 10)
 
-Our AIORI project presentation slide deck is available here:
+All submission deliverables have been completed according to the official AIORI-3 guidelines:
 
-- [View Project Presentation Deck](./A3-PS003-TC198-Presentation.pdf)
+### Step 01: GitHub Collaboration
+- **Guideline:** Please create your team repository by clicking **Use this template** on the official template repository at `github.com/aiori-hackathon/A3-PSXXX-TXXXX`. Please do not fork the template.
+- **Status:** **Completed**
+- **Details:** Repository successfully initialized from the official AIORI template repository.
 
----
+### Step 02: Repository Name
+- **Guideline:** Name the repository as the team code. Check your team's code from `portal.aiori.in/aiori-3/hackathon-guideline`.
+- **Status:** **Completed**
+- **Details:** Repository named strictly as the official team code: `A3-PS003-TC198`.
 
-## Team Introduction & Demo Videos
+### Step 03: Add AIORI GitHub Account
+- **Guideline:** Add our GitHub account `github.com/aiori-hackathon` as a collaborator.
+- **Status:** **Completed**
+- **Details:** `aiori-hackathon` invited and confirmed as collaborator with full administrative access.
 
-Our team introduction and demonstration videos cover:
+### Step 04: Transfer Repository Ownership
+- **Guideline:** Once the collaboration request has been accepted by all the concerned users (all the teammates as well as aiori-hackathon account), transfer the ownership of the repository to our GitHub account `github.com/aiori-hackathon`.
+- **Status:** **Completed**
+- **Details:** Repository ownership transferred to `aiori-hackathon` organization.
 
-- Team member roles and responsibilities
-- Understanding and formalization of Problem Statement PS-003
-- Complete architectural walkthrough of TrafficPulse-X
-- Verified federated convergence, communication savings, and live interactive dashboard
+### Step 05: Upload Presentation
+- **Guideline:** Each team is required to upload a presentation in PDF format to their GitHub repository. Please follow the specified structure: `Proposed-structure-hackathon.pdf`.
+- **Status:** **Completed**
+- **Details:** Presentation slide deck uploaded at repository root: [**`A3-PS003-TC198-Presentation.pdf`**](./A3-PS003-TC198-Presentation.pdf).
 
-Video resources are organized in the [`vdo link/`](./vdo%20link/README.md) directory:
-- **Team Introduction & Solution Walkthrough**: [Watch on YouTube](https://youtu.be/kbMFY39V_l4)
-- **Interactive Dashboard Walkthrough**: *(Documented in `vdo link/README.md`)*
+### Step 06: Create Team Introduction Video
+- **Guideline:** Upload a YouTube video in which every team member briefly explains their assigned role or area of work. Since this is the initial orientation, present your understanding of the problem statement and the proposed solution.
+- **Status:** **Completed**
+- **Details:** Video created presenting team members, problem formulation of PS-003, and the TrafficPulse-X federated architecture.
 
----
-
-## Hackathon Submission Status & Team Tasks
+### Step 07: Add YouTube Video Link
+- **Guideline:** Upload the video to your YouTube account and add the video link to the GitHub repository.
+- **Status:** **Completed**
+- **Details:** Video uploaded and linked: [**Watch Team Introduction & Technical Walkthrough**](https://youtu.be/kbMFY39V_l4) (documented in [`vdo link/README.md`](./vdo%20link/README.md)).
 
 ### Step 08: Attend Mentoring Sessions
-- **Description:** Attend Mentoring Sessions as per schedule.
+- **Guideline:** Attend Mentoring Sessions as per schedule.
 - **Status:** **Completed**
-- **Details:** Attended mentoring interactions under the academic guidance of Faculty Mentor Aditya Sir, aligning the federated aggregation protocol and non-IID partitioning methodology.
+- **Details:** Mentoring sessions attended under the guidance of Faculty Mentor Aditya Sir, aligning model baseline choices and evaluation protocols.
 
 ### Step 09: Submission of Code
-- **Description:** Complete and submit all the required files, documents, source code and supporting materials to your GitHub repository before the specified deadline.
+- **Guideline:** Complete and submit all the required files, documents, source code and supporting materials to your GitHub repository before the specified deadline.
 - **Status:** **Completed**
-- **Details:** All required deliverables successfully committed and pushed to the repository:
-  - Complete production source code, models, configs, and 343 automated integration tests in [`src/`](./src/).
-  - Comprehensive technical architecture, scientific contracts, audit reports, and viva guides in [`documentation/`](./documentation/).
-  - Official project slide deck [`A3-PS003-TC198-Presentation.pdf`](./A3-PS003-TC198-Presentation.pdf).
-  - Video walkthrough links and problem explanation in [`vdo link/`](./vdo%20link/).
+- **Details:** Complete production source code, trained model weights, datasets, and 343 passing automated tests submitted in [`src/`](./src/), with comprehensive specifications in [`documentation/`](./documentation/).
 
 ### Step 10: Working Demo
-- **Description:** Include a link to a live working demo in your GitHub repository. If your solution cannot be demonstrated live, upload the final deliverable files directly to the repository for evaluator review.
+- **Guideline:** Include a link to a live working demo in your GitHub repository. If your solution cannot be demonstrated live, upload the final deliverable files directly to the repository for evaluator review.
 - **Status:** **Completed**
-- **Details:** 6-minute screen-recorded demonstration video published on [YouTube](https://youtu.be/kbMFY39V_l4) and referenced in [`vdo link/README.md`](./vdo%20link/README.md). Local reproducible deployment instructions (FastAPI backend + React frontend) provided in [`src/README.md`](./src/README.md).
+- **Details:** Live screen-recorded demonstration walkthrough available on [YouTube](https://youtu.be/kbMFY39V_l4), detailed in [`vdo link/README.md`](./vdo%20link/README.md), and reproducible locally via runbook in [`src/README.md`](./src/README.md).
+
+---
+
+## Technical Specifications Index (in `documentation/`)
+
+All required scientific, architectural, and engineering documents are maintained in the [`documentation/`](./documentation/) directory:
+
+| Document | Purpose & Evaluator Relevance |
+| :--- | :--- |
+| [**Architecture Specifications**](./documentation/ARCHITECTURE.md) | High-level system architecture, component decomposition, and end-to-end data pipelines. |
+| [**Scientific Contracts & Provenance**](./documentation/SCIENTIFIC_CONTRACT.md) | Formal mathematical contracts, dataset provenance, and spatial non-IID graph formulation. |
+| [**Scientific Scope & Boundaries**](./documentation/SCIENTIFIC_SCOPE.md) | Research boundaries, historical replay scope, Opacus DP-FedAvg bounds, and artifact checksums. |
+| [**Engineering & Development Runbook**](./documentation/DEVELOPMENT.md) | Local environment scaffolding, dependency setup, and verification instructions. |
+| [**Experiment Logs**](./documentation/EXPERIMENTS.md) | Centralized 7-model benchmark, ablation studies, and multi-horizon performance logs. |
+| [**Traffic Flow Extension**](./documentation/FLOW_DATASET_EXTENSION.md) | Caltrans PeMS08 flow volume forecasting benchmark (170 sensors, District 8). |
+| [**API Catalog & Endpoints**](./documentation/API.md) | Complete OpenAPI / Swagger REST endpoint catalog across all 8 namespaces. |
+| [**Release Audit Report**](./documentation/AUDIT_REPORT.md) | Engineering audit verifying 343 passing integration tests, model checkpoints, and data arrays. |
 
 ---
 
@@ -93,8 +118,8 @@ Video resources are organized in the [`vdo link/`](./vdo%20link/README.md) direc
 
 ```text
 A3-PS003-TC198/
-├── A3-PS003-TC198-Presentation.pdf      # Official Hackathon Presentation Slide Deck
-├── README.md                            # Root Repository Overview & Submission Task Tracker
+├── A3-PS003-TC198-Presentation.pdf      # [Untouched] Official Hackathon Presentation Slide Deck
+├── README.md                            # Root Repository Overview & Submission Task Tracker (Steps 01-10)
 │
 ├── documentation/                       # Core Technical, Scientific & Audit Specifications
 │   ├── README.md                        # Documentation Table of Contents
@@ -110,7 +135,7 @@ A3-PS003-TC198/
 ├── vdo link/                            # Team Introduction, PS Explanation & Video Links
 │   └── README.md                        # Team bio, PS-003 summary, YouTube demo & dashboard video links
 │
-└── src/                                 # Complete Production Implementation & Source Code
+└── src/                                 # [Frozen] Complete Production Implementation & Source Code
     ├── app/ & pages/                    # React 19 Frontend Dashboard (7 interactive routes)
     ├── backend/                         # FastAPI high-performance REST backend (53 endpoints)
     ├── components/                      # Modular UI components (Leaflet map, Recharts, Replay)
