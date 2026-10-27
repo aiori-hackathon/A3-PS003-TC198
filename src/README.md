@@ -97,7 +97,7 @@ cp .env.example .env
 | **Milestone 13** | **Oct 27, 2026** | FastAPI REST service (69 comprehensive endpoints) | **Completed** |
 | **Milestone 14** | **Oct 27, 2026** | React Frontend setup + Leaflet Real-time Traffic Map | **Completed** |
 | **Milestone 15** | **Oct 27, 2026** | Fleet Dispatch, Alert Monitor & Communication Log UI | **Completed** |
-| **Milestone 16** | **Oct 28, 2026** | Historical Replay mode & real-time telemetry playback | Planned |
+| **Milestone 16** | **Oct 28, 2026** | Historical Replay mode & real-time telemetry playback | **Completed** |
 
 ---
 
@@ -489,3 +489,29 @@ Implemented under `src/pages/Alerts/`, `src/pages/DecisionIntelligence/`, `src/p
 - **CCV Policy Matrix**: Real-time evaluation of client participation tiers (Policy 1/4, 2/4, 3/4, and 4/4) tracking cumulative ingress/egress bytes.
 - **Bandwidth Reduction vs Model Accuracy**: Pareto trade-off curve demonstrating up to 75% bandwidth reduction with less than 2.8% loss in forecast accuracy.
 - **Replay-Aware Communication Stream (`RecentCommunicationEvents.jsx`)**: Displays timestamped logs of regional model uploads, global weight downloads, telemetry heartbeats, and on-demand evidence batches synchronized with the active historical replay window.
+---
+
+## 19. Historical Replay Engine & Real-Time Telemetry Playback Architecture
+
+Implemented under `src/context/ReplayContext.jsx` and `src/components/timeline/ReplayTimeline.jsx`, TrafficPulse-X provides a deterministic historical telemetry replay engine across the benchmark dataset:
+
+### A. Temporal State Machine (`ReplayContext.jsx`)
+- **Deterministic Coordinate Base**: Anchored at `BASE_TIMESTAMP = 2012-03-01T00:00:00Z` covering `MAX_STEPS = 34,272` contiguous 5-minute telemetry intervals spanning 119 calendar days of Los Angeles highway observations.
+- **Dynamic Temporal Semantics**: Computes day-of-week, hour, minute, and operational time-of-day category (`Morning`, `Afternoon`, `Evening`, `Night`) synchronously per step.
+- **Playback Control State Machine**:
+  - `isPlaying`: Auto-advancing playback timer with drift-free interval cleanup.
+  - `replaySpeed`: Multi-speed step multipliers (0.5x, 1x normal, 2x accelerated).
+  - `stepForward` / `stepBackward`: Single-frame 5-minute granular navigation.
+  - `jumpToStep`: Instant random access seeking across all 34,272 timesteps.
+
+### B. Interactive Scrubber & Timeline Controls (`ReplayTimeline.jsx`)
+- **High-Precision Range Scrubber**: Hardware-accelerated range input with percentage completion tracking and start/end temporal boundaries.
+- **Bidirectional Frame Jumper**: One-click `-5m` and `+5m` micro-stepping controls for anomaly post-mortem inspection.
+- **Direct Playback Speed Selector**: Quick toggles between 0.5x, 1x, and 2x execution speeds.
+- **Reset to Origin**: Instant single-click rewind to `2012-03-01 00:00:00`.
+
+### C. Network-Wide Telemetry Synchronization
+- **Map Synchronization (`RealTrafficMap.jsx`)**: Updates 207 sensor pins, velocity colors, and corridor edge congestion states in real time as the playhead advances.
+- **Dynamic Alert Pipeline (`Alerts.jsx`)**: Evaluates instantaneous velocity drift ($\Delta v$) and prediction uncertainty ($\sigma$) at the current historical timestep.
+- **Communication Ingress/Egress Stream (`RecentCommunicationEvents.jsx`)**: Synchronizes federated client update events, on-demand query dispatches, and CCV scheduled transmissions to match the active replay timestamp.
+- **Scientific Contract & Fallback Protection**: `dataSourceMode` defaults to `historical` deterministic METR-LA replay. An experimental `external_live` toggle requires explicit server-side `LIVE_TRAFFIC_API_KEY` credentials and cleanly falls back with user notifications rather than generating synthetic or hallucinated telemetry.

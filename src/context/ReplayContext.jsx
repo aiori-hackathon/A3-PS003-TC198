@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, useRef, useCallback } from 'react';
+import React, { createContext, useContext, useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { fetchHealth, fetchStreamingStatus, setStreamingProvider } from '../services/api';
 
 const ReplayContext = createContext(null);

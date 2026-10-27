@@ -9,6 +9,7 @@ import EvidenceChain from '../../components/decision/EvidenceChain';
 import MetricCard from '../../components/common/MetricCard';
 import TrafficSpeedHeatmap from '../../components/traffic/TrafficSpeedHeatmap';
 import CoverageBlindSpotsPanel from '../../components/traffic/CoverageBlindSpotsPanel';
+import ReplayTimeline from '../../components/timeline/ReplayTimeline';
 import {
   fetchCounterfactual,
   fetchEvidenceChain,
@@ -412,6 +413,8 @@ export default function TrafficNetwork() {
           </div>
         </div>
       )}
+
+      <ReplayTimeline className="my-1" />
 
       {/* ==================================================================== */}
       {/* 3. MAIN OPERATIONS CONSOLE (75% Large Map + 25% Side Sensor Panel)  */}
