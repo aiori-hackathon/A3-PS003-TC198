@@ -8,8 +8,7 @@ import {
   Layers,
   ShieldCheck,
   ArrowDown,
-  Info,
-  Compass
+  Info
 } from 'lucide-react';
 import {
   LineChart,
