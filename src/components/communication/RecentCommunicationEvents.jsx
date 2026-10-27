@@ -3,11 +3,19 @@ import { Clock } from 'lucide-react';
 import { useReplay } from '../../context/ReplayContext';
 
 export default function RecentCommunicationEvents() {
-  const { timeIndex } = useReplay();
+  const { timeIndex, timestampStr } = useReplay();
+
+  // Derive synchronized event timestamps relative to active replay window
+  const baseDate = timestampStr ? new Date(timestampStr.replace(' ', 'T') + 'Z') : new Date('2012-03-01T00:00:00Z');
+  const formatOffset = (minusMinutes) => {
+    const d = new Date(baseDate.getTime() - minusMinutes * 60 * 1000);
+    return `${String(d.getUTCHours()).padStart(2, '0')}:${String(d.getUTCMinutes()).padStart(2, '0')}`;
+  };
+
   const events = [
     {
       id: 'e1',
-      time: '00:45',
+      time: formatOffset(0),
       type: 'EVIDENCE',
       title: 'Detailed Evidence Batch',
       target: 'Sensor 773869 (Region C)',
@@ -18,7 +26,7 @@ export default function RecentCommunicationEvents() {
     },
     {
       id: 'e2',
-      time: '00:40',
+      time: formatOffset(5),
       type: 'UPLOAD',
       title: 'Regional Model Upload',
       target: 'Region B (South-East)',
@@ -29,7 +37,7 @@ export default function RecentCommunicationEvents() {
     },
     {
       id: 'e3',
-      time: '00:40',
+      time: formatOffset(5),
       type: 'UPLOAD',
       title: 'Regional Model Upload',
       target: 'Region C (Central-West)',
@@ -40,7 +48,7 @@ export default function RecentCommunicationEvents() {
     },
     {
       id: 'e4',
-      time: '00:40',
+      time: formatOffset(5),
       type: 'DEFERRED',
       title: 'Regional Client Deferred',
       target: 'Region A & Region D',
@@ -51,7 +59,7 @@ export default function RecentCommunicationEvents() {
     },
     {
       id: 'e5',
-      time: '00:35',
+      time: formatOffset(10),
       type: 'DOWNLOAD',
       title: 'Global Model Download',
       target: 'All 4 Regional Clients',
@@ -62,7 +70,7 @@ export default function RecentCommunicationEvents() {
     },
     {
       id: 'e6',
-      time: '00:25',
+      time: formatOffset(20),
       type: 'HEARTBEAT',
       title: 'Compact Telemetry Polled',
       target: 'Sensor 767541 (Region C)',
@@ -148,7 +156,7 @@ export default function RecentCommunicationEvents() {
 
       {/* Footer Callout */}
       <div className="pt-2 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-[10px] text-slate-500 dark:text-[#A3B8CC] font-mono">
-        <span>Telemetry Window: Active &bull; METR-LA Grid</span>
+        <span>Telemetry Window: {timestampStr ? timestampStr.substring(0, 16) : 'Active'} &bull; METR-LA Grid</span>
         <span>High-fidelity on-demand telemetry</span>
       </div>
 
