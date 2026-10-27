@@ -94,7 +94,7 @@ cp .env.example .env
 | **Milestone 10** | **Oct 26, 2026** | Communication-Constrained Value (CCV) client scheduling | **Completed** |
 | **Milestone 11** | **Oct 26, 2026** | Differential Privacy (DP-FedAvg) & Secure Aggregation engine | **Completed** |
 | **Milestone 12** | **Oct 27, 2026** | 9-Factor Decision Intelligence & Need Score engine | **Completed** |
-| **Milestone 13** | **Oct 27, 2026** | FastAPI REST service (53 comprehensive endpoints) | Planned |
+| **Milestone 13** | **Oct 27, 2026** | FastAPI REST service (69 comprehensive endpoints) | **Completed** |
 | **Milestone 14-15** | **Oct 27, 2026** | React 19 Frontend Dashboard, Leaflet Map & Fleet Console | Planned |
 | **Milestone 16-18** | **Oct 28, 2026** | Historical replay engine, integration test suite, and final runbook | Planned |
 
@@ -377,3 +377,60 @@ $$S = \min\left(100, \, \max\left(0, \, \sum_{i=1}^9 w_i \cdot f_i\right)\right)
 7. **Anomaly / Incident Multiplier** ($w_7 = 0.10$): Sudden outlier drop exceeding $2.5\sigma$ local standard deviation.
 8. **Telemetry Freshness Decay** ($w_8 = 0.05$): Sensor packet age degradation.
 9. **Communication Resource Budget** ($w_9 = 0.05$): Client bandwidth allocation tier.
+
+
+---
+
+## 16. Authoritative FastAPI REST API Service & Endpoints Catalog
+
+Implemented in src/backend/main.py, the TrafficPulse-X backend exposes 69 strongly-typed REST endpoints running on Uvicorn/FastAPI with CORS support, deterministic root discovery, and Pydantic v2 schemas:
+
+### A. Core Telemetry & Health Endpoints
+- GET /api/health — Returns system status, active provider, sensor count (207), and model readiness.
+- GET /api/dashboard — Returns network-wide aggregated traffic speed, congestion status, and active KPIs for given 	ime_index.
+- GET /api/sensors — Returns all 207 METR-LA sensors with canonical coordinates, current speeds, and status.
+- GET /api/sensors/{sensor_id} — Returns specific sensor metadata, historical sequence, and immediate neighbors.
+
+### B. Prediction Intelligence Endpoints
+- GET /api/prediction/status — Returns checkpoint readiness and device parameters (26,596 parameters).
+- GET /api/prediction/forecast?time_index={int}&sensor_id={str}&region_id={str} — Generates multi-horizon (+15m, +30m, +45m, +60m) forecasts using frozen SpatialGraphLSTM.
+- GET /api/prediction/metrics — Returns overall, horizon-wise, and regional validation/test metrics.
+- GET /api/prediction/models — Returns 7-model comparative benchmark matrix and baseline metrics.
+
+### C. Federated Learning Endpoints
+- GET /api/federated/status — Returns FL round progression, best round (Round 8), and model convergence.
+- GET /api/federated/clients — Returns 4 regional client partitions (Region A, B, C, D) and aggregation weights.
+- GET /api/federated/rounds — Returns per-round validation MAE trajectory across all 13 rounds.
+- GET /api/federated/metrics — Returns final federated test MAE (3.5322 mph) vs centralized baseline comparison.
+- GET /api/federated/communication — Returns Level 2 baseline communication byte accounting (4.33 MB total).
+
+### D. Decision Intelligence & Need Score Endpoints
+- GET /api/decision/sensors/{sensor_id}/need-score — Evaluates composite 9-factor Need Score  \in [0, 100]$.
+- GET /api/decision/counterfactual/{sensor_id} — Computes counterfactual latency penalty under telemetry suppression.
+- GET /api/decision/blind-spots — Detects unmonitored arterial bottlenecks and corridor debt.
+- GET /api/decision/evidence/{sensor_id} — Returns provenance chain and historical telemetry verification.
+- GET /api/decision/query-candidates — Ranks top sensors prioritized for on-demand query.
+- GET /api/decision/certificate/{region_id} — Emits regional coverage certificate and integrity checksum.
+- GET /api/decision/jury/{sensor_id} — Runs 3-node spatial neighbor consensus jury.
+- GET /api/decision/physics-gate/{sensor_id} — Verifies physical kinematic plausibility constraints.
+- GET /api/decision/minimum-evidence/{region_id} — Returns minimal sensor subset satisfying coverage bound.
+
+### E. Differential Privacy & Secure Aggregation Endpoints
+- GET /api/experiments/privacy/status — Returns DP-FedAvg experiment availability.
+- GET /api/experiments/privacy/results — Returns privacy-utility Pareto trade-offs across $\epsilon \in \{1.5, 4.0, 8.0, \infty\}$.
+- GET /api/experiments/privacy/secure-aggregation — Simulates zero-sum random masking protocol and overhead.
+
+### F. Experimental Flow Extension & Network Accounting Endpoints
+- GET /api/experiments/flow/status — Returns PeMS08 flow extension readiness (170 detectors).
+- GET /api/experiments/flow/metadata — Returns PeMS08 dataset info, channels, and split coordinates.
+- GET /api/experiments/flow/results — Returns test metrics for PeMS08 flow SpatialGraphLSTM.
+- GET /api/experiments/flow/sensors — Returns all 170 PeMS08 flow sensors.
+- GET /api/experiments/flow/forecast — Multi-horizon flow forecast inference for PeMS08.
+- GET /api/experiments/network-accounting/status — Network byte measurement status.
+- GET /api/experiments/network-accounting — Controlled local transport serialization byte benchmark.
+
+### G. Streaming Adapter Endpoints
+- GET /api/streaming/status — Status of streaming providers (Historical Replay active by default).
+- GET /api/streaming/config — Provider capabilities and limits without secret leakage.
+- POST /api/streaming/provider — Switches streaming provider (historical or xternal_live).
+- GET /api/streaming/snapshot — Retrieves streaming snapshot without synthetic fallback data.
