@@ -96,8 +96,8 @@ cp .env.example .env
 | **Milestone 12** | **Oct 27, 2026** | 9-Factor Decision Intelligence & Need Score engine | **Completed** |
 | **Milestone 13** | **Oct 27, 2026** | FastAPI REST service (69 comprehensive endpoints) | **Completed** |
 | **Milestone 14** | **Oct 27, 2026** | React Frontend setup + Leaflet Real-time Traffic Map | **Completed** |
-| **Milestone 15** | **Oct 27, 2026** | Fleet Dispatch, Alert Monitor & Communication Log UI | Planned |
-| **Milestone 16-18** | **Oct 28, 2026** | Historical replay engine, integration test suite, and final runbook | Planned |
+| **Milestone 15** | **Oct 27, 2026** | Fleet Dispatch, Alert Monitor & Communication Log UI | **Completed** |
+| **Milestone 16** | **Oct 28, 2026** | Historical Replay mode & real-time telemetry playback | Planned |
 
 ---
 
@@ -461,3 +461,31 @@ Implemented under src/ (src/app/, src/components/traffic/, src/pages/TrafficNetw
   - Quick region filters (ALL, REGION_A, REGION_B, REGION_C, REGION_D) with dedicated ria-label tags.
   - One-click Fit Full LA Freeway Network Overview button.
   - Target Sensor Focus auto-centering.
+
+
+---
+
+## 18. Fleet Dispatch, Alert Monitor & Communication Log UI Architecture
+
+Implemented under `src/pages/Alerts/`, `src/pages/DecisionIntelligence/`, `src/pages/Communication/`, and `src/components/`, TrafficPulse-X provides an operator-grade decision and telemetry monitoring console:
+
+### A. Alert Monitoring Console (`Alerts.jsx`)
+- **Multi-Category Anomaly Detection**:
+  - `Congestion`: Velocity drops below regional corridor threshold (< 35 mph).
+  - `Sensor Failure`: Packet loss, missing frames, or telemetry freeze.
+  - `High Uncertainty`: Residual forecast standard deviation $\sigma > 3.0$ mph.
+  - `Velocity Drift`: Acceleration gradient $\Delta v > 0.30$.
+  - `Corridor Debt / Blind Spot`: Spatial isolation penalty with Need Score $\ge 0.70$.
+- **Dynamic KPI Pipeline**: Active header counters (`highUncertaintyCount`, `highDriftCount`, `blindSpotCount`) dynamically evaluate against the current filter state in real time.
+- **Selected Alert Inspector**: Detailed modal revealing raw sensor velocity, 4-step forecast trend, confidence bounds, and recommended operational intervention.
+
+### B. Fleet Telemetry Prioritization & Emergency Dispatch Panels
+- **Evidence-on-Demand Query Workflow**: When anomalous uncertainty is detected, operators trigger selective high-resolution queries rather than polling raw telemetry continuously.
+- **Spatial Neighbor Jury Consensus (`jury.py`)**: 3-node localized spatial consensus validates whether an anomaly is confirmed by adjacent highway sensors or represents an isolated sensor fault.
+- **Physical Kinematics Gate (`physics.py`)**: Enforces acceleration and velocity bound checks ($|\Delta v| \le 15$ mph/5min) to prevent hallucinated predictions from propagating.
+- **Scientific Contract Enforcement**: Guarantees that "dispatch" strictly denotes on-demand edge sensor telemetry querying and dynamic signal advisory, with zero simulated physical emergency patrol car dispatch.
+
+### C. Communication Intelligence & Audit Log UI (`Communication.jsx`)
+- **CCV Policy Matrix**: Real-time evaluation of client participation tiers (Policy 1/4, 2/4, 3/4, and 4/4) tracking cumulative ingress/egress bytes.
+- **Bandwidth Reduction vs Model Accuracy**: Pareto trade-off curve demonstrating up to 75% bandwidth reduction with less than 2.8% loss in forecast accuracy.
+- **Replay-Aware Communication Stream (`RecentCommunicationEvents.jsx`)**: Displays timestamped logs of regional model uploads, global weight downloads, telemetry heartbeats, and on-demand evidence batches synchronized with the active historical replay window.
