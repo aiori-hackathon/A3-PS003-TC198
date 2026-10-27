@@ -1,0 +1,271 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    --font-ui: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+    --text-xs: 0.75rem;      /* 12px */
+    --text-sm: 0.8125rem;    /* 13px */
+    --text-base: 0.875rem;   /* 14px */
+    --text-md: 1rem;         /* 16px */
+    --text-lg: 1.25rem;      /* 20px */
+    --text-xl: 1.75rem;      /* 28px */
+    --text-2xl: 2.125rem;    /* 34px */
+
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+
+    --line-height-tight: 1.15;
+    --line-height-normal: 1.4;
+    --line-height-relaxed: 1.5;
+
+    /* Light Mode Authoritative Tokens (Default) */
+    --app-bg: #F4F7FB;
+    --bg-app: #F4F7FB;
+    --bg-deep: #EAF0F6;
+    --surface-primary: #FFFFFF;
+    --surface-secondary: #F8FAFC;
+    --surface-elevated: #FFFFFF;
+    --surface-hover: #EEF4FA;
+    --header-bg: #FFFFFF;
+    --panel-bg: #FFFFFF;
+    --card-bg: #FFFFFF;
+    --table-bg: #FFFFFF;
+    --table-header-bg: #F4F7FA;
+    --input-bg: #F8FAFC;
+    --text-primary: #102033;
+    --text-secondary: #40556B;
+    --text-muted: #6F8295;
+    --text-disabled: #99A7B5;
+    --border-primary: #D6E0EA;
+    --border-subtle: #E5EBF1;
+    --border-soft: #D6E0EA;
+    --border-mid: #BACCDA;
+    --border-active: #2F8CFF;
+    --divider: #E5EBF1;
+    --shadow-sm: 0 1px 2px rgba(15, 35, 55, 0.05);
+    --shadow-md: 0 4px 14px rgba(15, 35, 55, 0.06);
+    --shadow-lg: 0 10px 25px rgba(15, 35, 55, 0.08);
+    --overlay-bg: rgba(244, 247, 251, 0.88);
+
+    /* Semantic Accent Tokens */
+    --accent-blue: #2F8CFF;
+    --accent-cyan: #06B6D4;
+    --accent-green: #10B981;
+    --accent-yellow: #F59E0B;
+    --accent-orange: #F97316;
+    --accent-red: #EF4444;
+    --accent-purple: #8B5CF6;
+  }
+
+  /* Dark Mode Authoritative Tokens - Midnight Navy Scientific Console */
+  html.dark,
+  :root.dark {
+    --app-bg: #06111D;
+    --bg-app: #06111D;
+    --bg-deep: #04101A;
+    --surface-primary: #0B1B2A;
+    --surface-secondary: #0E2234;
+    --surface-elevated: #112A40;
+    --surface-hover: #15334B;
+    --header-bg: #071522;
+    --panel-bg: #071522;
+    --card-bg: #0B1B2A;
+    --table-bg: #071522;
+    --table-header-bg: #0B1B2A;
+    --input-bg: #0B1B2A;
+    --text-primary: #F7FAFF;
+    --text-secondary: #CBDDF0;
+    --text-muted: #A3B8CC;
+    --text-disabled: #7E95AB;
+    --border-primary: #1D3A52;
+    --border-subtle: #173047;
+    --border-soft: #17364E;
+    --border-mid: #24506D;
+    --border-active: #318DFF;
+    --divider: #173047;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.5);
+    --overlay-bg: rgba(6, 17, 29, 0.88);
+  }
+
+  html,
+  body,
+  #root {
+    font-family: var(--font-ui);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-synthesis: none;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    letter-spacing: -0.015em;
+  }
+
+  .numeric,
+  .tabular-nums {
+    font-variant-numeric: tabular-nums lining-nums;
+    font-feature-settings: "tnum" 1;
+  }
+
+  /* Dark mode root colors - Midnight Navy Scientific Console */
+  html.dark body {
+    background-color: #06111D;
+    color: #F5F8FC;
+  }
+
+  /* Light mode root colors */
+  html:not(.dark) body {
+    background-color: #F4F7FB;
+    color: #102033;
+  }
+
+  #root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+/* Custom lean scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.dark ::-webkit-scrollbar-track {
+  background: #0b1120;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 #f1f5f9;
+}
+.dark .custom-scrollbar {
+  scrollbar-color: #1e293b #0b1120;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Tactical Map Marker & Radar Animations */
+.custom-leaflet-marker {
+  background: transparent !important;
+  border: none !important;
+  overflow: visible !important;
+}
+
+.leaflet-container {
+  height: 100% !important;
+  width: 100% !important;
+  min-height: 550px !important;
+  font-family: inherit;
+  background-color: #f1f5f9 !important;
+}
+.dark .leaflet-container {
+  background-color: #050b14 !important;
+}
+
+@keyframes radar-pulse-wide {
+  0% {
+    transform: scale(0.65);
+    opacity: 0.85;
+  }
+  50% {
+    opacity: 0.35;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+.radar-pulse-ring {
+  animation: radar-pulse-wide 2.8s cubic-bezier(0.2, 0.8, 0.3, 1) infinite;
+}
+
+@keyframes red-radar-pulse {
+  0% {
+    transform: scale(0.55);
+    opacity: 0.95;
+  }
+  50% {
+    opacity: 0.45;
+  }
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+.red-radar-pulse-ring {
+  animation: red-radar-pulse 2.2s cubic-bezier(0.15, 0.85, 0.35, 1) infinite;
+}
+
+.red-radar-pulse-ring-delayed {
+  animation: red-radar-pulse 2.2s cubic-bezier(0.15, 0.85, 0.35, 1) infinite;
+  animation-delay: 1.1s;
+}
+
+.custom-leaflet-popup .leaflet-popup-content-wrapper {
+  background: rgba(255, 255, 255, 0.96) !important;
+  color: #102033 !important;
+  border: 1px solid rgba(214, 224, 234, 0.95) !important;
+  border-radius: 12px !important;
+  backdrop-filter: blur(12px) !important;
+  box-shadow: 0 10px 25px rgba(15, 35, 55, 0.12) !important;
+}
+.dark .custom-leaflet-popup .leaflet-popup-content-wrapper {
+  background: rgba(11, 19, 43, 0.95) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6) !important;
+}
+
+.custom-leaflet-popup .leaflet-popup-tip {
+  background: rgba(255, 255, 255, 0.96) !important;
+}
+.dark .custom-leaflet-popup .leaflet-popup-tip {
+  background: rgba(11, 19, 43, 0.95) !important;
+}

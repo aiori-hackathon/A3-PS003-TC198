@@ -95,7 +95,8 @@ cp .env.example .env
 | **Milestone 11** | **Oct 26, 2026** | Differential Privacy (DP-FedAvg) & Secure Aggregation engine | **Completed** |
 | **Milestone 12** | **Oct 27, 2026** | 9-Factor Decision Intelligence & Need Score engine | **Completed** |
 | **Milestone 13** | **Oct 27, 2026** | FastAPI REST service (69 comprehensive endpoints) | **Completed** |
-| **Milestone 14-15** | **Oct 27, 2026** | React 19 Frontend Dashboard, Leaflet Map & Fleet Console | Planned |
+| **Milestone 14** | **Oct 27, 2026** | React Frontend setup + Leaflet Real-time Traffic Map | **Completed** |
+| **Milestone 15** | **Oct 27, 2026** | Fleet Dispatch, Alert Monitor & Communication Log UI | Planned |
 | **Milestone 16-18** | **Oct 28, 2026** | Historical replay engine, integration test suite, and final runbook | Planned |
 
 ---
@@ -434,3 +435,29 @@ Implemented in src/backend/main.py, the TrafficPulse-X backend exposes 69 strong
 - GET /api/streaming/config — Provider capabilities and limits without secret leakage.
 - POST /api/streaming/provider — Switches streaming provider (historical or xternal_live).
 - GET /api/streaming/snapshot — Retrieves streaming snapshot without synthetic fallback data.
+
+
+---
+
+## 17. React 19 Frontend Architecture & Leaflet Real-Time Traffic Map
+
+Implemented under src/ (src/app/, src/components/traffic/, src/pages/TrafficNetwork/, src/pages/Overview/, and src/vite.config.js), TrafficPulse-X features an enterprise-grade digital twin traffic console:
+
+### A. Frontend Tech Stack & Entry Points
+- **Framework**: React 19 with JSX runtime, React Router v7 (src/app/routes.jsx).
+- **Build Tooling**: Vite 8 with @vitejs/plugin-react and Tailwind CSS v4 (src/vite.config.js, src/index.html).
+- **Styling**: Modern dark-mode optimized theme with custom subpixel font antialiasing and glassmorphism styling (src/index.css).
+- **Client API Layer**: src/services/api.js provides dynamic API base detection and seamless async requests to the FastAPI backend.
+
+### B. Leaflet Real-Time Traffic Map (RealTrafficMap.jsx)
+- **Geospatial Canvas**: Leaflet 1.9 + React-Leaflet 5 container bound to Los Angeles highway freeway network coordinates (.05^{\circ}\text{N}, -118.25^{\circ}\text{W}$).
+- **207 Sensor Pin Rendering**: Every physical METR-LA loop detector is rendered with exact geographic placement, interactive popups, and click-to-inspect telemetry drawers.
+- **Dynamic Speed Velocity Spectrum**:
+  - Normal Flow (Green #10B981): Speeds $\ge 50$ mph.
+  - Moderate Congestion (Amber #F59E0B): Speeds between $ and $ mph.
+  - Severe Bottleneck (Crimson #EF4444): Speeds $< 35$ mph.
+- **Corridor Connections & Laser Lines**: Topological road adjacency links connecting adjacent sensor nodes, dynamically rendered on canvas with zero ghosting artifacts.
+- **Unified Map Controls & Accessibility**:
+  - Quick region filters (ALL, REGION_A, REGION_B, REGION_C, REGION_D) with dedicated ria-label tags.
+  - One-click Fit Full LA Freeway Network Overview button.
+  - Target Sensor Focus auto-centering.
