@@ -1,6 +1,16 @@
 # TrafficPulse-X FastAPI Backend Server (Real-Data-Only METR-LA Benchmark Architecture)
 
 import os
+import sys
+from pathlib import Path
+
+# Deterministic root discovery for src/-centered layout
+PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
+SRC_ROOT = PROJECT_ROOT / "src"
+for p in [str(PROJECT_ROOT), str(SRC_ROOT)]:
+    if p not in sys.path:
+        sys.path.insert(0, p)
+
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Dict, Any, List, Optional
@@ -44,15 +54,17 @@ from backend.data_sources.streaming_adapter import (
     get_streaming_manager,
 )
 
+from backend.config import settings
+
 app = FastAPI(
-    title="TrafficPulse-X API",
-    description="Evidence-on-Demand Spatio-Temporal Traffic Prediction Backend (Real METR-LA Benchmark)",
-    version="1.0.0"
+    title=settings.PROJECT_NAME,
+    description=settings.DESCRIPTION,
+    version=settings.VERSION,
 )
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=settings.CORS_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
