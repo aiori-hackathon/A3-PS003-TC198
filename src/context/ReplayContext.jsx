@@ -24,13 +24,6 @@ export function ReplayProvider({ children }) {
   const [dataSourceMode, setDataSourceModeState] = useState('historical'); // 'historical' (DEFAULT) or 'external_live'
   const [streamingStatus, setStreamingStatus] = useState(null);
   const [liveSourceNotice, setLiveSourceNotice] = useState(null);
-  const [timeSemantics, setTimeSemantics] = useState({
-    dayName: 'Thursday',
-    timeOfDay: 'Midnight',
-    hour: 0,
-    minute: 0
-  });
-
   const timerRef = useRef(null);
 
   // Derive timestamp from timeIndex
@@ -38,8 +31,8 @@ export function ReplayProvider({ children }) {
   const currentDate = new Date(currentTimestampMs);
   const timestampStr = currentDate.toISOString().replace('T', ' ').substring(0, 19);
 
-  // Compute time semantics
-  useEffect(() => {
+  // Derive time semantics cleanly during render without cascading state updates
+  const timeSemantics = useMemo(() => {
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const d = new Date(currentTimestampMs);
     const hour = d.getUTCHours();
@@ -49,13 +42,13 @@ export function ReplayProvider({ children }) {
     else if (hour >= 12 && hour < 17) tod = 'Afternoon';
     else if (hour >= 17 && hour < 21) tod = 'Evening';
 
-    setTimeSemantics({
+    return {
       dayName: days[d.getUTCDay()],
       timeOfDay: tod,
       hour,
       minute
-    });
-  }, [timeIndex, currentTimestampMs]);
+    };
+  }, [currentTimestampMs]);
 
   // Periodic health & streaming check
   const checkHealth = useCallback(async () => {

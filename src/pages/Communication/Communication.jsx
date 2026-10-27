@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import {
   Radio,
-  AlertTriangle
+  AlertTriangle,
+  Clock
 } from 'lucide-react';
+import { useReplay } from '../../context/ReplayContext';
 import {
   fetchFederatedCommunication,
   fetchPhase9Selection,
@@ -74,6 +76,7 @@ const STRATEGIES_MAP = {
 };
 
 export default function Communication() {
+  const { timestampStr } = useReplay();
   const [commData, setCommData] = useState(null);
   const [error, setError] = useState(null);
 
@@ -118,34 +121,30 @@ export default function Communication() {
     return 11468184;
   }, [isMeasuredMode, accountingReport]);
 
-  // Load baseline communication stats
-  const loadData = async () => {
-    setError(null);
-    try {
-      const res = await fetchFederatedCommunication();
-      setCommData(res);
-    } catch (err) {
-      setError(err.message || 'Failed to connect to backend communication service.');
-    }
-  };
-
+  // Load baseline communication stats and experimental trade-offs cleanly
   useEffect(() => {
-    loadData();
+    let isMounted = true;
+    fetchFederatedCommunication()
+      .then((res) => { if (isMounted) setCommData(res); })
+      .catch((err) => { if (isMounted) setError(err.message || 'Failed to connect to backend communication service.'); });
+
     fetchPhase9Experiments()
-      .then(setPhase9Experiments)
+      .then((res) => { if (isMounted) setPhase9Experiments(res); })
       .catch(() => {});
     fetchPhase9Tradeoff()
-      .then(setPhase9Tradeoff)
+      .then((res) => { if (isMounted) setPhase9Tradeoff(res); })
       .catch(() => {});
     fetchPhase9ClientValues()
-      .then(setClientValues)
+      .then((res) => { if (isMounted) setClientValues(res); })
       .catch(() => {});
     fetchNetworkAccountingStatus()
-      .then(setAccountingStatus)
+      .then((res) => { if (isMounted) setAccountingStatus(res); })
       .catch(() => {});
     fetchNetworkAccountingReport()
-      .then(setAccountingReport)
+      .then((res) => { if (isMounted) setAccountingReport(res); })
       .catch(() => {});
+
+    return () => { isMounted = false; };
   }, []);
 
   // Update selection budget when active strategy changes
@@ -229,6 +228,10 @@ export default function Communication() {
               </button>
             </div>
 
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-mono font-semibold bg-blue-500/10 text-blue-700 dark:text-cyan-400 border border-blue-500/30">
+              <Clock className="w-3.5 h-3.5" />
+              Replay: {timestampStr ? timestampStr.substring(0, 16) : 'Active'}
+            </span>
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-mono font-semibold bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
               Selective Optimization Active

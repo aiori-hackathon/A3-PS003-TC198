@@ -754,6 +754,7 @@ function UnifiedMapControls({
                       : 'text-slate-600 dark:text-[#8295A8] hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/60 dark:hover:bg-[#0E2438]/60 border border-transparent'
                   }`}
                   type="button"
+                  aria-label={reg.id === 'ALL' ? 'All 207 Sensors' : `Filter to ${reg.label} (${reg.count} sensors)`}
                   title={reg.id === 'ALL' ? 'All 207 Sensors' : `Filter to ${reg.label} (${reg.count} sensors)`}
                 >
                   <span className={`w-2 h-2 rounded-full ${reg.color} shrink-0 ring-1 ring-black/10 dark:ring-white/10`} />
@@ -779,6 +780,7 @@ function UnifiedMapControls({
             <button
               onClick={onFullNetworkOverview}
               className="h-7 px-2.5 rounded-lg flex items-center gap-1.5 text-xs font-semibold text-slate-700 dark:text-[#BACCDA] hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-[#0E2438] transition-colors cursor-pointer"
+              aria-label="Fit Full LA Freeway Network Overview"
               title="Fit Full LA Freeway Network Overview"
               type="button"
             >
@@ -789,6 +791,7 @@ function UnifiedMapControls({
             <button
               onClick={onRecenterSelected}
               className="h-7 px-2.5 rounded-lg flex items-center gap-1.5 text-xs font-semibold text-slate-700 dark:text-[#BACCDA] hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-[#0E2438] transition-colors cursor-pointer"
+              aria-label={`Focus target sensor ${activeSelectedId || ''}`}
               title={`Focus Target Sensor ${activeSelectedId || ''}`}
               type="button"
             >
