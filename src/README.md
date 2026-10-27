@@ -881,20 +881,4 @@ docker run -d -p 8000:8000 -p 5173:5173 --name trafficpulse-prod trafficpulse-x:
 10. **Communication-Efficient Federated Learning on Non-IID Data**: Sattler et al. [IEEE Xplore](https://ieeexplore.ieee.org/document/8889996)
 
 ---
-
-## 24. Team & Project Governance Credits
-
-- **Hackathon**: AIORI Hackathon 2026 — Level 2 Grand Finale
-- **Problem Statement**: **PS-003** (Federated Traffic-Flow Prediction with Communication-Cost Evaluation)
-- **Team ID**: **A3-PS003-TC198**
-- **Project Title**: **TrafficPulse-X** (Decentralized Spatio-Temporal Traffic Intelligence System)
-- **Faculty Mentor**: **Aditya Sir**
-- **Video Walkthrough Demonstration**: [YouTube Project Walkthrough (6-Minute Screen-Recorded Demo)](https://youtu.be/kbMFY39V_l4)
-- **Official Slide Deck**: `A3-PS003-TC198-Presentation.pdf`
-- **Submission Repository**: `https://github.com/aiori-hackathon/A3-PS003-TC198.git`
-- **Team Members & Core Contributors**:
-  - **Adarsh Singh** (`adarsh04455@gmail.com`) — Team Leader, FastAPI Backend Architecture, Tactical React Frontend, Leaflet Geospatial Canvas & Replay Engine
-  - **Shaurya Pratap Singh** (`shauryapratapsingh723@gmail.com`) — Lead Architecture, Spatio-Temporal Graph ML, Federated Consensus & Privacy Accountant
-
----
 *End of Submission Documentation — TrafficPulse-X • A3-PS003-TC198 • AIORI Hackathon 2026*

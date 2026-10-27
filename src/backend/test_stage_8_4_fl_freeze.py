@@ -241,7 +241,7 @@ def test_22_phase_7_artifacts_unchanged():
 
 def test_23_frontend_has_no_mock_fl_fallback():
     """Verify frontend API gateway contains no synthetic mock fallbacks."""
-    api_js = PROJECT_ROOT / "src" / "services" / "api.js"
+    api_js = (PROJECT_ROOT / "src" / "services" / "api.js") if (PROJECT_ROOT / "src" / "services" / "api.js").exists() else (PROJECT_ROOT / "services" / "api.js")
     with open(api_js, "r", encoding="utf-8") as f:
         content = f.read()
     assert "fetchFederatedStatus" in content

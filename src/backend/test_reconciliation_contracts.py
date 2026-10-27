@@ -39,7 +39,7 @@ def test_1_no_78_2_savings_in_production_frontend():
 
 def test_2_communication_page_wired_to_baseline_api():
     """Verifies that Communication.jsx uses fetchFederatedCommunication and displays baseline payload accounting."""
-    comm_page_path = "src/pages/Communication/Communication.jsx"
+    comm_page_path = "src/pages/Communication/Communication.jsx" if os.path.exists("src/pages/Communication/Communication.jsx") else "pages/Communication/Communication.jsx"
     assert os.path.exists(comm_page_path)
     with open(comm_page_path, "r", encoding="utf-8") as f:
         content = f.read()

@@ -197,7 +197,7 @@ def test_21_region_checksum_unchanged():
 
 def test_22_frontend_no_mock_fl_fallback():
     """Verify frontend api.js contains no mock fallback data for FL endpoints."""
-    api_js = PROJECT_ROOT / "src" / "services" / "api.js"
+    api_js = (PROJECT_ROOT / "src" / "services" / "api.js") if (PROJECT_ROOT / "src" / "services" / "api.js").exists() else (PROJECT_ROOT / "services" / "api.js")
     with open(api_js, "r", encoding="utf-8") as f:
         content = f.read()
     assert "fetchFederatedStatus" in content
