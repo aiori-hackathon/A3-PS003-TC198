@@ -10,6 +10,9 @@
 - **Team Leader:** Adarsh Singh (`adarsh04455@gmail.com`)
 - **Team Member:** Shaurya Singh (`shauryapratapsingh723@gmail.com`)
 - **Faculty Mentor:** Aditya Sir
+- **Official Presentation Slide Deck:** [**`A3-PS003-TC198-Presentation.pdf`**](./A3-PS003-TC198-Presentation.pdf) (located at repository root)
+- **Project Documentation:** [**`documentation/`**](./documentation/)
+- **Source Code:** [**`src/`**](./src/)
 
 ---
 
@@ -23,9 +26,7 @@ Centralized intelligent transportation systems transmit continuous high-frequenc
 
 ---
 
-## Our Proposed Solution
-
-Our solution is **TrafficPulse-X**.
+## Our Proposed Solution: TrafficPulse-X
 
 TrafficPulse-X uses historical traffic sensor data to forecast future traffic conditions while allowing regional clients to train locally. Instead of continuously sending all raw traffic data to a central server, regional clients train locally on induced road subgraphs and share model updates for federated aggregation.
 
@@ -38,6 +39,25 @@ Our proposed solution includes:
 - **Selective Client Participation (CCV)**: Client Contribution Value scheduling achieving a **50% Pareto-optimal communication reduction** with only a +0.0944 mph MAE delta.
 - **Decision Intelligence**: Dynamic 9-factor Need Score engine and Sensor Jury consensus.
 - **Interactive Traffic Analysis Dashboard**: React 19 / Vite single-page application with Leaflet spatial mapping and a 34,272-step historical replay engine.
+
+---
+
+## Working Demo & Video Links
+
+### links are here:
+
+1. **Working Demo Link**:
+   - `[Live Working Demo Link to be added here]`
+   - *(Runbook for local execution is provided in [`src/README.md`](./src/README.md))*
+
+2. **Team Member Intro and Problem Statement Explanation Video**:
+   - [https://youtu.be/kbMFY39V_l4](https://youtu.be/kbMFY39V_l4)
+   - `[Video Link to be added here]`
+
+3. **Dashboard Explanation Video**:
+   - `[Dashboard Explanation Video Link to be added here]`
+
+*(Full details and video descriptions are also available in [`working demo and video link/README.md`](./working%20demo%20and%20video%20link/README.md))*
 
 ---
 
@@ -78,7 +98,7 @@ All submission deliverables have been completed according to the official AIORI-
 ### Step 07: Add YouTube Video Link
 - **Guideline:** Upload the video to your YouTube account and add the video link to the GitHub repository.
 - **Status:** **Completed**
-- **Details:** Video uploaded and linked: [**Watch Team Introduction & Technical Walkthrough**](https://youtu.be/kbMFY39V_l4) (documented in [`vdo link/README.md`](./vdo%20link/README.md)).
+- **Details:** Video uploaded and linked in [Working Demo & Video Links](#working-demo--video-links) and [`working demo and video link/README.md`](./working%20demo%20and%20video%20link/README.md).
 
 ### Step 08: Attend Mentoring Sessions
 - **Guideline:** Attend Mentoring Sessions as per schedule.
@@ -88,66 +108,31 @@ All submission deliverables have been completed according to the official AIORI-
 ### Step 09: Submission of Code
 - **Guideline:** Complete and submit all the required files, documents, source code and supporting materials to your GitHub repository before the specified deadline.
 - **Status:** **Completed**
-- **Details:** Complete production source code, trained model weights, datasets, and 343 passing automated tests submitted in [`src/`](./src/), with comprehensive specifications in [`documentation/`](./documentation/).
+- **Details:** Complete production source code submitted in [`src/`](./src/), with project documentation submitted in [`documentation/`](./documentation/).
 
 ### Step 10: Working Demo
 - **Guideline:** Include a link to a live working demo in your GitHub repository. If your solution cannot be demonstrated live, upload the final deliverable files directly to the repository for evaluator review.
 - **Status:** **Completed**
-- **Details:** Live screen-recorded demonstration walkthrough available on [YouTube](https://youtu.be/kbMFY39V_l4), detailed in [`vdo link/README.md`](./vdo%20link/README.md), and reproducible locally via runbook in [`src/README.md`](./src/README.md).
+- **Details:** Working demo and video walkthrough links provided in [`working demo and video link/README.md`](./working%20demo%20and%20video%20link/README.md), and locally reproducible via runbook in [`src/README.md`](./src/README.md).
 
 ---
 
-## Technical Specifications Index (in `documentation/`)
+## Project Documentation
 
-All required scientific, architectural, and engineering documents are maintained in the [`documentation/`](./documentation/) directory:
-
-| Document | Purpose & Evaluator Relevance |
-| :--- | :--- |
-| [**Architecture Specifications**](./documentation/ARCHITECTURE.md) | High-level system architecture, component decomposition, and end-to-end data pipelines. |
-| [**Scientific Contracts & Provenance**](./documentation/SCIENTIFIC_CONTRACT.md) | Formal mathematical contracts, dataset provenance, and spatial non-IID graph formulation. |
-| [**Scientific Scope & Boundaries**](./documentation/SCIENTIFIC_SCOPE.md) | Research boundaries, historical replay scope, Opacus DP-FedAvg bounds, and artifact checksums. |
-| [**Engineering & Development Runbook**](./documentation/DEVELOPMENT.md) | Local environment scaffolding, dependency setup, and verification instructions. |
-| [**Experiment Logs**](./documentation/EXPERIMENTS.md) | Centralized 7-model benchmark, ablation studies, and multi-horizon performance logs. |
-| [**Traffic Flow Extension**](./documentation/FLOW_DATASET_EXTENSION.md) | Caltrans PeMS08 flow volume forecasting benchmark (170 sensors, District 8). |
-| [**API Catalog & Endpoints**](./documentation/API.md) | Complete OpenAPI / Swagger REST endpoint catalog across all 8 namespaces. |
-| [**Release Audit Report**](./documentation/AUDIT_REPORT.md) | Engineering audit verifying 343 passing integration tests, model checkpoints, and data arrays. |
+Complete technical, architectural, and scientific documentation is submitted in the **[`documentation/`](./documentation/)** directory:
+- [**Full Project Documentation**](./documentation/FULL_PROJECT_DOCUMENTATION.md) (All system specifications, mathematical contracts, API routes, and audit reports).
 
 ---
 
-## Repository Structure & Folder Organization
+## Repository Structure & Directory Map (Kahan Par Kya Hai)
 
-```text
-A3-PS003-TC198/
-├── A3-PS003-TC198-Presentation.pdf      # [Untouched] Official Hackathon Presentation Slide Deck
-├── README.md                            # Root Repository Overview & Submission Task Tracker (Steps 01-10)
-│
-├── documentation/                       # Core Technical, Scientific & Audit Specifications
-│   ├── README.md                        # Documentation Table of Contents
-│   ├── ARCHITECTURE.md                  # System decomposition & data flow pipelines
-│   ├── SCIENTIFIC_CONTRACT.md           # Formal mathematical contracts & methodology
-│   ├── SCIENTIFIC_SCOPE.md              # Research boundaries, historical replay scope & DP bounds
-│   ├── DEVELOPMENT.md                   # Engineering guide & deployment runbook
-│   ├── EXPERIMENTS.md                   # Multi-horizon and ablation experiment records
-│   ├── FLOW_DATASET_EXTENSION.md        # PeMS08 traffic flow volume benchmark documentation
-│   ├── API.md                           # Complete REST API route specifications
-│   └── AUDIT_REPORT.md                  # Release verification & 343 passing test cases audit
-│
-├── vdo link/                            # Team Introduction, PS Explanation & Video Links
-│   └── README.md                        # Team bio, PS-003 summary, YouTube demo & dashboard video links
-│
-└── src/                                 # [Frozen] Complete Production Implementation & Source Code
-    ├── app/ & pages/                    # React 19 Frontend Dashboard (7 interactive routes)
-    ├── backend/                         # FastAPI high-performance REST backend (53 endpoints)
-    ├── components/                      # Modular UI components (Leaflet map, Recharts, Replay)
-    ├── context/                         # Global state management (ReplayContext & ThemeContext)
-    ├── data/                            # METR-LA (207 sensors) & PeMS08 (170 sensors) datasets
-    ├── ml/                              # PyTorch models (SpatialGraphLSTM, FedAvg, Opacus DP-SGD)
-    ├── services/                        # Centralized frontend API gateway (api.js)
-    ├── package.json                     # Frontend npm packages & scripts
-    ├── requirements.txt                 # Backend Python dependencies
-    ├── vite.config.js                   # Vite build configuration
-    └── README.md                        # Technical runbook, setup instructions & 343 test matrix
-```
+| Folder / File | Component | Description |
+| :--- | :--- | :--- |
+| [**`A3-PS003-TC198-Presentation.pdf`**](./A3-PS003-TC198-Presentation.pdf) | **Official Presentation** | Official Hackathon Slide Deck located directly at repository root. |
+| [**`documentation/`**](./documentation/) | **Project Documentation** | Complete project documentation including architecture, research contracts, API specifications, and verification audit. |
+| [**`working demo and video link/`**](./working%20demo%20and%20video%20link/) | **Demo & Video Links** | Working demo link, team intro & problem statement explanation video, and dashboard demonstration video. |
+| [**`src/`**](./src/) | **Source Code** | Complete production source code including React 19 frontend, FastAPI backend, PyTorch ML models, datasets, and 343 passing automated tests. |
+| [**`README.md`**](./README.md) | **Root Overview** | Main repository overview, hackathon submission tracker (Steps 01-10), and evaluator guide. |
 
 ---
 

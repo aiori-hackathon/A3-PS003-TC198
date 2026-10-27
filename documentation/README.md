@@ -1,6 +1,10 @@
 # TrafficPulse-X • Project Documentation
 
+**Documentations uploaded here**
+
 Essential technical, scientific, and architectural specifications for **TrafficPulse-X** (Team `A3-PS003-TC198` | Problem Statement `PS-003`).
+
+See also: [**Full Project Documentation**](./FULL_PROJECT_DOCUMENTATION.md)
 
 ---
 
