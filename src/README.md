@@ -1,14 +1,86 @@
 # TrafficPulse-X • Decentralized Spatio-Temporal Traffic Intelligence
 
+> Federated traffic-speed forecasting and communication-cost evaluation using METR-LA, Graph+LSTM, FedAvg, selective client participation, and an interactive analysis dashboard.
+
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![PyTorch 2.0+](https://img.shields.io/badge/PyTorch-2.0+-ee4c2c.svg)](https://pytorch.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688.svg)](https://fastapi.tiangolo.com/)
+[![React 19](https://img.shields.io/badge/react-19-61dafb.svg)](https://react.dev/)
+[![Vite 8](https://img.shields.io/badge/Vite-8.3+-646cff.svg)](https://vitejs.dev/)
+[![Tests: 343 Passed](https://img.shields.io/badge/tests-343%20passed-brightgreen.svg)](#19-comprehensive-automated-integration-test-suite-343-passing-tests)
+
 > **AIORI Hackathon 2026 — Level 2 Grand Finale**  
 > **Problem Statement**: **PS-003** (Federated Traffic-Flow Prediction with Communication-Cost Evaluation)  
-> **Team ID**: **A3-PS003-TC198** | **Team Members**: Shaurya Pratap Singh & Adarsh Singh  
-> **Project Repository**: `https://github.com/aiori-hackathon/A3-PS003-TC198.git`
+> **Team ID**: **A3-PS003-TC198**  
+> **Team Leader**: **Adarsh Singh** (`adarsh04455@gmail.com`) | **Team Member**: **Shaurya Pratap Singh** (`shauryapratapsingh723@gmail.com`)  
+> **Faculty Mentor**: **Aditya Sir**  
+> **Video Demonstration**: [YouTube Project Walkthrough (6-Minute Screen-Recorded Demo)](https://youtu.be/kbMFY39V_l4)  
+> **Official Slide Deck**: `A3-PS003-TC198-Presentation.pdf`  
+> **Project Submission Repository**: `https://github.com/aiori-hackathon/A3-PS003-TC198.git`  
+> **Submission Constraint**: Root presentation and root README remain 100% untouched. All source code, models, configs, and documentation live strictly inside `src/`.
+
+---
+
+## Problem Statement & Operational Context
+
+Centralized intelligent transportation systems require continuous streaming of high-frequency sensor readings from municipal highway networks to a central datacenter. This paradigm faces critical operational limitations:
+
+1. **Communication Bottlenecks**: Transmitting high-frequency telemetry across hundreds of loop detectors incurs substantial transmission costs, WAN congestion, and telemetry dropouts.
+2. **Regional Heterogeneity (Non-IID Data)**: Highway sub-networks exhibit distinct local congestion patterns, bottleneck dynamics, and sensor densities, violating independent and identically distributed (IID) assumptions.
+3. **Data Sovereignty & Edge Privacy**: Centralizing raw high-resolution speed and trajectory telemetry across administrative boundaries poses municipal governance and privacy challenges.
+4. **Accuracy vs. Communication Trade-Off**: Standard traffic evaluations report model accuracy in isolation without measuring the communication payload required to achieve it.
+
+**TrafficPulse-X** evaluates whether decentralized federated training with selective client participation can match centralized forecast accuracy while reducing application-layer communication payload by **50% to 75%**.
+
+### Key Architectural Capabilities
+- **METR-LA Speed Forecasting**: Evaluated on 207 inductive loop sensors across Los Angeles County freeways.
+- **Spatio-Temporal Graph+LSTM**: Joint architecture combining Chebyshev spectral graph convolutions with recurrent LSTM cells.
+- **Multi-Horizon Projections**: Simultaneous forecasts at +5, +15, +30, and +60-minute horizons.
+- **Centralized Benchmark**: Multi-model comparison across 7 baseline architectures.
+- **4-Region Federated Simulation**: Decentralized FedAvg training across 4 non-IID geographic client sectors.
+- **Selective Client Participation**: Client Contribution Value (CCV) policy scheduling evaluating 4 communication budget tiers (4/4, 3/4, 2/4 Pareto, 1/4).
+- **Communication Payload Accounting**: Authoritative measurement of serialized model weight transfers (110,271 Bytes per client/round).
+- **Controlled Local Network-Byte Measurement**: Localhost socket benchmark quantifying HTTP/TCP framing overhead (+0.298%).
+- **Decision Intelligence**: Dynamic 9-factor Need Score engine and Sensor Jury consensus for on-demand sensing.
+- **Tactical Traffic Network Visualization**: Interactive 207-sensor spatial Leaflet map with regional filtering and playback controls.
+- **Historical Replay Engine**: Deterministic playback over 34,272 METR-LA observations (March–June 2012) at 5-minute granularity.
+- **Streaming Modes & Zero Fabricated Fallback**: Deterministic historical replay default; unconfigured external streams report 503 without fake fallback.
+- **PeMS08 Traffic Flow Extension**: Public benchmark extension forecasting traffic flow volume (veh/5min) across 170 sensors in District 8.
+- **Differential Privacy Add-On**: Evaluated Opacus DP-FedAvg experiment providing verified $(\epsilon = 5.311, \delta = 10^{-5})$-DP bounds.
 
 ---
 
 ## 1. System Architecture Overview
 
+### A. End-to-End Pipeline Dataflow Architecture
+```mermaid
+flowchart TD
+    subgraph Data Layer
+        A["METR-LA Benchmark (207 Sensors)"] --> B["Chronological Preprocessing (70/10/20)"]
+        B --> C["Normalized Graph Construction (A_norm)"]
+    end
+
+    subgraph Modeling & Training
+        C --> D["Centralized Benchmark (Graph+LSTM)"]
+        C --> E["4-Region Non-IID Partition (A, B, C, D)"]
+        E --> F["Federated Learning Simulation (FedAvg)"]
+        F --> G["Selective Participation Policies (CCV)"]
+    end
+
+    subgraph Serving & Evaluation
+        D --> H["Inference Engine (+5, +15, +30, +60 min)"]
+        G --> I["Application Payload & Wire Byte Accounting"]
+        H --> J["FastAPI Backend (/api/*)"]
+        I --> J
+    end
+
+    subgraph Client Application
+        J --> K["Centralized API Gateway (api.js)"]
+        K --> L["React 19 Interactive Dashboard (7 Pages)"]
+    end
+```
+
+### B. Federated Edge Hierarchy
 ```text
 +-----------------------------------------------------------------------------------+
 |                        CENTRAL FEDERATED AGGREGATION SERVER                       |
@@ -31,13 +103,13 @@
 +-----------------------+ +-----------------------+ +-----------------------+ +-----------------------+
 ```
 
-### A. Subsystem Decomposition
+### C. Subsystem Decomposition
 - **`ml/`**: Machine learning models (Chebyshev GCN, LSTM), baseline forecasters, federated learning contracts, communication-constrained scheduling (CCV), and differential privacy.
 - **`backend/`**: High-performance FastAPI backend exposing REST APIs for live telemetry, model predictions, decision scoring, and client fleet metrics.
 - **`frontend/`**: Interactive operator dashboard built with React 19, Vite, and Leaflet for geospatial traffic visualization, historical replay, and dispatch controls.
 - **`data/`**: Sensor topology, adjacency matrices, distance metadata, and traffic speed series.
 
-### B. Complete Project Directory & File Tree (`src/`)
+### D. Complete Project Directory & File Tree (`src/`)
 ```text
 src/
 |-- app/                               # Application shell and routing
@@ -176,10 +248,26 @@ cp .env.example .env
 
 ### A. Dataset Overview & Ingestion
 The spatial traffic network is structured across two prominent benchmarks:
-- **METR-LA**: 207 traffic loop detector sensors positioned across Los Angeles County highways (Ventura Freeway, San Diego Freeway, Harbor Freeway, Hollywood Freeway).
-- **PEMS08**: 170 traffic detector sensors along San Bernardino regional interstate highways.
+- **Primary Benchmark (METR-LA)**: 207 traffic loop detector sensors positioned across Los Angeles County highways (Ventura Freeway, San Diego Freeway, Harbor Freeway, Hollywood Freeway).
+  - **Temporal Span**: March 1, 2012 00:00:00 to June 27, 2012 23:55:00 UTC (34,272 timesteps at 5-minute sampling intervals).
+  - **Target Variable**: Historical vehicle speed (`mph`).
+  - **Data Splits**: Train: 70% (23,967 samples) | Validation: 10% (3,404 samples) | Test: 20% (6,832 samples).
+  - **Dataset Boundary**: METR-LA provides vehicle speed only. Flow, occupancy, and incident ground truth are not present in this dataset.
+- **Optional Flow Extension (PeMS08)**: 170 traffic detector stations along San Bernardino regional interstate highways (Caltrans District 8).
+  - **Temporal Span**: July 1, 2016 to August 31, 2016 (17,856 timesteps at 5-minute intervals).
+  - **Target Variable**: Traffic flow volume (`veh/5min`, dataset mean: 230.22).
+  - **Isolation**: Maintained as an isolated dataset extension in `data/processed/pems08/`.
 
-### B. Weighted Spatial Adjacency Matrix Construction
+### B. Multi-Horizon Forecasting Specification
+- **Input Sequence**: 12 historical 5-minute observations (60 minutes history).
+- **Forecast Horizons**:
+  - **+5 min** (Offset step 1)
+  - **+15 min** (Offset step 3)
+  - **+30 min** (Offset step 6)
+  - **+60 min** (Offset step 12)
+- **Model Input Tensor**: `[B, 12, N, 2]` (Channel 0: z-score normalized speed, Channel 1: sensor validity mask).
+
+### C. Weighted Spatial Adjacency Matrix Construction
 The road network is modeled as a directed graph $G = (V, E, W)$, where vertices $V$ represent loop sensors and $W$ represents pairwise proximity computed via a thresholded Gaussian kernel:
 
 $$W_{ij} = \begin{cases} \exp\left(-\frac{\text{dist}(v_i, v_j)^2}{\sigma^2}\right), & \text{dist}(v_i, v_j) \le \kappa \\ 0, & \text{otherwise} \end{cases}$$
@@ -188,7 +276,7 @@ $$W_{ij} = \begin{cases} \exp\left(-\frac{\text{dist}(v_i, v_j)^2}{\sigma^2}\rig
 - $\sigma$: Standard deviation of network distances ($\approx 10\text{ km}$).
 - $\kappa$: Distance threshold cutoff ($\approx 0.1$).
 
-### C. Regional Partitioning & Sensor Metadata
+### D. Regional Partitioning & Sensor Metadata
 The 207 sensors are mapped into 4 distinct geographic clusters to represent realistic non-IID regional client jurisdictions:
 1. **Region 0 (Glendale / Griffith Park)**: Sensors covering US-101 and SR-134 intersections.
 2. **Region 1 (Downtown Los Angeles Core)**: High-density arterial connectors (I-10, I-110).
@@ -293,6 +381,18 @@ Canonical Forecast Output: [B, 4, 207, 1] (15m, 30m, 45m, 60m horizons in mph)
 
 ## 9. Authoritative 7-Model Centralized Benchmark Comparison Matrix
 
+### Executive Benchmark Summary: Centralized vs. Decentralized FedAvg
+Empirical results evaluated across 6,832 test-set samples on METR-LA:
+
+| Architecture | Test MAE (mph) | Test RMSE (mph) | Test MAPE (%) | Parameters | Best Epoch / Round |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **Centralized Spatial Graph+LSTM** | **3.4378** | **6.8873** | **9.57%** | 26,596 | Epoch 12 |
+| **FedAvg Decentralized (4 Clients)** | **3.5322** | **7.0956** | **9.99%** | 26,596 | Round 8 (Val MAE: 3.1536) |
+
+$$\Delta \text{ (FedAvg vs Centralized)}: +0.0944\text{ mph} \text{ (+2.75\%) MAE penalty under decentralized training with 100\% data locality.}$$
+
+### Complete 7-Model Centralized Evaluation Matrix
+
 All models evaluated strictly on unnormalized physical test sets ($\text{mph}$) over identical splits:
 
 | Model Category | Model | Overall MAE | Overall RMSE | Overall MAPE | +5 min MAE | +15 min MAE | +30 min MAE | +60 min MAE |
@@ -322,6 +422,17 @@ Implemented in `ml/federated/prepare_clients.py`, this module divides the global
    (48 Sensors)    (57 Sensors)                (58 Sensors)    (44 Sensors)
 ```
 
+### Regional Client Partition Metadata & FedAvg Weights
+The 207 sensors are partitioned into 4 geographic regional client clusters:
+
+| Regional Client | Sector | Sensor Count | Valid Target Samples ($n_i$) | FedAvg Weight ($w_i$) |
+| :--- | :--- | :---: | :---: | :---: |
+| **Region A** | North-East (Glendale / Griffith Park) | **48** | 4,221,681 | `0.229069` |
+| **Region B** | South-East (Downtown LA Arterial Core) | **57** | 5,107,193 | `0.277117` |
+| **Region C** | Central-West (San Fernando Valley) | **58** | 5,150,335 | `0.279458` |
+| **Region D** | North-West (East LA & San Gabriel) | **44** | 3,950,552 | `0.214357` |
+| **Total** | — | **207** | **18,429,761** | **1.000000** |
+
 ### Induced Regional Subgraph Formulation
 For any region $k$ with sensor index subset $S_k \subset \{1, \dots, N\}$, the regional subgraph adjacency $A^{(k)} \in \mathbb{R}^{|S_k| \times |S_k|}$ is extracted via:
 $$A^{(k)} = A[S_k, S_k]$$
@@ -346,9 +457,29 @@ In each federated communication round $t \in \{1, \dots, R\}$:
 4. **Weighted Model Aggregation**: The central server applies sample-proportional FedAvg:
    $$W_{t+1} = W_t + \sum_{k=1}^K \frac{n_k}{\sum_{j=1}^K n_j} \Delta W_t^{(k)}$$
 
-### B. Communication Efficiency & Network Accounting
-- **Payload per Client Round**: $\sim 111\text{ KB}$ (inbound) / $\sim 111\text{ KB}$ (outbound).
-- **Communication vs Centralized Transmission**: Centralized raw streaming transmits continuously gigabytes of sensor readings; FedAvg restricts exchange strictly to round deltas, yielding over **98% bandwidth reduction**.
+### B. Authoritative Application Payload Accounting
+Model update transfer size is **110,271 Bytes** per client per round (serialized PyTorch state dict):
+
+| Policy Tier | Active Clients / Round | Total Transfers (13 Rds) | Application Payload | Reduction vs. Full |
+| :---: | :---: | :---: | :---: | :---: |
+| **4/4 (Full)** | 4 | 104 | 11,468,184 B (11.47 MB) | Baseline (0.0%) |
+| **3/4** | 3 | 78 | 8,601,138 B (8.60 MB) | 25.0% |
+| **2/4** | 2 | 52 | **5,734,092 B (5.73 MB)** | **50.0% (Pareto-Optimal)** |
+| **1/4** | 1 | 26 | 2,867,046 B (2.87 MB) | 75.0% |
+
+*Note: These figures represent application-layer serialization payload. They reflect serialized tensor parameters without speculative transport scaling.*
+
+### C. Secondary Benchmark: Controlled Local Network Transfer Bytes
+Measured over local loopback sockets (`127.0.0.1:8000`) over HTTP/1.1 to quantify wire framing and HTTP header overhead:
+- **4/4 Full Policy**: 11,502,380 measured wire bytes (+34,196 bytes / +0.298% transport overhead).
+- **2/4 50% Policy**: 5,751,190 measured wire bytes (+17,098 bytes / +0.298% transport overhead).
+- *Strict scientific boundary: Local transport experiment only; not a cellular radio measurement.*
+
+### D. Streaming Modes & Zero-Fabrication Guarantee
+- **Historical Replay (Default)**: Deterministic replay over 34,272 METR-LA timestamps.
+- **External Stream (Optional)**: Pluggable adapter interface. If external API configuration is absent, the system explicitly returns `503 Service Unavailable / Not Configured`.
+- **Integrity Guarantee**: The system never falls back to fabricated or synthetically randomized telemetry when external streams are unavailable.
+
 
 ---
 
@@ -724,15 +855,46 @@ docker run -d -p 8000:8000 -p 5173:5173 --name trafficpulse-prod trafficpulse-x:
 
 ---
 
-## 22. Team & Project Governance Credits
+---
+
+## 22. Scientific Scope & Operational Boundaries
+
+1. **Historical Replay as Primary Execution**: All live demonstrations use deterministic replay of the METR-LA benchmark (34,272 observations). No claims are made of active municipal live deployments.
+2. **No Physical Bandwidth Claims**: Telemetry reduction is reported strictly as **Application Payload** (serialized tensor bytes: 110,271 B / round). Cellular radio bandwidth savings are not claimed.
+3. **Controlled Transport Benchmark**: Network-byte measurements are conducted over localhost sockets (`127.0.0.1`) to quantify HTTP/1.1 protocol framing, not field wireless links.
+4. **Differential Privacy Boundaries**: Formal $(\epsilon = 5.311, \delta = 10^{-5})$-DP guarantees apply exclusively to the optional Opacus DP-FedAvg experiment add-on, not the standard FedAvg baseline.
+5. **Zero Fabricated Data Guarantee**: Unconfigured external streaming endpoints report `503 Service Unavailable` without synthetic or randomized fallback.
+
+---
+
+## 23. Academic Citations & Literature References
+
+1. **McMahan, B., Moore, E., Ramage, D., Hampson, S., & y Arcas, B. A.** (2017). *Communication-Efficient Learning of Deep Networks from Decentralized Data*. AISTATS. [https://arxiv.org/abs/1602.05629](https://arxiv.org/abs/1602.05629) / [MLR Proceedings](https://proceedings.mlr.press/v54/mcmahan17a.html)
+2. **Li, Y., Yu, R., Shahabi, C., & Liu, Y.** (2018). *Diffusion Convolutional Recurrent Neural Network: Data-Driven Traffic Forecasting*. ICLR. [https://arxiv.org/abs/1707.01926](https://arxiv.org/abs/1707.01926)
+3. **Yu, B., Yin, H., & Zhu, Z.** (2018). *Spatio-Temporal Graph Convolutional Networks: A Deep Learning Framework for Traffic Forecasting*. IJCAI. [https://arxiv.org/abs/1709.04875](https://arxiv.org/abs/1709.04875)
+4. **Jaggi, M. et al.** (2014). *Communication-Efficient Distributed Dual Coordinate Ascent*. NeurIPS. [https://arxiv.org/abs/1409.1458](https://arxiv.org/abs/1409.1458)
+5. **Hochreiter, S., & Schmidhuber, J.** (1997). *Long Short-Term Memory*. Neural Computation. [https://doi.org/10.1162/neco.1997.9.8.1735](https://doi.org/10.1162/neco.1997.9.8.1735)
+6. **METR-LA Benchmark Dataset**: Los Angeles County Highway Network via Caltrans PeMS. [https://github.com/liyaguang/DCRNN](https://github.com/liyaguang/DCRNN)
+7. **Caltrans Performance Measurement System (PeMS)**: California Department of Transportation. [https://dot.ca.gov/programs/traffic-operations/mpr/pems-source](https://dot.ca.gov/programs/traffic-operations/mpr/pems-source)
+8. **Differential Privacy / DP-SGD**: Abadi et al. [https://arxiv.org/abs/1607.00133](https://arxiv.org/abs/1607.00133) • [Opacus](https://opacus.ai/)
+9. **Practical Secure Aggregation for Privacy-Preserving Machine Learning**: Bonawitz et al. [Google Research](https://research.google/pubs/practical-secure-aggregation-for-privacy-preserving-machine-learning/)
+10. **Communication-Efficient Federated Learning on Non-IID Data**: Sattler et al. [IEEE Xplore](https://ieeexplore.ieee.org/document/8889996)
+
+---
+
+## 24. Team & Project Governance Credits
 
 - **Hackathon**: AIORI Hackathon 2026 — Level 2 Grand Finale
-- **Problem Statement**: **PS-003** (Smart Traffic Management & Spatio-Temporal Intelligence)
+- **Problem Statement**: **PS-003** (Federated Traffic-Flow Prediction with Communication-Cost Evaluation)
 - **Team ID**: **A3-PS003-TC198**
 - **Project Title**: **TrafficPulse-X** (Decentralized Spatio-Temporal Traffic Intelligence System)
+- **Faculty Mentor**: **Aditya Sir**
+- **Video Walkthrough Demonstration**: [YouTube Project Walkthrough (6-Minute Screen-Recorded Demo)](https://youtu.be/kbMFY39V_l4)
+- **Official Slide Deck**: `A3-PS003-TC198-Presentation.pdf`
+- **Submission Repository**: `https://github.com/aiori-hackathon/A3-PS003-TC198.git`
 - **Team Members & Core Contributors**:
+  - **Adarsh Singh** (`adarsh04455@gmail.com`) — Team Leader, FastAPI Backend Architecture, Tactical React Frontend, Leaflet Geospatial Canvas & Replay Engine
   - **Shaurya Pratap Singh** (`shauryapratapsingh723@gmail.com`) — Lead Architecture, Spatio-Temporal Graph ML, Federated Consensus & Privacy Accountant
-  - **Adarsh Singh** (`adarsh04455@gmail.com`) — FastAPI Backend Architecture, Tactical React Frontend, Leaflet Geospatial Canvas & Replay Engine
 
 ---
 *End of Submission Documentation — TrafficPulse-X • A3-PS003-TC198 • AIORI Hackathon 2026*
