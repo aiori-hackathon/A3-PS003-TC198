@@ -24,15 +24,14 @@ This directory contains the working demo link, team introduction & problem state
 ### links are here:
 
 ### 1. Working Demo Link
-- **Live Demo URL:** `[Live Working Demo Link to be added here]`
-- **Status:** Link placeholder provided (ready for deployment URL)
+- **Live Demo URL:** `Will be uploaded soon`
+- **Status:** Pending — Will be uploaded soon
 - **Local Reproduction Runbook:** Available in [`src/README.md`](../src/README.md)
 
 ---
 
 ### 2. Team Member Intro and Problem Statement Explanation Video
-- **Video URL:** [https://youtu.be/kbMFY39V_l4](https://youtu.be/kbMFY39V_l4)
-- **Alternative / Updated URL:** `[Video Link to be added here]`
+- **Video URL:** [https://youtu.be/kbMFY39V_l4?si=_hMvLyEBpfnS8q6p](https://youtu.be/kbMFY39V_l4?si=_hMvLyEBpfnS8q6p)
 - **Content Covered:**
   - Team member introductions and assigned roles.
   - Problem Statement (PS-003) formulation and municipal motivation.
@@ -43,7 +42,7 @@ This directory contains the working demo link, team introduction & problem state
 ---
 
 ### 3. Dashboard Explanation Video
-- **Video URL:** `[Dashboard Explanation Video Link to be added here]`
+- **Video URL:** `https://youtu.be/_b2-zvt9JjI?si=gZSDJmwlXJjFjqb_`
 - **Content Covered:**
   - Walkthrough of the tactical operator console and Leaflet sensor map.
   - Multi-horizon traffic forecasting (+5m, +15m, +30m, +60m).

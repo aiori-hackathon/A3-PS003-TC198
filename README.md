@@ -41,29 +41,28 @@ TrafficPulse-X is a communication-aware decentralized traffic intelligence syste
 - **Step 03 (Add AIORI GitHub Account):** **Completed** — `aiori-hackathon` collaborator access confirmed.
 - **Step 04 (Transfer Repository Ownership):** **Completed** — Repository ownership transferred to `aiori-hackathon`.
 - **Step 05 (Upload Presentation):** **Completed** — Presentation uploaded at repository root ([`A3-PS003-TC198-Presentation.pdf`](./A3-PS003-TC198-Presentation.pdf)).
-- **Step 06 (Create Team Introduction Video):** **Completed** — Team member introduction and problem statement walkthrough recorded.
-- **Step 07 (Add YouTube Video Link):** **Partially Completed** — Team introduction video linked ([https://youtu.be/kbMFY39V_l4](https://youtu.be/kbMFY39V_l4)); final dashboard demonstration video pending upload.
+- **Step 06 (Create Team Introduction Video):** **Completed** — Team member introduction and problem statement walkthrough recorded ([Watch Video](https://youtu.be/kbMFY39V_l4?si=_hMvLyEBpfnS8q6p)).
+- **Step 07 (Add YouTube Video Link):** **Completed** — Team introduction video and dashboard demonstration video uploaded and linked.
 - **Step 08 (Attend Mentoring Sessions):** **Completed** — Mentoring sessions attended under the guidance of Faculty Mentor Aditya Sir.
 - **Step 09 (Submission of Code):** **Completed** — Production source code submitted in [`src/`](./src/), and technical documentation submitted in [`documentation/`](./documentation/).
-- **Step 10 (Working Demo):** **Pending Link** — Local setup and runbook available in [`src/README.md`](./src/README.md); live deployment link pending paste.
+- **Step 10 (Working Demo):** **Pending** — Will be uploaded soon (Local setup and runbook available in [`src/README.md`](./src/README.md)).
 
 ---
 
 ## Working Demo & Video Links
 
 - **Working Demo:**
-  - **Status:** Pending — add link
-  - **URL:** `[PASTE_WORKING_DEMO_URL_HERE]`
+  - **Status:** Pending — Will be uploaded soon
+  - **URL:** `Will be uploaded soon`
   - *(Instructions for local execution are documented in [`src/README.md`](./src/README.md))*
 
 - **Team Member Introduction and Problem Statement Explanation Video:**
   - **Status:** Available
-  - **URL:** [https://youtu.be/kbMFY39V_l4](https://youtu.be/kbMFY39V_l4)
-  - *(Optional updated link placeholder: `[PASTE_INTRO_VIDEO_URL_HERE]`)*
+  - **URL:** [https://youtu.be/kbMFY39V_l4?si=_hMvLyEBpfnS8q6p](https://youtu.be/kbMFY39V_l4?si=_hMvLyEBpfnS8q6p)
 
 - **Dashboard Explanation / Project Demonstration Video:**
-  - **Status:** Pending — add link
-  - **URL:** `[PASTE_DASHBOARD_VIDEO_URL_HERE]`
+  - **Status:** Available
+  - **URL:** [https://youtu.be/_b2-zvt9JjI?si=gZSDJmwlXJjFjqb_](https://youtu.be/_b2-zvt9JjI?si=gZSDJmwlXJjFjqb_)
 
 *(Video outlines and descriptions are documented in [`working demo and video link/README.md`](./working%20demo%20and%20video%20link/README.md))*
 
@@ -105,11 +104,9 @@ A3-PS003-TC198/
 
 ## Final Link-Completion Checklist
 
-The following placeholders require manual link insertion before the submission portal closes:
-
-- [ ] `[PASTE_WORKING_DEMO_URL_HERE]` — Insert the deployed live web demo URL in the [Working Demo & Video Links](#working-demo--video-links) section.
-- [ ] `[PASTE_DASHBOARD_VIDEO_URL_HERE]` — Insert the YouTube / Loom URL for the dashboard walkthrough in the [Working Demo & Video Links](#working-demo--video-links) section.
-- [ ] `[PASTE_INTRO_VIDEO_URL_HERE]` — *(Optional)* Update the team intro video URL if re-recorded (current verified video: [https://youtu.be/kbMFY39V_l4](https://youtu.be/kbMFY39V_l4)).
+- [ ] **Working Demo:** Will be uploaded soon *(Local execution instructions available in [`src/README.md`](./src/README.md))*
+- [x] **Team Member Introduction Video:** Available ([Watch Video](https://youtu.be/kbMFY39V_l4?si=_hMvLyEBpfnS8q6p))
+- [x] **Dashboard Demonstration Video:** Available ([Watch Video](https://youtu.be/_b2-zvt9JjI?si=gZSDJmwlXJjFjqb_))
 
 ---
 
