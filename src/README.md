@@ -1,10 +1,9 @@
 # TrafficPulse-X • Decentralized Spatio-Temporal Traffic Intelligence
 
 > **AIORI Hackathon 2026 — Level 2 Grand Finale**  
-> **Problem Statement PS-003**: Federated Traffic-Flow Prediction with Communication-Cost Evaluation  
-> **Team ID**: TC-198 | **Team Members**: Shaurya Pratap Singh & Adarsh Singh  
-> **Project Repository**: `https://github.com/aiori-hackathon/A3-PS003-TC198.git`  
-> **Submission Constraint**: Root presentation and root README remain 100% untouched. All source code, models, configs, and documentation live strictly inside `src/`.
+> **Problem Statement**: **PS-003** (Federated Traffic-Flow Prediction with Communication-Cost Evaluation)  
+> **Team ID**: **A3-PS003-TC198** | **Team Members**: Shaurya Pratap Singh & Adarsh Singh  
+> **Project Repository**: `https://github.com/aiori-hackathon/A3-PS003-TC198.git`
 
 ---
 
@@ -173,30 +172,7 @@ cp .env.example .env
 
 ---
 
-## 4. Progressive Implementation Roadmap
-
-| Milestone | Target Date | Focus Area | Status |
-| :--- | :--- | :--- | :--- |
-| **Milestone 1** | **Oct 24, 2026** | Project scaffolding, dependency manifests, and environment baseline | **Completed** |
-| **Milestone 2** | **Oct 24, 2026** | PEMS-BAY sensor topology, spatial graph adjacency, and data loaders | **Completed** |
-| **Milestone 3** | **Oct 24, 2026** | Baseline traffic forecasting models & metric evaluation framework | **Completed** |
-| **Milestone 4** | **Oct 25, 2026** | Temporal deep learning models (TemporalLSTM & TemporalGRU) & loss | **Completed** |
-| **Milestone 5** | **Oct 25, 2026** | Chebyshev polynomial spatial graph convolutions (SpatialGCN) | **Completed** |
-| **Milestone 6** | **Oct 25, 2026** | Spatiotemporal neural architecture (SpatialGraphLSTM) end-to-end | **Completed** |
-| **Milestone 7** | **Oct 25, 2026** | Centralized model evaluation benchmarks & comparative results | **Completed** |
-| **Milestone 8** | **Oct 26, 2026** | Regional non-IID partitioning & induced subgraph extraction | **Completed** |
-| **Milestone 9** | **Oct 26, 2026** | Federated Learning core (FedAvg, Client/Server orchestration) | **Completed** |
-| **Milestone 10** | **Oct 26, 2026** | Communication-Constrained Value (CCV) client scheduling | **Completed** |
-| **Milestone 11** | **Oct 26, 2026** | Differential Privacy (DP-FedAvg) & Secure Aggregation engine | **Completed** |
-| **Milestone 12** | **Oct 27, 2026** | 9-Factor Decision Intelligence & Need Score engine | **Completed** |
-| **Milestone 13** | **Oct 27, 2026** | FastAPI REST service (69 comprehensive endpoints) | **Completed** |
-| **Milestone 14** | **Oct 27, 2026** | React Frontend setup + Leaflet Real-time Traffic Map | **Completed** |
-| **Milestone 15** | **Oct 27, 2026** | Fleet Dispatch, Alert Monitor & Communication Log UI | **Completed** |
-| **Milestone 16** | **Oct 28, 2026** | Historical Replay mode & real-time telemetry playback | **Completed** |
-
----
-
-## 5. Spatial Graph Topology & Road Network Dataset
+## 4. Spatial Graph Topology & Road Network Dataset
 
 ### A. Dataset Overview & Ingestion
 The spatial traffic network is structured across two prominent benchmarks:
@@ -221,7 +197,7 @@ The 207 sensors are mapped into 4 distinct geographic clusters to represent real
 
 ---
 
-## 6. Baseline Traffic Forecasting Models
+## 5. Baseline Traffic Forecasting Models
 
 To provide a rigorous benchmark for deep spatiotemporal and federated learning architectures, three standard non-deep learning baseline predictors are implemented in `ml/baselines/`:
 
@@ -250,7 +226,7 @@ Evaluation across all forecasting models is computed strictly on unnormalized ph
 
 ---
 
-## 7. Temporal Deep Learning Architectures (TemporalLSTM & TemporalGRU)
+## 6. Temporal Deep Learning Architectures (TemporalLSTM & TemporalGRU)
 
 Implemented in `ml/temporal/`, these models capture sequential temporal dynamics across continuous 5-minute historical traffic windows:
 
@@ -265,7 +241,7 @@ $$\mathcal{L}_{\text{MaskedMAE}}(Y, \hat{Y}, M) = \frac{\sum_{b, t, s} M_{b, t, 
 
 ---
 
-## 8. Spatial Graph Convolutions (SpatialGCN)
+## 7. Spatial Graph Convolutions (SpatialGCN)
 
 Implemented in `ml/graph/`, the SpatialGCN models geographic spatial dependencies between neighboring road sensors using spectral graph theory:
 
@@ -284,7 +260,7 @@ $$H^{(l+1)} = \sigma\left(\tilde{A} H^{(l)} W^{(l)} + b^{(l)}\right)$$
 
 ---
 
-## 9. Spatiotemporal Neural Network Architecture (SpatialGraphLSTM)
+## 8. Spatiotemporal Neural Network Architecture (SpatialGraphLSTM)
 
 Implemented in `ml/spatiotemporal/`, the `SpatialGraphLSTM` is our flagship prediction architecture combining graph spatial message passing with recurrent temporal dynamics:
 
@@ -315,7 +291,7 @@ Canonical Forecast Output: [B, 4, 207, 1] (15m, 30m, 45m, 60m horizons in mph)
 
 ---
 
-## 10. Authoritative 7-Model Centralized Benchmark Comparison Matrix
+## 9. Authoritative 7-Model Centralized Benchmark Comparison Matrix
 
 All models evaluated strictly on unnormalized physical test sets ($\text{mph}$) over identical splits:
 
@@ -331,7 +307,7 @@ All models evaluated strictly on unnormalized physical test sets ($\text{mph}$) 
 
 ---
 
-## 11. 4-Region Non-IID Graph Partitioning Engine & Subgraph Slicing
+## 10. 4-Region Non-IID Graph Partitioning Engine & Subgraph Slicing
 
 Implemented in `ml/federated/prepare_clients.py`, this module divides the global road network into 4 realistic non-IID municipal traffic client partitions:
 
@@ -356,7 +332,7 @@ $$\tilde{A}^{(k)} = \left(\tilde{D}^{(k)}\right)^{-\frac{1}{2}} \left(A^{(k)} + 
 
 ---
 
-## 12. Federated Learning Core Architecture & FedAvg Aggregation Algorithm
+## 11. Federated Learning Core Architecture & FedAvg Aggregation Algorithm
 
 Implemented across `ml/federated/` (`client.py`, `server.py`, `aggregation.py`), TrafficPulse-X coordinates iterative distributed model training across municipal edge clients without raw telemetry transmission:
 
@@ -376,7 +352,7 @@ In each federated communication round $t \in \{1, \dots, R\}$:
 
 ---
 
-## 13. Communication-Constrained Value (CCV) Client Scheduling & Policy Evaluation
+## 12. Communication-Constrained Value (CCV) Client Scheduling & Policy Evaluation
 
 To address the core requirement of PS-003—evaluating communication costs—the server incorporates **Communication-Constrained Value (CCV) Scheduling** in `ml/federated/run_phase9_experiments.py`:
 
@@ -408,7 +384,7 @@ To address the core requirement of PS-003—evaluating communication costs—the
 
 ---
 
-## 14. Differential Privacy (DP-FedAvg) & Secure Aggregation Engine
+## 13. Differential Privacy (DP-FedAvg) & Secure Aggregation Engine
 
 Implemented in `ml/privacy/` (`dp_config.py`, `dp_client.py`, `secure_aggregation.py`, `runner.py`), TrafficPulse-X protects regional municipal sensor streams against inference attacks and gradient inversion:
 
@@ -439,7 +415,7 @@ $$\sum_{i=1}^K \tilde{W}_i = \sum_{i=1}^K W_i + \sum_{i=1}^K \left( \sum_{j > i}
 
 ---
 
-## 15. 9-Factor Decision Intelligence & Need Score Engine
+## 14. 9-Factor Decision Intelligence & Need Score Engine
 
 Implemented in `backend/prediction/service.py`, this module synthesizes deep federated forecasts with topological road network centrality to compute real-time operational priority:
 
@@ -477,7 +453,7 @@ $$S = \min\left(100, \, \max\left(0, \, \sum_{i=1}^9 w_i \cdot f_i\right)\right)
 
 ---
 
-## 16. Authoritative FastAPI REST API Service & Endpoints Catalog
+## 15. Authoritative FastAPI REST API Service & Endpoints Catalog
 
 Implemented in src/backend/main.py, the TrafficPulse-X backend exposes 69 strongly-typed REST endpoints running on Uvicorn/FastAPI with CORS support, deterministic root discovery, and Pydantic v2 schemas:
 
@@ -534,7 +510,7 @@ Implemented in src/backend/main.py, the TrafficPulse-X backend exposes 69 strong
 
 ---
 
-## 17. React 19 Frontend Architecture & Comprehensive Dashboard Tour
+## 16. React 19 Frontend Architecture & Comprehensive Dashboard Tour
 
 Implemented under `src/app/`, `src/components/`, and `src/pages/`, TrafficPulse-X provides an enterprise-grade digital twin traffic operations console featuring 7 specialized operational pages:
 
@@ -601,7 +577,7 @@ Implemented under `src/app/`, `src/components/`, and `src/pages/`, TrafficPulse-
 
 ---
 
-## 18. Fleet Dispatch, Alert Monitor & Communication Log UI Architecture
+## 17. Fleet Dispatch, Alert Monitor & Communication Log UI Architecture
 
 Implemented under `src/pages/Alerts/`, `src/pages/DecisionIntelligence/`, `src/pages/Communication/`, and `src/components/`, TrafficPulse-X provides an operator-grade decision and telemetry monitoring console:
 
@@ -630,7 +606,7 @@ Implemented under `src/pages/Alerts/`, `src/pages/DecisionIntelligence/`, `src/p
 
 ---
 
-## 19. Historical Replay Engine & Real-Time Telemetry Playback Architecture
+## 18. Historical Replay Engine & Real-Time Telemetry Playback Architecture
 
 Implemented under `src/context/ReplayContext.jsx` and `src/components/timeline/ReplayTimeline.jsx`, TrafficPulse-X provides a deterministic historical telemetry replay engine across the benchmark dataset:
 
@@ -658,7 +634,7 @@ Implemented under `src/context/ReplayContext.jsx` and `src/components/timeline/R
 
 ---
 
-## 20. Comprehensive Automated Integration Test Suite (343 Passing Tests)
+## 19. Comprehensive Automated Integration Test Suite (343 Passing Tests)
 
 TrafficPulse-X implements a mission-critical automated testing suite with **343 passing integration and unit test cases** covering every layer of the architecture, from mathematical baselines to federated privacy and real-time streaming contracts:
 
@@ -692,7 +668,7 @@ pytest backend/test_dp_experiment.py -v
 
 ---
 
-## 21. Quickstart Deployment & Verification Runbook
+## 20. Quickstart Deployment & Verification Runbook
 
 TrafficPulse-X is fully packaged for standalone verification, local execution, and containerized deployment:
 
@@ -730,7 +706,7 @@ docker run -d -p 8000:8000 -p 5173:5173 --name trafficpulse-prod trafficpulse-x:
 
 ---
 
-## 22. Submission Architectural Verification & Compliance Matrix
+## 21. Submission Architectural Verification & Compliance Matrix
 
 | Requirement / Criterion | Implementation Status | Verified Evidence & Checkpoint Artifacts |
 |---|:---:|---|
@@ -748,15 +724,15 @@ docker run -d -p 8000:8000 -p 5173:5173 --name trafficpulse-prod trafficpulse-x:
 
 ---
 
-## 23. Team & Project Governance Credits
+## 22. Team & Project Governance Credits
 
 - **Hackathon**: AIORI Hackathon 2026 — Level 2 Grand Finale
 - **Problem Statement**: **PS-003** (Smart Traffic Management & Spatio-Temporal Intelligence)
-- **Team ID**: **TC-198**
+- **Team ID**: **A3-PS003-TC198**
 - **Project Title**: **TrafficPulse-X** (Decentralized Spatio-Temporal Traffic Intelligence System)
 - **Team Members & Core Contributors**:
   - **Shaurya Pratap Singh** (`shauryapratapsingh723@gmail.com`) — Lead Architecture, Spatio-Temporal Graph ML, Federated Consensus & Privacy Accountant
   - **Adarsh Singh** (`adarsh04455@gmail.com`) — FastAPI Backend Architecture, Tactical React Frontend, Leaflet Geospatial Canvas & Replay Engine
 
 ---
-*End of Submission Documentation — TrafficPulse-X • TC-198 • AIORI Hackathon 2026*
+*End of Submission Documentation — TrafficPulse-X • A3-PS003-TC198 • AIORI Hackathon 2026*
