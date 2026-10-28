@@ -7,7 +7,7 @@
 - **Hackathon:** AIORI 3
 - **Project Name:** TrafficPulse-X
 - **Team Leader:** Adarsh Singh
-- **Team Member:** Shaurya Singh
+- **Team Member:** Shaurya Pratap Singh
 - **Faculty Mentor:** Aditya Sir
 
 ---
