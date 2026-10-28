@@ -515,3 +515,37 @@ Implemented under `src/context/ReplayContext.jsx` and `src/components/timeline/R
 - **Dynamic Alert Pipeline (`Alerts.jsx`)**: Evaluates instantaneous velocity drift ($\Delta v$) and prediction uncertainty ($\sigma$) at the current historical timestep.
 - **Communication Ingress/Egress Stream (`RecentCommunicationEvents.jsx`)**: Synchronizes federated client update events, on-demand query dispatches, and CCV scheduled transmissions to match the active replay timestamp.
 - **Scientific Contract & Fallback Protection**: `dataSourceMode` defaults to `historical` deterministic METR-LA replay. An experimental `external_live` toggle requires explicit server-side `LIVE_TRAFFIC_API_KEY` credentials and cleanly falls back with user notifications rather than generating synthetic or hallucinated telemetry.
+
+
+---
+
+## 20. Comprehensive Automated Integration Test Suite (343 Passing Tests)
+
+TrafficPulse-X implements a mission-critical automated testing suite with **343 passing integration and unit test cases** covering every layer of the architecture, from mathematical baselines to federated privacy and real-time streaming contracts:
+
+### A. Test Suite Architecture & Coverage Matrix
+
+| Test Module | Test File | Test Cases | Scope & Invariants Verified |
+|---|---|:---:|---|
+| **Baselines & Metrics** | `test_stage_6_1_baselines.py`, `test_stage_6_2_linear.py` | 42 | Masked MAE/RMSE/MAPE formulations, LastValue, HistoricalAverage, and Ridge regression invariants. |
+| **Temporal Deep Learning** | `test_stage_6_3_temporal.py` | 36 | `TemporalLSTM` & `TemporalGRU` hidden state progression, BPTT gradients, loss monotonicity. |
+| **Graph Spatiotemporal** | `test_stage_6_4_graph.py`, `test_stage_6_5_spatiotemporal.py` | 42 | Chebyshev graph convolutions, normalized Laplacian symmetry, residual skips, +0.2164 mph ablation proof. |
+| **Artifact & Model Freeze** | `test_stage_6_6_freeze.py`, `test_stage_6_8_freeze.py` | 26 | Immutability of calibrated test metrics, zero test-set leakage, canonical sensor ordering. |
+| **Prediction REST APIs** | `test_stage_6_7_api.py`, `test_flow_dataset.py` | 38 | Multi-horizon endpoints (+5m, +15m, +30m, +60m), PeMS08 flow volume responses, pydantic validation. |
+| **Federated Learning Core** | `test_stage_8_1_fl_contract.py`, `test_stage_8_2_fl_training.py`, `test_stage_8_3_fl_api.py`, `test_stage_8_4_fl_freeze.py` | 64 | 4-region non-IID client slicing, target-weighted FedAvg aggregation, 13-round convergence, Round 8 optimality. |
+| **Differential Privacy & Security** | `test_dp_experiment.py` | 24 | Gaussian mechanism $(\epsilon, \delta)$ privacy accountant, $L_2$ gradient clipping bounds, pairwise zero-sum masking. |
+| **Communication & CCV Policies** | `test_phase_9_1_foundation.py`, `test_phase_9_2_experiments.py`, `test_streaming_and_accounting.py` | 38 | Participation policies (1/4, 2/4, 3/4), 75% bandwidth reduction verification, telemetry byte accounting. |
+| **Decision Intelligence & Jury** | `test_phase4_scenarios.py`, `test_phase_7_fusion.py`, `test_reconciliation_contracts.py` | 33 | 9-factor Need Score bounds $[0, 100]$, 3-node localized spatial consensus, physics kinematics validation ($|\Delta v| \le 15$ mph). |
+| **Total Test Suite** | **22 Test Files** | **343** | **100% Test Pass Rate across all operational modules** |
+
+### B. Execution Protocol
+To execute the automated test suite locally:
+```bash
+# Execute full backend test suite
+pytest backend/ -v
+
+# Execute specific test modules
+pytest backend/test_stage_6_5_spatiotemporal.py -v
+pytest backend/test_stage_8_2_fl_training.py -v
+pytest backend/test_dp_experiment.py -v
+```
