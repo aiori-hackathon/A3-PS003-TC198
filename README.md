@@ -8,7 +8,7 @@
 - **Project Name:** TrafficPulse-X
 - **Team Leader:** Adarsh Singh
 - **Team Member:** Shaurya Pratap Singh
-- **Faculty Mentor:** Aditya Sir
+- **Faculty Mentor:** Aditya Srivastava 
 
 ---
 
