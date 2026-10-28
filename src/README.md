@@ -1,47 +1,130 @@
-# TrafficPulse-X Implementation Source
+# TrafficPulse-X • Decentralized Spatio-Temporal Traffic Intelligence
 
-Welcome to the **TrafficPulse-X** core implementation workspace for **Problem Statement PS-003: Federated Traffic-Flow Prediction with Communication-Cost Evaluation**.
-
-TrafficPulse-X provides an enterprise-grade federated traffic forecasting system built upon spatial graph convolutional networks, temporal recurrence, privacy-preserving federated aggregation, and an interactive real-time decision intelligence dashboard.
+> **AIORI Hackathon 2026 — Level 2 Grand Finale**  
+> **Problem Statement PS-003**: Federated Traffic-Flow Prediction with Communication-Cost Evaluation  
+> **Team ID**: TC-198 | **Team Members**: Shaurya Pratap Singh & Adarsh Singh  
+> **Project Repository**: `https://github.com/aiori-hackathon/A3-PS003-TC198.git`  
+> **Submission Constraint**: Root presentation and root README remain 100% untouched. All source code, models, configs, and documentation live strictly inside `src/`.
 
 ---
 
 ## 1. System Architecture Overview
 
 ```text
-                               ┌─────────────────────────────────┐
-                               │     Central Federated Server    │
-                               │  - Global Aggregator (FedAvg)   │
-                               │  - CCV Client Scheduling Engine │
-                               │  - DP Noise & Secure Aggregator │
-                               └────────────────┬────────────────┘
-                                                │
-                     ┌──────────────────────────┼──────────────────────────┐
-                     │ Global Weights W_t       │ Updates ΔW_k             │ Evaluation
-                     ▼                          ▼                          ▼
-        ┌────────────────────────┐ ┌────────────────────────┐ ┌────────────────────────┐
-        │  Regional Client 0     │ │  Regional Client 1     │ │  Regional Client 2     │
-        │  (Griffith Park/Glend) │ │  (Downtown LA Core)    │ │  (San Fernando Valley) │
-        │  - Local PEMS Subgraph │ │  - Local PEMS Subgraph │ │  - Local PEMS Subgraph │
-        │  - Chebyshev GCN+LSTM  │ │  - Chebyshev GCN+LSTM  │ │  - Chebyshev GCN+LSTM  │
-        └────────────────────────┘ └────────────────────────┘ └────────────────────────┘
++-----------------------------------------------------------------------------------+
+|                        CENTRAL FEDERATED AGGREGATION SERVER                       |
+|  - Target-Weighted Federated Averaging (FedAvg)                                   |
+|  - Communication-Constrained Value (CCV) Scheduling (1/4, 2/4, 3/4 Participation) |
+|  - Differential Privacy Gaussian Mechanism & Pairwise Zero-Sum Secure Aggregation |
+|  - Global Model Checkpoint Repository (Optimal Round 8 Checkpoint)                |
++-----------------------------------------+-----------------------------------------+
+                                          |
+                +-------------------------+-------------------------+
+                | Parameter Updates: dW_k | Global Weights: W_t     |
+                v                         v                         v
++-----------------------+ +-----------------------+ +-----------------------+ +-----------------------+
+|    REGIONAL CLIENT A  | |    REGIONAL CLIENT B  | |    REGIONAL CLIENT C  | |    REGIONAL CLIENT D  |
+|  - North-East Cluster | |  - South-East Cluster | |  - Central-West Clust | |  - North-West Clust |
+|  - 48 Loop Detectors  | |  - 57 Loop Detectors  | |  - 58 Loop Detectors  | |  - 44 Loop Detectors  |
+|  - Local Spatial Graph| |  - Local Spatial Graph| |  - Local Spatial Graph| |  - Local Spatial Graph|
+|  - SpatialGraphLSTM   | |  - SpatialGraphLSTM   | |  - SpatialGraphLSTM   | |  - SpatialGraphLSTM   |
+|  - Local Data Locality| |  - Local Data Locality| |  - Local Data Locality| |  - Local Data Locality|
++-----------------------+ +-----------------------+ +-----------------------+ +-----------------------+
 ```
 
-The system is organized into modular subsystems:
+### A. Subsystem Decomposition
 - **`ml/`**: Machine learning models (Chebyshev GCN, LSTM), baseline forecasters, federated learning contracts, communication-constrained scheduling (CCV), and differential privacy.
 - **`backend/`**: High-performance FastAPI backend exposing REST APIs for live telemetry, model predictions, decision scoring, and client fleet metrics.
 - **`frontend/`**: Interactive operator dashboard built with React 19, Vite, and Leaflet for geospatial traffic visualization, historical replay, and dispatch controls.
 - **`data/`**: Sensor topology, adjacency matrices, distance metadata, and traffic speed series.
 
+### B. Complete Project Directory & File Tree (`src/`)
+```text
+src/
+|-- app/                               # Application shell and routing
+|   |-- App.jsx                        # Root React layout, navigation bar, and replay context frame
+|   `-- routes.jsx                     # Client-side router for all 7 dashboard modules
+|
+|-- backend/                           # FastAPI high-performance REST backend
+|   |-- assistant.py                   # Embedded operations assistant & AI traffic copilot
+|   |-- config.py                      # Server settings, telemetry thresholds, and environment flags
+|   |-- data_source.py                 # Telemetry stream orchestrator (Historical vs External Live)
+|   |-- graph.py                       # Network graph topology router (adjacency, edges, coordinates)
+|   |-- main.py                        # FastAPI entrypoint exposing 53 production REST endpoints
+|   |-- communication_intelligence/    # CCV scheduling policies, byte accounting, and telemetry savings
+|   |-- data_sources/                  # Dataset streaming adapters (METR-LA and PeMS08)
+|   |-- datasets/                      # Graph loaders, normalized Laplacian calculation, distance matrices
+|   |-- decision/                      # 9-Factor Need Score engine, spatial jury, and kinematics gate
+|   |-- experiments/                   # PeMS08 flow router, network accounting, and transport benchmarks
+|   |-- federated/                     # Federated consensus service, client profiles, and round history
+|   |-- privacy/                       # Differential privacy accountant router and secure aggregation
+|   `-- test_*.py (22 files)           # Automated integration test suite (343 passing test cases)
+|
+|-- components/                        # Modular React UI components
+|   |-- alerts/                        # Alert stream tables, secondary analytics, and alert inspectors
+|   |-- assistant/                     # Floating conversational operational assistant widget
+|   |-- common/                        # Metric cards, scientific badges, status badges, data tables
+|   |-- communication/                 # CCV donut charts, hero flow streams, and Pareto trade-off curves
+|   |-- decision/                      # Need Score breakdown, evidence chains, and counterfactual query cards
+|   |-- federated/                     # Convergence charts, non-IID client cards, and DP privacy panels
+|   |-- intro/                         # Onboarding and executive opening experience modal
+|   |-- overview/                      # Hero console, outlook timeline, and multi-model benchmark bars
+|   |-- prediction/                    # Multi-horizon forecast cards, Recharts time-series, insights panel
+|   |-- timeline/                      # 5-minute historical replay timeline scrubber and speed controls
+|   `-- traffic/                       # Leaflet map canvas, sensor detail panel, heatmaps, blind spots
+|
+|-- context/                           # Global state management
+|   |-- ReplayContext.jsx              # Deterministic 34,272-step replay state machine and playhead clock
+|   `-- ThemeContext.jsx               # Dark/Light high-contrast tactical operations theme provider
+|
+|-- data/                              # Real traffic sensor datasets and graph matrices
+|   |-- processed/metr-la/             # Preprocessed METR-LA arrays and regional partitions
+|   |-- raw/metr-la/                   # Sensor locations, distances, and 207-node adj_mx.pkl
+|   `-- raw/pems08/                    # Caltrans PeMS08 flow distance matrix and traffic volume npz
+|
+|-- ml/                                # Machine learning models and training pipelines
+|   |-- baselines/                     # LastValue, HistoricalAverage, and RidgeRegression forecasters
+|   |-- temporal/                      # TemporalLSTM and TemporalGRU models with Masked-MAE loss
+|   |-- graph/                         # SpatialGCN with Chebyshev normalized Laplacian
+|   |-- spatiotemporal/                # End-to-end SpatialGraphLSTM neural network
+|   |-- federated/                     # FedAvg client/server orchestrator, round checkpoints (Rounds 0-13)
+|   |-- privacy/                       # Opacus DP-SGD gradient clipping, Gaussian noise, pairwise masking
+|   `-- experiments/                   # PeMS08 flow training, non-IID partition generators, benchmarks
+|
+|-- pages/                             # 7 Core Operations Dashboard Pages
+|   |-- Overview/                      # Executive KPI console, regional map, and 7-model benchmark
+|   |-- TrafficNetwork/                # Tactical Leaflet map, laser connection edges, sensor telemetry panel
+|   |-- Prediction/                    # Multi-horizon forecasting (+5m to +60m) and uncertainty bands
+|   |-- FederatedLearning/             # Decentralized training convergence, client nodes, and DP privacy
+|   |-- DecisionIntelligence/          # 9-Factor Need Score prioritizer, spatial jury, and query ranking
+|   |-- Alerts/                        # Instantaneous speed drift detection and anomaly stream
+|   `-- Communication/                 # CCV policy evaluation, byte tracking, and 75% bandwidth reduction
+|
+|-- public/                            # Favicons, vector icons, and static assets
+|-- services/api.js                    # Comprehensive Axios/Fetch API client communicating with FastAPI
+|-- utils/formatters.js                # Geospatial distance, velocity, and timestamp formatting utilities
+|-- index.html                         # Vite HTML template
+|-- package.json                       # Frontend dependencies and dev scripts
+|-- requirements.txt                   # Python backend and ML dependencies
+`-- vite.config.js                     # Vite build and proxy configuration
+```
+
 ---
 
 ## 2. Technical Stack & Prerequisites
 
-- **Python Runtime**: Python 3.10 or higher
-- **Machine Learning**: PyTorch 2.0+, NumPy, SciPy, Pandas, Opacus (Differential Privacy)
-- **Backend API**: FastAPI, Uvicorn, Pydantic v2
-- **Frontend & Visualization**: Node.js 18+, React 19, Vite, Leaflet, React-Leaflet, Recharts, Tailwind CSS
-- **Testing**: Pytest (automated test suite)
+| Layer | Technologies Used | Purpose & Implementation Details |
+|---|---|---|
+| **Frontend Framework** | **React 19** & **Vite 6** | Ultra-responsive component architecture with sub-second hot module reloading. |
+| **Styling & UI Components** | **Tailwind CSS 4** & **Lucide React** | Tactical high-contrast operations UI with seamless Dark/Light theme switching. |
+| **Geospatial Mapping** | **Leaflet** & **React-Leaflet** | Watermark-free GIS canvas rendering 207 GPS sensors, polygons, and laser graph lines. |
+| **Data Visualization** | **Recharts** | Real-time multi-horizon time-series, uncertainty bounds, and convergence charts. |
+| **Backend API** | **FastAPI** & **Uvicorn** | Asynchronous REST service serving 53 endpoints with Pydantic v2 data validation. |
+| **Scientific Computing** | **NumPy**, **SciPy**, **Pandas** | Graph Laplacian normalization, Haversine spatial math, and telemetry array slicing. |
+| **Deep Learning** | **PyTorch 2.0+** | SpatialGraphLSTM, Chebyshev graph convolutions, and LSTM temporal recurrence. |
+| **Federated Learning** | Custom **FedAvg Engine** | 4-region non-IID client graph partitioning with target-weighted parameter averaging. |
+| **Privacy & Security** | **DP-SGD** & **Pairwise Masking** | Gaussian mechanism (epsilon, delta) privacy accountant and zero-sum secret sharing. |
+| **Testing Framework** | **Pytest** | Automated test suite comprising 343 passing unit and integration tests. |
 
 ---
 
@@ -59,18 +142,30 @@ source .venv/bin/activate    # On Linux/macOS
 
 # Install runtime dependencies
 pip install -r requirements.txt
+
+# Start the FastAPI Backend Daemon on port 8000
+python -m uvicorn backend.main:app --host 127.0.0.1 --port 8000 --reload
 ```
+* **API Documentation**: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+* **Backend Health Check**: [http://127.0.0.1:8000/api/health](http://127.0.0.1:8000/api/health)
 
 ### B. Frontend Dashboard Environment
 ```bash
-# Install frontend package dependencies
+# In src/ directory, install frontend package dependencies
 npm install
 
-# Start the Vite local development server
-npm run dev
+# Start the Vite local development server on port 5173
+npm run dev -- --host 127.0.0.1 --port 5173
+```
+* **Dashboard Application**: [http://127.0.0.1:5173/](http://127.0.0.1:5173/)
+
+### C. Automated Testing Execution
+```bash
+# Execute the full 343-test automated test suite
+pytest backend/ -v
 ```
 
-### C. Configuration
+### D. Configuration
 Copy the provided `.env.example` to `.env` to configure optional overrides:
 ```bash
 cp .env.example .env
@@ -439,29 +534,70 @@ Implemented in src/backend/main.py, the TrafficPulse-X backend exposes 69 strong
 
 ---
 
-## 17. React 19 Frontend Architecture & Leaflet Real-Time Traffic Map
+## 17. React 19 Frontend Architecture & Comprehensive Dashboard Tour
 
-Implemented under src/ (src/app/, src/components/traffic/, src/pages/TrafficNetwork/, src/pages/Overview/, and src/vite.config.js), TrafficPulse-X features an enterprise-grade digital twin traffic console:
+Implemented under `src/app/`, `src/components/`, and `src/pages/`, TrafficPulse-X provides an enterprise-grade digital twin traffic operations console featuring 7 specialized operational pages:
 
-### A. Frontend Tech Stack & Entry Points
-- **Framework**: React 19 with JSX runtime, React Router v7 (src/app/routes.jsx).
-- **Build Tooling**: Vite 8 with @vitejs/plugin-react and Tailwind CSS v4 (src/vite.config.js, src/index.html).
-- **Styling**: Modern dark-mode optimized theme with custom subpixel font antialiasing and glassmorphism styling (src/index.css).
-- **Client API Layer**: src/services/api.js provides dynamic API base detection and seamless async requests to the FastAPI backend.
+### Page 1: Overview Command Center (`/`)
+* **Top 4 KPI Metrics**:
+  * *System Health* (`98.4% Nominal`): Network detector uptime.
+  * *Communication Efficiency* (`+75% Bandwidth Saved`): Telemetry transmissions saved by Need Score gating.
+  * *Monitored Network* (`207 Active Sensors`): Fully tracked freeway detectors.
+  * *Centralized Benchmark* (`3.4378 mph MAE`): Production model baseline.
+* **Regional Zone Partitioning Map**: Displays the 4 federated regional clusters (Region A: North-East, Region B: South-East, Region C: Central-West, Region D: North-West) with detector density indicators.
+* **7-Model Benchmark Matrix**: Live bar chart comparing `SpatialGraphLSTM` against all baselines (`SpatialGCN`, `TemporalLSTM`, `TemporalGRU`, `Ridge`, `Historical Average`, `Last Value`).
+* **Outlook Timeline**: Hourly morning/afternoon congestion forecasts with bottleneck warnings.
 
-### B. Leaflet Real-Time Traffic Map (RealTrafficMap.jsx)
-- **Geospatial Canvas**: Leaflet 1.9 + React-Leaflet 5 container bound to Los Angeles highway freeway network coordinates (.05^{\circ}\text{N}, -118.25^{\circ}\text{W}$).
-- **207 Sensor Pin Rendering**: Every physical METR-LA loop detector is rendered with exact geographic placement, interactive popups, and click-to-inspect telemetry drawers.
-- **Dynamic Speed Velocity Spectrum**:
-  - Normal Flow (Green #10B981): Speeds $\ge 50$ mph.
-  - Moderate Congestion (Amber #F59E0B): Speeds between $ and $ mph.
-  - Severe Bottleneck (Crimson #EF4444): Speeds $< 35$ mph.
-- **Corridor Connections & Laser Lines**: Topological road adjacency links connecting adjacent sensor nodes, dynamically rendered on canvas with zero ghosting artifacts.
-- **Unified Map Controls & Accessibility**:
-  - Quick region filters (ALL, REGION_A, REGION_B, REGION_C, REGION_D) with dedicated ria-label tags.
-  - One-click Fit Full LA Freeway Network Overview button.
-  - Target Sensor Focus auto-centering.
+---
 
+### Page 2: Tactical Traffic Network (`/network`)
+* **Interactive Leaflet Geospatial Canvas (`RealTrafficMap.jsx`)**:
+  * **3 Professional Basemaps**: Street (ArcGIS World Street Map), Satellite (High-resolution imagery), and Tactical Dark (Night vision canvas).
+  * **207 Real GPS Loop Detectors**: Color-coded dynamically by velocity: Green (>= 50 mph Free Flow), Amber (35-50 mph Moderate), and Red (< 35 mph Congestion).
+  * **Dynamic Laser Graph Lines**: Visualizes actual road adjacency connections between adjacent sensors from the spatial graph topology.
+  * **Red Radar Pulse Beacon**: Selecting any sensor highlights it with animated expanding dual radar ripples and a high-contrast ID badge.
+  * **Region Selector Tabs**: One-click auto-pan and zoom to Region A, B, C, or D bounding polygons.
+* **Dedicated Sensor Detail Panel (`SensorDetailPanel.jsx` - 25% Width)**:
+  * *Overview Tab*: Real-time speed hero display, 4-metric grid (Need Score, Uncertainty variance, Traffic Drift, Data Quality), adjacent neighbors with **Haversine GPS distances**, and one-click Google Maps link.
+  * *Links Tab*: Full list of topological graph neighbors with individual speed badges; clicking any neighbor flies the map directly to that node.
+  * *Evidence Tab*: Decision gating reasons and "Execute Query" action button.
+  * *History Tab*: Detector hardware health and 5-minute sampling status.
+* **Traffic Speed Heatmap (`TrafficSpeedHeatmap.jsx`)**: Time x Space matrix displaying speed transitions across 12 key highway corridors across "Last 30 Min", "Last 60 Min", or "Forecast Horizons".
+* **Coverage Blind Spots Panel (`CoverageBlindSpotsPanel.jsx`)**: Circular Donut Gauge showing 75% coverage, flagging unmonitored highway gaps and suggesting optimal candidate sensors.
+* **Spatial Speed Consistency Engine (`SpatialSpeedConsistencyPanel.jsx`)**: Evaluates localized speed agreement between adjacent sensors (v_upstream - v_downstream) to instantly detect shockwaves or accidents.
+
+---
+
+### Page 3: Traffic Forecasting & ML Engine (`/prediction`)
+* **Multi-Horizon Forecast Cards**:
+  * `+5 min`: Predicted speed, delta vs current, Test MAE **2.3648 mph** (HIGH confidence), uncertainty +/- 1.65 mph.
+  * `+15 min`: Predicted speed, delta vs current, Test MAE **3.0007 mph** (HIGH confidence), uncertainty +/- 2.10 mph.
+  * `+30 min`: Predicted speed, delta vs current, Test MAE **3.6699 mph** (MEDIUM confidence), uncertainty +/- 2.85 mph.
+  * `+60 min`: Predicted speed, delta vs current, Test MAE **4.7158 mph** (LOW confidence), uncertainty +/- 3.90 mph.
+* **Next-Hour Forecasting Line Chart**:
+  * *Historical Input Window* (`-15m -> -5m`): Trailing ground truth telemetry.
+  * *Orange Vertical Marker* (`NOW - T0`): Current time boundary.
+  * *Cyan Prediction Line*: `SpatialGraphLSTM` multi-horizon trajectory.
+  * *Green Dashed Line*: Actual ground-truth velocity.
+  * *Purple Shaded Band*: Empirical +/- 1-sigma uncertainty envelope.
+* **Dataset Toggle**: Seamless switch between **METR-LA Speed Forecasting (mph)** and **Caltrans PeMS08 Flow Volume Forecasting (veh/5min)**, demonstrating multi-dataset generalization.
+
+---
+
+### Page 4: Federated Learning Edge Grid (`/federated`)
+* **Top Federated KPIs**:
+  * *Best Round*: Round 8 (Selected global checkpoint).
+  * *Best Validation MAE*: **3.1536 mph** (Optimal validation convergence).
+  * *Final Test MAE*: **3.5322 mph** (Full 207-sensor test set).
+  * *Centralized Reference*: **3.4378 mph**.
+  * *Observed Trade-off*: Only **+0.0944 mph (+2.75%)** — proving federated consensus preserves centralized accuracy while safeguarding 100% data locality!
+* **4 Regional Client Partitions Strip**:
+  * *Client A*: 48 sensors, FedAvg weight = `0.2291`, Test MAE = `2.4446 mph`.
+  * *Client B*: 57 sensors, FedAvg weight = `0.2771`, Test MAE = `4.0770 mph`.
+  * *Client C*: 58 sensors, FedAvg weight = `0.2795`, Test MAE = `3.4840 mph`.
+  * *Client D*: 44 sensors, FedAvg weight = `0.2144`, Test MAE = `4.0979 mph`.
+* **Federated Convergence Chart**: Tracks global validation speed MAE across all 14 communication rounds (Round 0 to Round 13), highlighting Round 8 as the optimal checkpoint before validation saturation.
+* **Cryptographic Checkpoint Provenance**: Verifies `global_best.pt` with SHA-256 hash `24710dae0fe0554ca8111ad21e05de03b69a282f0b8d8868a1433ba6fd9c2930`.
 
 ---
 
@@ -469,26 +605,29 @@ Implemented under src/ (src/app/, src/components/traffic/, src/pages/TrafficNetw
 
 Implemented under `src/pages/Alerts/`, `src/pages/DecisionIntelligence/`, `src/pages/Communication/`, and `src/components/`, TrafficPulse-X provides an operator-grade decision and telemetry monitoring console:
 
-### A. Alert Monitoring Console (`Alerts.jsx`)
-- **Multi-Category Anomaly Detection**:
-  - `Congestion`: Velocity drops below regional corridor threshold (< 35 mph).
-  - `Sensor Failure`: Packet loss, missing frames, or telemetry freeze.
-  - `High Uncertainty`: Residual forecast standard deviation $\sigma > 3.0$ mph.
-  - `Velocity Drift`: Acceleration gradient $\Delta v > 0.30$.
-  - `Corridor Debt / Blind Spot`: Spatial isolation penalty with Need Score $\ge 0.70$.
-- **Dynamic KPI Pipeline**: Active header counters (`highUncertaintyCount`, `highDriftCount`, `blindSpotCount`) dynamically evaluate against the current filter state in real time.
-- **Selected Alert Inspector**: Detailed modal revealing raw sensor velocity, 4-step forecast trend, confidence bounds, and recommended operational intervention.
+### Page 5: Decision Intelligence & Query Gating (`/decision`)
+* **9-Factor Need Score Engine**: Calculates a composite urgency metric S in [0, 100]:
+  * `CRITICAL (>= 75)`: Autonomous signal adjustment and immediate evidence query.
+  * `ELEVATED (50-74)`: Dynamic driver advisory and rate throttling.
+  * `MONITORED (< 50)`: Routine passive surveillance (zero bandwidth consumed).
+* **Spatial Neighbor Jury Consensus**: 3-node localized spatial consensus validates whether an anomaly is confirmed by adjacent highway sensors or represents an isolated sensor malfunction.
+* **Physical Kinematics Gate**: Enforces physical road limits (|delta v| <= 15 mph/5min) to prevent hallucinated predictions from influencing routing decisions.
+* **Evidence-on-Demand Query Engine**: Allows operators to dispatch targeted high-resolution telemetry queries to specific edge nodes.
 
-### B. Fleet Telemetry Prioritization & Emergency Dispatch Panels
-- **Evidence-on-Demand Query Workflow**: When anomalous uncertainty is detected, operators trigger selective high-resolution queries rather than polling raw telemetry continuously.
-- **Spatial Neighbor Jury Consensus (`jury.py`)**: 3-node localized spatial consensus validates whether an anomaly is confirmed by adjacent highway sensors or represents an isolated sensor fault.
-- **Physical Kinematics Gate (`physics.py`)**: Enforces acceleration and velocity bound checks ($|\Delta v| \le 15$ mph/5min) to prevent hallucinated predictions from propagating.
-- **Scientific Contract Enforcement**: Guarantees that "dispatch" strictly denotes on-demand edge sensor telemetry querying and dynamic signal advisory, with zero simulated physical emergency patrol car dispatch.
+---
 
-### C. Communication Intelligence & Audit Log UI (`Communication.jsx`)
-- **CCV Policy Matrix**: Real-time evaluation of client participation tiers (Policy 1/4, 2/4, 3/4, and 4/4) tracking cumulative ingress/egress bytes.
-- **Bandwidth Reduction vs Model Accuracy**: Pareto trade-off curve demonstrating up to 75% bandwidth reduction with less than 2.8% loss in forecast accuracy.
-- **Replay-Aware Communication Stream (`RecentCommunicationEvents.jsx`)**: Displays timestamped logs of regional model uploads, global weight downloads, telemetry heartbeats, and on-demand evidence batches synchronized with the active historical replay window.
+### Page 6: Live Alerts & Fleet Surveillance (`/alerts`)
+* **Real-Time Anomaly Stream**: Continuously flags severe velocity drops, excessive prediction residuals, and hardware data dropouts.
+* **Alert Severity Levels**: `Critical` (immediate road blockage), `Elevated` (forming queue), `Normal` (standard flow).
+* **Selected Alert Inspector**: Detailed modal revealing raw sensor velocity, 4-step forecast trend, confidence bounds, and recommended operational intervention.
+
+---
+
+### Page 7: Communication Intelligence Console (`/communication`)
+* **CCV Policy Evaluation**: Real-time evaluation of client participation tiers (Policy 1/4, 2/4, 3/4, and 4/4) tracking cumulative ingress/egress bytes.
+* **Pareto Bandwidth Savings Curve**: Proves that scheduling a subset of clients per round saves **75% communication bandwidth** with less than 2.8% loss in forecast accuracy.
+* **Audit Stream**: Real-time chronological log of model uploads, global weight broadcasts, and on-demand query dispatches.
+
 ---
 
 ## 19. Historical Replay Engine & Real-Time Telemetry Playback Architecture
