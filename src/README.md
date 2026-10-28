@@ -549,3 +549,75 @@ pytest backend/test_stage_6_5_spatiotemporal.py -v
 pytest backend/test_stage_8_2_fl_training.py -v
 pytest backend/test_dp_experiment.py -v
 ```
+
+
+---
+
+## 21. Quickstart Deployment & Verification Runbook
+
+TrafficPulse-X is fully packaged for standalone verification, local execution, and containerized deployment:
+
+### A. Prerequisites
+- **Python**: 3.10, 3.11, or 3.12 (Recommended)
+- **Node.js**: v18.0.0+ (npm v9.0.0+)
+- **System Memory**: 8 GB RAM minimum (16 GB recommended for multi-client FL simulations)
+
+### B. Local 3-Step Quickstart Execution
+
+```bash
+# Step 1: Install Dependencies
+# In project root / src directory:
+pip install -r requirements.txt
+npm install
+
+# Step 2: Launch the FastAPI Backend Service
+python -m uvicorn backend.main:app --host 127.0.0.1 --port 8000 --reload
+# API Docs available at: http://127.0.0.1:8000/docs
+# Health endpoint: http://127.0.0.1:8000/api/health
+
+# Step 3: Launch the React Operations Dashboard
+npm run dev -- --host 127.0.0.1 --port 5173
+# Operations UI available at: http://127.0.0.1:5173/
+```
+
+### C. Docker Containerized Deployment
+```bash
+# Build the unified production image
+docker build -t trafficpulse-x:latest -f Dockerfile .
+
+# Launch container with port bindings
+docker run -d -p 8000:8000 -p 5173:5173 --name trafficpulse-prod trafficpulse-x:latest
+```
+
+---
+
+## 22. Submission Architectural Verification & Compliance Matrix
+
+| Requirement / Criterion | Implementation Status | Verified Evidence & Checkpoint Artifacts |
+|---|:---:|---|
+| **Root Scope Constraint** | 🟢 **100% UNTOUCHED** | Root `A3-PS003-TC198-Presentation.pdf` and root `README.md` strictly unchanged since commit `45d9f97`. All code lives in `src/`. |
+| **Real Spatial Road Graph** | 🟢 **VERIFIED** | 207 METR-LA sensors with Haversine distance matrix, Chebyshev polynomial normalized Laplacian ($K=3$). |
+| **Multi-Dataset Transfer** | 🟢 **VERIFIED** | Model architecture validated on both METR-LA (Speed forecasting) and Caltrans PeMS08 (Flow volume forecasting). |
+| **Graph Deep Learning Gain** | 🟢 **+0.2164 mph** | Rigorous ablation proof: `SpatialGraphLSTM` (3.4378 mph) beats purely temporal LSTM (3.6542 mph). |
+| **Decentralized Federated Learning** | 🟢 **VERIFIED** | 4-region non-IID client graph partitioning with target-weighted FedAvg consensus across 14 communication rounds. |
+| **Privacy-Accuracy Trade-off** | 🟢 **+0.0944 mph** | Centralized reference (3.4378 mph) vs FedAvg Round 8 (3.5322 mph) — only a 2.75% gap with 100% data locality. |
+| **Communication Optimization** | 🟢 **75% REDUCTION** | CCV scheduling policies (1/4, 2/4, 3/4) and 9-factor Need Score gating preserve bandwidth under edge constraints. |
+| **Privacy Safeguards** | 🟢 **VERIFIED** | Differential Privacy (DP-SGD gradient clipping + Gaussian noise) and pairwise zero-sum secret masking. |
+| **Full Operations Dashboard** | 🟢 **PRODUCTION UI** | 7 dedicated consoles: Overview, Traffic Network (Leaflet), Prediction, Federated Learning, Decision Intelligence, Alerts, Communication. |
+| **Historical Telemetry Replay** | 🟢 **VERIFIED** | 5-minute granular playback across 34,272 timesteps with dynamic speed scrubbing ($0.5\times, 1\times, 2\times$). |
+| **Automated Testing Suite** | 🟢 **343 TESTS PASSING** | 22 test files covering mathematical baselines, temporal/graph DL, FL contracts, and REST API endpoints. |
+
+---
+
+## 23. Team & Project Governance Credits
+
+- **Hackathon**: AIORI Hackathon 2026 — Level 2 Grand Finale
+- **Problem Statement**: **PS-003** (Smart Traffic Management & Spatio-Temporal Intelligence)
+- **Team ID**: **TC-198**
+- **Project Title**: **TrafficPulse-X** (Decentralized Spatio-Temporal Traffic Intelligence System)
+- **Team Members & Core Contributors**:
+  - **Shaurya Pratap Singh** (`shauryapratapsingh723@gmail.com`) — Lead Architecture, Spatio-Temporal Graph ML, Federated Consensus & Privacy Accountant
+  - **Adarsh Singh** (`adarsh04455@gmail.com`) — FastAPI Backend Architecture, Tactical React Frontend, Leaflet Geospatial Canvas & Replay Engine
+
+---
+*End of Submission Documentation — TrafficPulse-X • TC-198 • AIORI Hackathon 2026*
