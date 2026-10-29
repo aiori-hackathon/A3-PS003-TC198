@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import {
   MapPin,
   Clock,
@@ -26,6 +26,7 @@ export default function ForecastControlBar({
   selectedMetric = 'speed',
   onMetricChange,
   effectiveTimeIndex = 12,
+  timestampStr = '',
   onStepForward,
   onStepBackward,
   onReevaluate,
@@ -33,6 +34,17 @@ export default function ForecastControlBar({
 }) {
   const [metricOpen, setMetricOpen] = useState(false);
   const metricRef = useRef(null);
+
+  const displayTime = useMemo(() => {
+    if (timestampStr && timestampStr.length >= 16) {
+      return timestampStr.substring(11, 16);
+    }
+    const currentTimestampMs = new Date('2012-03-01T00:00:00Z').getTime() + effectiveTimeIndex * 5 * 60 * 1000;
+    const d = new Date(currentTimestampMs);
+    const hours = String(d.getUTCHours()).padStart(2, '0');
+    const mins = String(d.getUTCMinutes()).padStart(2, '0');
+    return `${hours}:${mins}`;
+  }, [timestampStr, effectiveTimeIndex]);
 
   // Close dropdown on outside click, Escape key, or browser navigation
   useEffect(() => {
@@ -274,14 +286,16 @@ export default function ForecastControlBar({
           </div>
 
           <div className="h-9 flex items-center gap-1.5 bg-slate-50 dark:bg-[#0B2033] px-2.5 rounded-xl border border-slate-200 dark:border-[#17364E] text-xs">
-            <Clock className="w-3.5 h-3.5 text-amber-500 shrink-0" />
-            <span className="text-slate-500 dark:text-[#7F96AA] font-medium hidden sm:inline">Interval:</span>
-            <span className="font-mono font-bold text-slate-900 dark:text-[#F7FAFF] px-1">T+{effectiveTimeIndex * 5}m</span>
+            <Clock className="w-3.5 h-3.5 text-cyan-500 shrink-0" />
+            <span className="text-slate-500 dark:text-[#7F96AA] font-medium hidden sm:inline">Replay:</span>
+            <span className="font-mono font-bold text-slate-900 dark:text-[#F7FAFF] px-0.5 whitespace-nowrap">
+              {displayTime} <span className="text-[10px] text-slate-400 font-normal">(Step {effectiveTimeIndex})</span>
+            </span>
             {onStepBackward && (
               <button
                 onClick={onStepBackward}
                 className="w-5 h-5 flex items-center justify-center text-slate-500 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-[#17364E]/50 rounded transition-colors cursor-pointer"
-                title="Previous Interval (-5m)"
+                title={`Previous Replay Step (-5m) • Step ${effectiveTimeIndex - 1}`}
                 type="button"
                 aria-label="Previous step"
               >
@@ -292,7 +306,7 @@ export default function ForecastControlBar({
               <button
                 onClick={onStepForward}
                 className="w-5 h-5 flex items-center justify-center text-slate-500 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-[#17364E]/50 rounded transition-colors cursor-pointer"
-                title="Next Interval (+5m)"
+                title={`Next Replay Step (+5m) • Step ${effectiveTimeIndex + 1}`}
                 type="button"
                 aria-label="Next step"
               >

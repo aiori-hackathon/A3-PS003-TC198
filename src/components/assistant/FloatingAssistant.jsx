@@ -10,10 +10,10 @@ import {
 import { sendAssistantMessage } from '../../services/api';
 
 const QUICK_PROMPTS = [
-  "How does FL map to Ranchi & Tumakuru?",
-  "What is the Best Forecasting Model MAE?",
+  "How many sensors are in the network?",
+  "What does each dashboard page do?",
   "Why was Round 8 selected in FedAvg?",
-  "What is the network size per FL round?"
+  "How does TrafficPulse-X achieve 50% communication savings?"
 ];
 
 export default function FloatingAssistant() {
@@ -27,7 +27,7 @@ export default function FloatingAssistant() {
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      content: 'Hello! I am the TrafficPulse-X Assistant. Ask me anything about our Graph+LSTM forecasting models, Federated Learning architecture, Indian smart-mobility case studies (Ranchi, Tumakuru, Visakhapatnam), or active decision intelligence.',
+      content: 'Hello! I am the TrafficPulse-X Assistant. Ask me anything about our 207-sensor network, 14-round Federated Learning system, SpatialGraphLSTM models, real-time replay engine, or any of the 7 dashboard pages.',
       source: 'local_knowledge_base'
     }
   ]);
@@ -275,7 +275,7 @@ export default function FloatingAssistant() {
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder="Ask about models, FL, Ranchi/Vizag, decisions..."
+                placeholder="Ask about 207 sensors, FL rounds, dashboard pages, models..."
                 disabled={loading}
                 className="flex-1 px-3 py-2 text-xs rounded-xl bg-slate-50 dark:bg-[#04101A] border border-slate-200 dark:border-[#17364E] text-slate-900 dark:text-white placeholder-slate-400 focus:outline-hidden focus:border-cyan-500"
               />

@@ -80,6 +80,7 @@ export default function Prediction() {
   const { isDark } = useTheme();
   const {
     timeIndex: globalTimeIndex,
+    timestampStr,
     stepForward,
     stepBackward,
     selectedSensorId,
@@ -372,6 +373,7 @@ export default function Prediction() {
         selectedMetric={selectedMetric}
         onMetricChange={setSelectedMetric}
         effectiveTimeIndex={effectiveTimeIndex}
+        timestampStr={timestampStr}
         onStepForward={stepForward}
         onStepBackward={stepBackward}
         onReevaluate={loadData}
