@@ -206,35 +206,217 @@ Measured over local loopback sockets (`127.0.0.1:8000`) over HTTP/1.1 to quantif
 
 ## Repository Structure
 
+The complete source codebase is modularly organized inside `src/`, providing strict separation of concerns across Model Training (`ml/`), REST Backend Services (`backend/`), Tactical Dashboard Pages (`pages/`), Modular UI Components (`components/`), and Highway Datasets (`data/`):
+
 ```text
 src/
-├── app/                               # Root React application shell & route definitions
+├── .env.example                       # Environment configuration template (Host, Port, API base URL)
+├── .gitattributes                     # Line-ending normalizations (LF/CRLF) and binary attributes
+├── .gitignore                         # Build artifacts, large datasets, and virtual environment exclusions
+├── .oxlintrc.json                     # Oxlint high-speed JavaScript/JSX code analysis rules
+├── README.md                          # Comprehensive source documentation, architecture & runbook
+├── index.css                          # Global styling directives and Tailwind CSS v4 design system
+├── index.html                         # Single Page Application (SPA) HTML5 entrypoint container
+├── main.jsx                           # React 19 application root bootstrap and DOM mount
+├── package.json                       # Frontend dependencies (React 19, Leaflet, Recharts) & npm scripts
+├── package-lock.json                  # Deterministic dependency tree lockfile
+├── requirements.txt                   # Backend Python dependencies (FastAPI, PyTorch, NumPy, SciPy)
+├── vite.config.js                     # Vite build configuration, ESM bundling & React plugin pipeline
+│
+├── app/                               # Root React application shell & route orchestration
+│   ├── App.jsx                        # Main layout wrapper with top navigation bar & active view outlet
+│   └── routes.jsx                     # Canonical route definitions across all 7 dashboard views
+│
 ├── backend/                           # FastAPI REST application (53 production endpoints)
+│   ├── main.py                        # Application entrypoint, CORS configuration & router registrations
+│   ├── assistant.py                   # TrafficPulse-X AI Assistant (domain knowledge + live web search)
+│   ├── config.py                      # Centralized backend configuration & environment management
+│   ├── data_source.py                 # Unified data access layer connecting endpoints to real telemetry
+│   ├── graph.py                       # Graph Laplacian construction, Gaussian kernels & Chebyshev matrices
+│   ├── requirements.txt               # Backend-specific Python dependencies
 │   ├── communication_intelligence/    # CCV scheduling policies & wire accounting
-│   ├── data_sources/                  # Dataset streaming adapters (METR-LA & PeMS08)
-│   ├── datasets/                      # Graph loaders & normalized Laplacian builders
-│   ├── decision/                      # 9-factor Need Score engine & Sensor Jury consensus
-│   ├── experiments/                   # PeMS08 flow router & transport socket benchmarks
-│   ├── federated/                     # FedAvg consensus service & regional partitions
-│   ├── privacy/                       # Differential privacy accountant router
-│   ├── main.py                        # FastAPI entrypoint
-│   └── test_*.py (22 files)           # Automated integration test suite (343 tests)
-├── components/                        # Modular React UI components (traffic, prediction, etc.)
-├── context/                           # Global state management (ReplayContext & ThemeContext)
-├── data/
-│   ├── processed/metr-la/             # Preprocessed METR-LA arrays, regions & checkpoints
-│   └── processed/pems08/              # PeMS08 flow extension data & trained weights
-├── ml/                                # Machine learning models & training routines
-│   ├── experiments/                   # 3-seed reproducibility & IID benchmarks
-│   ├── federated/                     # FedAvg simulation engine
-│   ├── privacy/                       # Opacus DP-SGD training harness
-│   └── spatiotemporal/                # SpatialGraphLSTM neural network
-├── pages/                             # 7 canonical page views
-├── services/                          # Centralized frontend API gateway (api.js)
-├── index.html                         # Vite application entrypoint HTML
-├── package.json                       # Frontend dependencies & npm scripts
-├── requirements.txt                   # Backend Python dependencies
-└── vite.config.js                     # Vite build configuration
+│   │   ├── policies.py                # Client Contribution Value (CCV) budget tiers (1/4, 2/4, 3/4, 4/4)
+│   │   └── service.py                 # Wire-byte socket accounting & payload aggregation service
+│   ├── data_sources/                  # Dataset streaming adapters & external ingestion interfaces
+│   │   ├── pems08.py                  # Caltrans PeMS08 flow dataset telemetry adapter
+│   │   └── streaming_adapter.py       # Pluggable streaming provider interface (replay default)
+│   ├── datasets/                      # Graph data loaders & spatial partition builders
+│   │   ├── metr_la.py                 # METR-LA 207-sensor HDF5 parser & chronological sliding window
+│   │   └── prepare_metr_la.py         # K-Means spatial graph clustering into 4 non-IID regions
+│   ├── decision/                      # 9-Factor Need Score engine & Sensor Jury consensus
+│   │   ├── need_score.py              # Multi-factor telemetry priority triage engine
+│   │   ├── jury.py                    # Multi-sensor graph agreement consensus (false-alarm filter)
+│   │   ├── physics.py                 # Kinematic plausibility and maximum deceleration gate
+│   │   ├── uncertainty.py             # Epistemic & aleatoric uncertainty risk calculations
+│   │   ├── query_ranker.py            # Next-Best-Query sensor priority scheduler
+│   │   ├── evidence.py                # Traceable audit evidence chain for automated decisions
+│   │   ├── coverage.py                # Sensor network blind-spot & coverage diagnostics
+│   │   ├── state.py                   # In-memory operational sensor cache
+│   │   └── config.py                  # Operational thresholds and triage weight parameters
+│   ├── experiments/                   # Experiment evaluation routers & benchmarks
+│   │   ├── router.py                  # 3-seed reproducibility & IID vs non-IID benchmark endpoints
+│   │   ├── flow_router.py             # PeMS08 traffic flow volume forecasting endpoints
+│   │   └── network_accounting.py      # Controlled socket transport wire-overhead benchmarks
+│   ├── federated/                     # Decentralized Federated Learning services
+│   │   ├── service.py                 # Target-weighted FedAvg consensus coordinator
+│   │   └── schemas.py                 # Pydantic schemas for regional partition weights & round metrics
+│   ├── prediction/                    # Spatio-temporal multi-horizon forecasting services
+│   │   ├── service.py                 # SpatialGraphLSTM inference engine (+5m, +15m, +30m, +60m)
+│   │   └── schemas.py                 # Forecast response models with 95% confidence intervals
+│   ├── privacy/                       # Privacy-preserving machine learning router
+│   │   └── router.py                  # Opacus DP-FedAvg accountant endpoints (ε=2.5, δ=10^-5)
+│   └── test_*.py (22 test suites)     # Automated integration test suite (343 passing tests)
+│       ├── test_stage_6_1_baselines.py        # 7 candidate baseline accuracy contracts
+│       ├── test_stage_6_5_spatiotemporal.py  # SpatialGraphLSTM PyTorch architecture tests
+│       ├── test_stage_8_2_fl_training.py      # 4-client FedAvg convergence verification
+│       ├── test_streaming_and_accounting.py   # Wire-byte transport & CCV communication tests
+│       └── test_reconciliation_contracts.py   # Mathematical and telemetry integrity assertions
+│
+├── components/                        # Modular React UI component library (63 components in 11 modules)
+│   ├── alerts/                        # Real-time congestion event monitoring & incident inspection
+│   │   ├── AlertStreamTable.jsx               # Telemetry event stream with severity threshold badges
+│   │   ├── AlertAnalyticsCharts.jsx           # Residual-derived incident severity distribution charts
+│   │   ├── AlertSecondaryAnalytics.jsx        # Congestion duration & lane-impact analytics
+│   │   └── SelectedAlertInspector.jsx         # Detailed incident deep-dive inspector panel
+│   ├── assistant/                     # Floating AI Chatbot assistant
+│   │   └── FloatingAssistant.jsx              # Domain-trained assistant with live web search integration
+│   ├── common/                        # Reusable foundational design system components
+│   │   ├── MetricCard.jsx                     # Standard KPI card with sparklines & delta indicators
+│   │   ├── DataTable.jsx                      # Sortable, paginated enterprise data table
+│   │   ├── ScientificBadge.jsx                # Verified benchmark & empirical confidence badges
+│   │   ├── StatusBadge.jsx                    # System health, online/offline, and alert status pills
+│   │   ├── Button.jsx                         # Tactile interactive button with variant styling
+│   │   ├── SectionCard.jsx                    # Container card with glassmorphic borders
+│   │   ├── ThemeToggle.jsx                    # Dark mode / Light mode toggle switch
+│   │   ├── TopNavigation.jsx                  # Persistent application navbar with route tabs
+│   │   └── ScrollToTop.jsx                    # Route change viewport reset controller
+│   ├── communication/                 # Communication intelligence & bandwidth reduction widgets
+│   │   ├── CommunicationHeroFlow.jsx          # Visual client-to-server parameter transfer flow
+│   │   ├── CommunicationBreakdownDonut.jsx    # Application tensor vs transport wire-byte breakdown
+│   │   ├── CommunicationSummaryKPIs.jsx       # 50% bandwidth reduction KPI metric cards
+│   │   ├── CommunicationTechnicalDetails.jsx  # Mathematical formulation of CCV scoring
+│   │   ├── ParticipationStrategyComparison.jsx# Pareto-optimal trade-off analysis across budget tiers
+│   │   ├── PerRegionCommunicationTable.jsx    # Per-client payload transmission statistics
+│   │   ├── RecentCommunicationEvents.jsx      # Telemetry round transmission event log
+│   │   └── SavingsVsPredictionQualityChart.jsx# Communication payload vs MAE degradation curve
+│   ├── decision/                      # Active Decision Intelligence & triage widgets
+│   │   ├── NeedScoreBreakdown.jsx             # 9-factor decomposition of sensor priority scores
+│   │   ├── EvidenceChain.jsx                  # Auditable decision trail validating interventions
+│   │   ├── CounterfactualQueryCard.jsx        # "What-if" analysis for hypothetical sensor dropouts
+│   │   ├── DecisionTechnicalDetails.jsx       # Sensor Jury multi-neighbor consensus formulation
+│   │   ├── NextBestQueryTable.jsx             # Ranked sensor polling list under bandwidth caps
+│   │   ├── RecentDecisionsTable.jsx           # Log of automated ramp metering & rerouting advisories
+│   │   ├── SpatialSpeedConsistencyPanel.jsx   # Graph neighborhood velocity divergence monitor
+│   │   └── ValidationLayer.jsx                # Kinematic physics plausibility enforcement gate
+│   ├── federated/                     # Federated Learning training & convergence widgets
+│   │   ├── CentralizedVsFederatedCard.jsx     # Side-by-side bar comparison (3.43 vs 3.53 mph MAE)
+│   │   ├── EvaluationProtocolCard.jsx         # Federated evaluation rules & non-IID partitioning
+│   │   ├── ExperimentDistributionCard.jsx     # Regional client sensor counts & FedAvg weight distribution
+│   │   ├── FederatedCommunicationSummaryCard.jsx # Round 8 checkpoint validation & payload metrics
+│   │   ├── DistributionReproducibilitySection.jsx # 3-seed reproducibility and variance bounds
+│   │   ├── IndiaCaseStudiesCard.jsx           # Municipal edge deployment architectural framework
+│   │   └── PrivacyExperimentSection.jsx       # Opacus DP-FedAvg privacy budget tracking (ε=2.5)
+│   ├── intro/                         # Cinematic application startup experience
+│   │   ├── OpeningExperience.jsx              # Welcome briefing & mission overview modal
+│   │   └── OpeningExperience.css              # Custom keyframe animations for startup modal
+│   ├── overview/                      # Executive operational cockpit widgets
+│   │   ├── OverviewHeroConsole.jsx            # Live network speed speedometer gauge & system status
+│   │   ├── CurrentSensorStateCard.jsx         # Real-time telemetry inspector for selected sensor
+│   │   ├── ForecastConfidenceCard.jsx         # 95% calibrated confidence interval display
+│   │   ├── ForecastDirectionCard.jsx          # Speed trend trajectory indicator (improving/degrading)
+│   │   ├── NeighborConsensusCard.jsx          # Spatial neighbor agreement scorecard
+│   │   ├── Next60MinutesForecastCard.jsx      # Multi-horizon trajectory forecast preview
+│   │   ├── TrafficOutlookTimelineCard.jsx     # Hourly network-wide velocity trend timeline
+│   │   └── WhatToWatchCard.jsx                # High-priority bottleneck and incident watchlist
+│   ├── prediction/                    # Multi-horizon forecasting & model benchmark widgets
+│   │   ├── ForecastControlBar.jsx             # Horizon selector (+5m, +15m, +30m, +60m) & sensor search
+│   │   ├── CompactModelBenchmark.jsx          # 7-model benchmark matrix (SpatialGraphLSTM Rank 1)
+│   │   ├── CollapsibleRegionalAnalysis.jsx    # Regional breakdown of forecast accuracy by quadrant
+│   │   ├── CollapsibleTechnicalDetails.jsx    # Chebyshev graph polynomial order K=3 formulations
+│   │   ├── CollapsibleAdditionalAnalysis.jsx  # Residual error distributions and error histograms
+│   │   ├── FlowModelBenchmarkCard.jsx         # PeMS08 traffic flow volume forecasting benchmark
+│   │   ├── ForecastInsightsPanel.jsx          # AI-generated natural language operational summary
+│   │   ├── ForecastQualityPanel.jsx           # Error metric breakdown (MAE, RMSE, MAPE)
+│   │   ├── MultiSensorForecastComparison.jsx  # Simultaneous multi-sensor speed trajectory overlay
+│   │   └── PredictedValuesTable.jsx           # Granular tabular output of multi-horizon predictions
+│   ├── timeline/                      # Deterministic temporal replay controller
+│   │   └── ReplayTimeline.jsx                 # 34,272-step historical scrubber bar with 1x–10x playback
+│   └── traffic/                       # Spatial GIS network mapping widgets
+│       ├── RealTrafficMap.jsx                 # Interactive Leaflet map canvas rendering 207 sensors
+│       ├── SensorDetailPanel.jsx              # Flyout sensor inspector with live metrics & coordinates
+│       ├── SensorTable.jsx                    # Comprehensive table of all 207 sensors with quadrant filters
+│       ├── CoverageBlindSpotsPanel.jsx        # Sensor topology density and blind-spot diagnostics
+│       └── TrafficSpeedHeatmap.jsx            # Velocity density heatmap across freeway corridors
+│
+├── context/                           # Global React context providers
+│   ├── ReplayContext.jsx              # Universal 34,272-step temporal state synchronization engine
+│   └── ThemeContext.jsx               # Dark mode / Light mode persistent state provider
+│
+├── data/                              # Real-world traffic sensor datasets & preprocessed arrays
+│   ├── raw/                           # Unmodified ground-truth dataset containers
+│   │   ├── metr-la/                   # Primary METR-LA HDF5 dataset (207 sensors, 34,272 timesteps)
+│   │   └── pems08/                    # Caltrans PeMS08 flow dataset (170 stations, 17,856 timesteps)
+│   └── processed/                     # Normalized tensors & precomputed graph adjacencies
+│       ├── metr-la/                   # Precomputed Chebyshev polynomials, distance adjacencies & NPZ splits
+│       └── pems08/                    # Normalized flow tensors, sensor adjacencies & evaluation splits
+│
+├── ml/                                # Machine learning models, federated routines & experiments
+│   ├── freeze_stage_6_6.py            # Model checkpoint freezing & hash verification utility
+│   ├── baselines/                     # 7 candidate comparative baseline architectures
+│   │   ├── models.py                  # DCRNN, STGCN, LSTM, and Historical Average implementations
+│   │   ├── linear_regression.py       # Ridge and Ordinary Least Squares baseline models
+│   │   ├── evaluate_baselines.py      # Benchmark evaluation harness across all candidate models
+│   │   └── evaluate_linear.py         # Linear baseline metrics evaluation script
+│   ├── experiments/                   # Empirical research experiments & benchmarks
+│   │   ├── runner.py                  # Experiment runner across IID vs non-IID and 3-seed trials
+│   │   ├── transport_benchmark.py     # Network socket wire-byte transport measurement harness
+│   │   ├── iid_partition.py           # Uniform random IID client partitioning generator
+│   │   ├── iid_client.py              # IID client local training worker
+│   │   └── flow/                      # PeMS08 traffic flow volume transfer learning experiments
+│   ├── federated/                     # Decentralized Federated Learning implementation
+│   │   ├── train_federated.py         # Main multi-round federated training simulation script
+│   │   ├── server.py                  # Central coordinator orchestrating target-weighted FedAvg
+│   │   ├── client.py                  # Regional edge client computing local PyTorch gradients
+│   │   ├── aggregation.py             # Target-weighted FedAvg aggregation mathematical formulation
+│   │   ├── prepare_clients.py         # Non-IID spatial graph partition data loader
+│   │   └── run_phase9_experiments.py  # CCV selective scheduling communication savings experiments
+│   ├── graph/                         # Spatial graph convolutional networks
+│   │   ├── model.py                   # Pure spatial Chebyshev Graph Convolutional Network (GCN)
+│   │   ├── train.py                   # Spatial graph model training script
+│   │   └── evaluate_graph.py          # Spatial graph evaluation and metrics extraction
+│   ├── privacy/                       # Differential Privacy & cryptographic aggregation
+│   │   ├── runner.py                  # Opacus DP-FedAvg training runner with noise addition
+│   │   ├── dp_client.py               # DP-SGD client with bounded gradient clipping
+│   │   ├── dp_config.py               # Privacy parameters (ε=2.5, δ=10^-5, max grad norm)
+│   │   └── secure_aggregation.py      # Cryptographic secure aggregation simulation
+│   ├── spatiotemporal/                # Primary champion model architecture
+│   │   ├── model.py                   # SpatialGraphLSTM (Chebyshev Conv K=3 + recurrent LSTM cells)
+│   │   ├── train.py                   # Centralized SpatialGraphLSTM training routine
+│   │   └── evaluate_spatiotemporal.py # Multi-horizon evaluation across all 207 METR-LA sensors
+│   └── temporal/                      # Pure temporal deep learning baselines
+│       ├── models.py                  # Standard LSTM and GRU recurrent neural networks
+│       ├── dataset.py                 # Sliding temporal window dataset generator
+│       ├── train.py                   # Temporal baseline training script
+│       └── evaluate_temporal.py       # Horizon-wise evaluation of temporal models
+│
+├── pages/                             # 7 Canonical React dashboard view controllers
+│   ├── Alerts/Alerts.jsx              # Alerts & Incidents monitoring view (`/alerts`)
+│   ├── Communication/Communication.jsx# Communication Intelligence & 50% bandwidth savings view (`/communication`)
+│   ├── DecisionIntelligence/DecisionIntelligence.jsx # 9-Factor Need Score & Sensor Jury view (`/decisions`)
+│   ├── FederatedLearning/FederatedLearning.jsx # Federated Learning convergence & rounds view (`/federated`)
+│   ├── Overview/Overview.jsx          # Executive operational cockpit view (`/`)
+│   ├── Prediction/Prediction.jsx      # Multi-horizon forecasting & model benchmarks view (`/prediction`)
+│   └── TrafficNetwork/TrafficNetwork.jsx # Spatial 207-sensor Leaflet GIS network map view (`/network`)
+│
+├── public/                            # Static vector branding & icon assets
+│   ├── favicon.svg                    # TrafficPulse-X SVG favicon
+│   └── icons.svg                      # Scalable vector sprite sheet
+│
+├── services/                          # Centralized frontend API communication layer
+│   └── api.js                         # Asynchronous HTTP gateway communicating with FastAPI endpoints
+│
+└── utils/                             # Utility helpers & numerical formatters
+    └── formatters.js                  # Velocity (mph), percentage, bandwidth (MB), and date formatters
 ```
 
 ---
