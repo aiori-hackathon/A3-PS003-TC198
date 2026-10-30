@@ -1,7 +1,15 @@
 // TrafficPulse-X API Service (Centralized Real-Data Backend Gateway)
 
-const API_BASE = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_API_URL) || "http://127.0.0.1:8000/api";
-const TIMEOUT_MS = 10000; // 10-second timeout to prevent premature abort errors
+// Deterministic API URL normalization:
+// Accepts https://backend.onrender.com or https://backend.onrender.com/api with or without trailing slashes.
+// Preserves localhost development fallback (http://127.0.0.1:8000).
+const rawEnvUrl = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_API_URL) ? import.meta.env.VITE_API_URL : "";
+const rawUrl = (typeof rawEnvUrl === 'string' && rawEnvUrl.trim()) ? rawEnvUrl.trim() : "http://127.0.0.1:8000";
+const sanitizedUrl = rawUrl.replace(/\/+$/, "");
+const API_BASE = sanitizedUrl.endsWith("/api") ? sanitizedUrl : `${sanitizedUrl}/api`;
+
+// 60-second timeout to accommodate Render free tier cold-starts without premature client aborts
+const TIMEOUT_MS = 60000;
 
 const factorNames = {
   spatialInfluence: "Spatial Influence",
@@ -16,18 +24,39 @@ const factorNames = {
 };
 
 /**
- * Centralized fetch wrapper with robust timeout error handling.
+ * Centralized fetch wrapper with robust timeout error handling, signal preservation, and cold-start tolerance.
  */
 async function apiFetch(url, options = {}) {
+  const timeoutMs = options.timeout || TIMEOUT_MS;
+  const timeoutSignal = AbortSignal.timeout(timeoutMs);
+
+  let signal = timeoutSignal;
+  if (options.signal) {
+    if (typeof AbortSignal.any === 'function') {
+      signal = AbortSignal.any([options.signal, timeoutSignal]);
+    } else {
+      const controller = new AbortController();
+      const onAbort = () => controller.abort(options.signal.reason);
+      const onTimeout = () => controller.abort(timeoutSignal.reason);
+      options.signal.addEventListener('abort', onAbort, { once: true });
+      timeoutSignal.addEventListener('abort', onTimeout, { once: true });
+      signal = controller.signal;
+    }
+  }
+
   try {
     const res = await fetch(url, {
       ...options,
-      signal: options.signal || AbortSignal.timeout(TIMEOUT_MS)
+      signal
     });
     return res;
   } catch (err) {
-    if (err.name === 'TimeoutError' || err.name === 'AbortError' || err.message?.includes('timed out')) {
-      throw new Error(`Connection timed out (${TIMEOUT_MS / 1000}s)`);
+    // If aborted specifically by timeout signal, or timed out
+    if (timeoutSignal.aborted || err.name === 'TimeoutError' || err.message?.includes('timed out')) {
+      const timeoutErr = new Error(`Connection timed out (${timeoutMs / 1000}s)`);
+      timeoutErr.name = 'TimeoutError';
+      timeoutErr.isTimeout = true;
+      throw timeoutErr;
     }
     throw err;
   }

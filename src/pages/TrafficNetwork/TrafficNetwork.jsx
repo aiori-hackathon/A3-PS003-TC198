@@ -56,21 +56,42 @@ export default function TrafficNetwork() {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const consoleRef = useRef(null);
 
-  // Load graph topology for network road edges
+  // Load graph topology for network road edges with controlled retries
   useEffect(() => {
     let mounted = true;
-    async function loadTopology() {
+    let retryTimer = null;
+
+    async function loadTopology(attempt = 0) {
       try {
         const topo = await fetchNetworkTopology();
         if (mounted && topo && topo.neighborsMap) {
           setNeighborsMap(topo.neighborsMap);
         }
       } catch (e) {
-        console.warn("Failed to load network topology:", e);
+        // Do not retry permanent HTTP client errors (400, 401, 403, 404)
+        const isPermanentError = e?.message && /\b(400|401|403|404)\b/.test(e.message);
+
+        // Maximum 2 retries (3 total attempts) with progressive delay for transient failures and cold-start timeouts
+        if (mounted && !isPermanentError && attempt < 2) {
+          const delayMs = (attempt + 1) * 2000; // 2s, 4s
+          console.warn(`Topology fetch attempt ${attempt + 1} failed (${e?.message || e}). Retrying in ${delayMs / 1000}s...`);
+          retryTimer = setTimeout(() => {
+            if (mounted) {
+              loadTopology(attempt + 1);
+            }
+          }, delayMs);
+        } else if (mounted) {
+          console.warn("Failed to load network topology:", e);
+        }
       }
     }
-    loadTopology();
-    return () => { mounted = false; };
+
+    loadTopology(0);
+
+    return () => {
+      mounted = false;
+      if (retryTimer) clearTimeout(retryTimer);
+    };
   }, []);
 
   const loadRealSnapshot = useCallback(async (tIndex, rId) => {
