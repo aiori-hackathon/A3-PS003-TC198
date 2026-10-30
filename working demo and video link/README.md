@@ -24,8 +24,8 @@ This directory contains the working demo link, team introduction & problem state
 ### links are here:
 
 ### 1. Working Demo Link
-- **Live Demo URL:** `Will be uploaded soon`
-- **Status:** Pending — Will be uploaded soon
+- **Live Demo URL:** [https://trafficpulse-x-frontend.onrender.com](https://trafficpulse-x-frontend.onrender.com)
+- **Status:** Available
 - **Local Reproduction Runbook:** Available in [`src/README.md`](../src/README.md)
 
 ---

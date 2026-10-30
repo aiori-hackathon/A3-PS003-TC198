@@ -45,15 +45,15 @@ TrafficPulse-X is a communication-aware decentralized traffic intelligence syste
 - **Step 07 (Add YouTube Video Link):** **Completed** — Team introduction video and dashboard demonstration video uploaded and linked.
 - **Step 08 (Attend Mentoring Sessions):** **Completed** — Mentoring sessions attended under the guidance of Faculty Mentor Aditya Sir.
 - **Step 09 (Submission of Code):** **Completed** — Production source code submitted in [`src/`](./src/), and technical documentation submitted in [`documentation/`](./documentation/).
-- **Step 10 (Working Demo):** **Pending** — Will be uploaded soon (Local setup and runbook available in [`src/README.md`](./src/README.md)).
+- **Step 10 (Working Demo):** **Completed** — Live interactive web application available at [https://trafficpulse-x-frontend.onrender.com](https://trafficpulse-x-frontend.onrender.com).
 
 ---
 
 ## Working Demo & Video Links
 
 - **Working Demo:**
-  - **Status:** Pending — Will be uploaded soon
-  - **URL:** `Will be uploaded soon`
+  - **Status:** Available
+  - **URL:** [https://trafficpulse-x-frontend.onrender.com](https://trafficpulse-x-frontend.onrender.com)
   - *(Instructions for local execution are documented in [`src/README.md`](./src/README.md))*
 
 - **Team Member Introduction and Problem Statement Explanation Video:**
@@ -104,7 +104,7 @@ A3-PS003-TC198/
 
 ## Final Link-Completion Checklist
 
-- [ ] **Working Demo:** Will be uploaded soon *(Local execution instructions available in [`src/README.md`](./src/README.md))*
+- [x] **Working Demo:** Available ([Live Demo](https://trafficpulse-x-frontend.onrender.com))
 - [x] **Team Member Introduction Video:** Available ([Watch Video](https://youtu.be/kbMFY39V_l4?si=_hMvLyEBpfnS8q6p))
 - [x] **Dashboard Demonstration Video:** Available ([Watch Video](https://youtu.be/_b2-zvt9JjI?si=gZSDJmwlXJjFjqb_))
 
