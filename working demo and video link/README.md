@@ -26,6 +26,7 @@ This directory contains the working demo link, team introduction & problem state
 ### 1. Working Demo Link
 - **Live Demo URL:** [https://trafficpulse-x-frontend.onrender.com](https://trafficpulse-x-frontend.onrender.com)
 - **Status:** Available
+- The live demo has been deployed on Render. Since it is hosted on a free/render instance, it might take around 50 to 60 seconds to spine up and load for the first time.
 - **Local Reproduction Runbook:** Available in [`src/README.md`](../src/README.md)
 
 ---
