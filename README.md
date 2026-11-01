@@ -45,7 +45,8 @@ TrafficPulse-X is a communication-aware decentralized traffic intelligence syste
 - **Step 07 (Add YouTube Video Link):** **Completed** — Team introduction video and dashboard demonstration video uploaded and linked.
 - **Step 08 (Attend Mentoring Sessions):** **Completed** — Mentoring sessions attended under the guidance of Faculty Mentor Aditya Sir.
 - **Step 09 (Submission of Code):** **Completed** — Production source code submitted in [`src/`](./src/), and technical documentation submitted in [`documentation/`](./documentation/).
-- **Step 10 (Working Demo):** **Completed** — Live interactive web application available at [https://trafficpulse-x-frontend.onrender.com](https://trafficpulse-x-frontend.onrender.com).
+- **Step 10 (Working Demo):** **Completed** — Live interactive web application available at [https://trafficpulse-x-frontend.onrender.com](https://trafficpulse-x-frontend.onrender.com). The live demo has been deployed on Render. Since it is hosted on a free/render instance, it might take around 50 to 60 seconds to spine up and load for the first time.
+
 
 ---
 
@@ -55,6 +56,7 @@ TrafficPulse-X is a communication-aware decentralized traffic intelligence syste
   - **Status:** Available
   - **URL:** [https://trafficpulse-x-frontend.onrender.com](https://trafficpulse-x-frontend.onrender.com)
   - *(Instructions for local execution are documented in [`src/README.md`](./src/README.md))*
+  - *The live demo has been deployed on Render. Since it is hosted on a free/render instance, it might take around 50 to 60 seconds to spine up and load for the first time.*
 
 - **Team Member Introduction and Problem Statement Explanation Video:**
   - **Status:** Available
