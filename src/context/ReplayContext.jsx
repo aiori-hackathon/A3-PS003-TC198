@@ -31,7 +31,7 @@ export function ReplayProvider({ children }) {
   const currentDate = new Date(currentTimestampMs);
   const timestampStr = currentDate.toISOString().replace('T', ' ').substring(0, 19);
 
-  // Derive time semantics cleanly during render without cascading state updates
+  // Derive time semantics cleanly without redundant state/effect cycles
   const timeSemantics = useMemo(() => {
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const d = new Date(currentTimestampMs);

@@ -234,11 +234,13 @@ src/
 │   ├── data_source.py                 # Unified data access layer connecting endpoints to real telemetry
 │   ├── graph.py                       # Graph Laplacian construction, Gaussian kernels & Chebyshev matrices
 │   ├── requirements.txt               # Backend-specific Python dependencies
+│   ├── README.md                      # Backend service and mathematical provenance specs
 │   ├── communication_intelligence/    # CCV scheduling policies & wire accounting
 │   │   ├── policies.py                # Client Contribution Value (CCV) budget tiers (1/4, 2/4, 3/4, 4/4)
 │   │   └── service.py                 # Wire-byte socket accounting & payload aggregation service
 │   ├── data_sources/                  # Dataset streaming adapters & external ingestion interfaces
 │   │   ├── pems08.py                  # Caltrans PeMS08 flow dataset telemetry adapter
+│   │   ├── sensor_location_names.json # 207 authentic Caltrans highway and cross-point names
 │   │   └── streaming_adapter.py       # Pluggable streaming provider interface (replay default)
 │   ├── datasets/                      # Graph data loaders & spatial partition builders
 │   │   ├── metr_la.py                 # METR-LA 207-sensor HDF5 parser & chronological sliding window
@@ -281,6 +283,7 @@ src/
 │   ├── assistant/                     # Floating AI Chatbot assistant
 │   │   └── FloatingAssistant.jsx              # Domain-trained assistant with live web search integration
 │   ├── common/                        # Reusable foundational design system components
+│   │   ├── GlobalActionModal.jsx              # Non-blocking replacement modal for browser alert dialogs
 │   │   ├── MetricCard.jsx                     # Standard KPI card with sparklines & delta indicators
 │   │   ├── DataTable.jsx                      # Sortable, paginated enterprise data table
 │   │   ├── ScientificBadge.jsx                # Verified benchmark & empirical confidence badges
@@ -329,6 +332,9 @@ src/
 │   │   ├── TrafficOutlookTimelineCard.jsx     # Hourly network-wide velocity trend timeline
 │   │   └── WhatToWatchCard.jsx                # High-priority bottleneck and incident watchlist
 │   ├── prediction/                    # Multi-horizon forecasting & model benchmark widgets
+│   │   ├── ForecastChartCard.jsx              # Multi-horizon forecast line chart with confidence bands
+│   │   ├── ForecastHorizonCards.jsx           # Horizon KPI prediction metric cards
+│   │   ├── predictionConstants.js             # Forecast horizon definitions, thresholds and colors
 │   │   ├── ForecastControlBar.jsx             # Horizon selector (+5m, +15m, +30m, +60m) & sensor search
 │   │   ├── CompactModelBenchmark.jsx          # 7-model benchmark matrix (SpatialGraphLSTM Rank 1)
 │   │   ├── CollapsibleRegionalAnalysis.jsx    # Regional breakdown of forecast accuracy by quadrant
@@ -343,16 +349,26 @@ src/
 │   │   └── ReplayTimeline.jsx                 # 34,272-step historical scrubber bar with 1x–10x playback
 │   └── traffic/                       # Spatial GIS network mapping widgets
 │       ├── RealTrafficMap.jsx                 # Interactive Leaflet map canvas rendering 207 sensors
+│       ├── TrafficNetworkHeader.jsx           # Header controls & sensor corridor search input
 │       ├── SensorDetailPanel.jsx              # Flyout sensor inspector with live metrics & coordinates
 │       ├── SensorTable.jsx                    # Comprehensive table of all 207 sensors with quadrant filters
 │       ├── CoverageBlindSpotsPanel.jsx        # Sensor topology density and blind-spot diagnostics
-│       └── TrafficSpeedHeatmap.jsx            # Velocity density heatmap across freeway corridors
+│       ├── TrafficSpeedHeatmap.jsx            # Velocity density heatmap across freeway corridors
+│       └── map/                               # Modular Leaflet GIS map controls & icons
+│           ├── MapLegend.jsx                  # Speed scale legend
+│           ├── UnifiedMapControls.jsx         # Replay scrubber & regional quadrant pills
+│           ├── ViewportController.jsx         # Smooth pan/zoom camera controller
+│           ├── mapConfig.js                   # Map bounds & tile layer configs
+│           ├── regionIcons.js                 # Sector SVG markers
+│           └── sensorIcons.js                 # Dynamic SVG speed pin generators
 │
 ├── context/                           # Global React context providers
 │   ├── ReplayContext.jsx              # Universal 34,272-step temporal state synchronization engine
 │   └── ThemeContext.jsx               # Dark mode / Light mode persistent state provider
 │
 ├── data/                              # Real-world traffic sensor datasets & preprocessed arrays
+│   ├── replayAlertsData.js            # Synchronized offline incident alerts stream
+│   ├── sensor_location_names.json     # 207 sensor highway freeway cross-reference map
 │   ├── raw/                           # Unmodified ground-truth dataset containers
 │   │   ├── metr-la/                   # Primary METR-LA HDF5 dataset (207 sensors, 34,272 timesteps)
 │   │   └── pems08/                    # Caltrans PeMS08 flow dataset (170 stations, 17,856 timesteps)

@@ -2,6 +2,7 @@ import React from 'react';
 import { HelpCircle, CheckCircle2, XCircle, Zap } from 'lucide-react';
 import SectionCard from '../common/SectionCard';
 import ScientificBadge from '../common/ScientificBadge';
+import sensorLocationNames from '../../data/sensor_location_names.json';
 
 const DEFAULT_COUNTERFACTUAL = {
   sensorId: "767620",
@@ -24,10 +25,10 @@ const DEFAULT_COUNTERFACTUAL = {
   }
 };
 
-export default function CounterfactualQueryCard({ data, _onClose, onExecuteQuery }) {
+export default function CounterfactualQueryCard({ data, sensorId: propSensorId, _onClose, onExecuteQuery }) {
   const activeData = data || DEFAULT_COUNTERFACTUAL;
   const {
-    sensorId = "767620",
+    sensorId: dataSensorId = "773869",
     withoutQuery = {},
     withQuery = {},
     expectedBenefit = "45%",
@@ -36,11 +37,12 @@ export default function CounterfactualQueryCard({ data, _onClose, onExecuteQuery
     reason
   } = activeData;
 
+  const sensorId = propSensorId || activeData.sensorId || dataSensorId || "773869";
   const isQuery = decision === "QUERY";
 
   return (
     <SectionCard
-      title={`Query Impact Evaluation — Sensor ${sensorId}`}
+      title={`Query Impact Evaluation — Sensor ${sensorId}${sensorLocationNames[sensorId]?.locationName ? ' • ' + sensorLocationNames[sensorId].locationName : ''}`}
       subtitle="Counterfactual comparison estimating state benefit against telemetry byte cost"
       icon={HelpCircle}
       action={<ScientificBadge type="COUNTERFACTUAL" label="ESTIMATED BENEFIT" size="xs" />}

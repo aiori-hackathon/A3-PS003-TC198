@@ -121,13 +121,17 @@ export default function CentralizedVsFederatedCard() {
           </div>
 
           {/* Trade-off summary note */}
-          <div className="p-3 rounded-lg bg-slate-50 dark:bg-[#0B2033]/60 border border-slate-200 dark:border-[#17364E] text-xs text-slate-600 dark:text-[#BCD0E2] flex items-center justify-between gap-4">
-            <div className="flex items-center gap-2">
-              <TrendingUp className="w-4 h-4 text-emerald-500 shrink-0" />
-              <span>
-                <strong>Observed Accuracy Trade-off:</strong> The decentralized model incurs only a{' '}
-                <strong className="text-slate-900 dark:text-white font-mono">+0.0944 mph</strong> error increase over the centralized ceiling while preserving regional data locality.
-              </span>
+          <div className="p-3 rounded-lg bg-slate-50 dark:bg-[#0B2033]/60 border border-slate-200 dark:border-[#17364E] text-xs text-slate-600 dark:text-[#BCD0E2] space-y-2">
+            <div className="flex items-start gap-2">
+              <TrendingUp className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+              <div className="leading-relaxed">
+                <strong>Observed Accuracy Trade-off:</strong> The decentralized FedAvg model incurs only a{' '}
+                <strong className="text-slate-900 dark:text-white font-mono">+0.0944 mph</strong> error increase over the centralized ceiling while preserving regional edge data locality.
+              </div>
+            </div>
+            <div className="pt-2 border-t border-slate-200/60 dark:border-[#17364E] flex flex-wrap items-center justify-between gap-2 font-mono text-[11px] text-slate-500 dark:text-[#8295A8]">
+              <span>Formula: &Delta;MAE = (3.5322 &minus; 3.4378) &divide; 3.4378 &times; 100</span>
+              <span className="font-bold text-emerald-600 dark:text-emerald-400">Trade-Off Gap = +2.75%</span>
             </div>
           </div>
         </div>
@@ -196,12 +200,16 @@ export default function CentralizedVsFederatedCard() {
                   name="Centralized"
                   fill="#3B82F6"
                   radius={[4, 4, 0, 0]}
+                  isAnimationActive={true}
+                  animationDuration={400}
                 />
                 <Bar
                   dataKey="Federated"
                   name="Federated"
                   fill="#9D5CFF"
                   radius={[4, 4, 0, 0]}
+                  isAnimationActive={true}
+                  animationDuration={400}
                 />
               </BarChart>
             </ResponsiveContainer>

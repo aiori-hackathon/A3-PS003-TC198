@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import MetricCard from '../../components/common/MetricCard';
 import NeedScoreBreakdown from '../../components/decision/NeedScoreBreakdown';
@@ -29,22 +29,54 @@ import {
   Send,
   ShieldCheck,
   RefreshCw,
-  ArrowRight
+  ArrowRight,
+  CheckCircle2
 } from 'lucide-react';
+import sensorLocationNames from '../../data/sensor_location_names.json';
 
 const CANONICAL_REPRESENTATIVES = [
-  { id: "773869", label: "773869", sublabel: "North-East Arterial", isPrimary: true },
-  { id: "767541", label: "767541", sublabel: "South-East Corridor", isPrimary: false },
-  { id: "717458", label: "717458", sublabel: "South-East Urban", isPrimary: false },
-  { id: "717447", label: "717447", sublabel: "Central-West Arterial", isPrimary: false },
-  { id: "765171", label: "765171", sublabel: "North-West Chokepoint", isPrimary: false }
+  { id: "773869", label: "773869", sublabel: "SR-134 (Ventura Fwy)", isPrimary: true },
+  { id: "767541", label: "767541", sublabel: "SR-2 (Glendale Fwy)", isPrimary: false },
+  { id: "717458", label: "717458", sublabel: "I-110 (Harbor Fwy)", isPrimary: false },
+  { id: "717447", label: "717447", sublabel: "US-101 (Hollywood Fwy)", isPrimary: false },
+  { id: "765171", label: "765171", sublabel: "I-405 (San Diego Fwy)", isPrimary: false }
 ];
+
+const SENSOR_REGION_MAP = {
+  '767620': 'Region A',
+  '773975': 'Region A',
+  '773927': 'Region A',
+  '767573': 'Region A',
+  '773916': 'Region A',
+  '767541': 'Region B',
+  '717458': 'Region B',
+  '717447': 'Region B',
+  '718045': 'Region B',
+  '771667': 'Region B',
+  '773869': 'Region C',
+  '717468': 'Region C',
+  '717489': 'Region C',
+  '761003': 'Region C',
+  '717816': 'Region D',
+  '765171': 'Region D',
+  '769431': 'Region D',
+  '767350': 'Region D',
+  '769430': 'Region D'
+};
 
 export default function DecisionIntelligence() {
   const { timeIndex, timestampStr, selectedSensorId, setSelectedSensorId } = useReplay();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  // Sync sensor from query parameter if provided
+  const urlSensor = searchParams.get('sensor');
+  const activeSensorId = urlSensor || selectedSensorId || "773869";
+
+  const handleSelectSensor = (id) => {
+    setSelectedSensorId?.(id);
+    setSearchParams({ sensor: id }, { replace: true });
+  };
+
+  // Sync external search params changes (e.g. browser back/forward)
   useEffect(() => {
     const qSensor = searchParams.get('sensor');
     if (qSensor && qSensor !== selectedSensorId) {
@@ -61,6 +93,13 @@ export default function DecisionIntelligence() {
   const [juryData, setJuryData] = useState(null);
   const [physicsData, setPhysicsData] = useState(null);
   const [queryAlert, setQueryAlert] = useState(null);
+  const queryAlertTimerRef = useRef(null);
+
+  useEffect(() => {
+    return () => {
+      if (queryAlertTimerRef.current) clearTimeout(queryAlertTimerRef.current);
+    };
+  }, []);
 
   // Load general candidates and coverage
   useEffect(() => {
@@ -83,18 +122,18 @@ export default function DecisionIntelligence() {
     return () => { isMounted = false; };
   }, []);
 
-  // Reload sensor-specific intelligence whenever selectedSensorId or timeIndex changes
+  // Reload sensor-specific intelligence whenever activeSensorId or timeIndex changes
   useEffect(() => {
     let isMounted = true;
     async function loadSensorIntelligence() {
       try {
         const [score, cf, ev, jury, physics, spatial] = await Promise.all([
-          fetchNeedScore(selectedSensorId).catch(() => null),
-          fetchCounterfactual(selectedSensorId).catch(() => null),
-          fetchEvidenceChain(selectedSensorId).catch(() => null),
-          fetchSensorJury(selectedSensorId, timeIndex).catch(() => null),
-          fetchPhysicsGate(selectedSensorId, timeIndex).catch(() => null),
-          fetchSpatialSpeedConsistency(selectedSensorId, "767541").catch(() => null)
+          fetchNeedScore(activeSensorId).catch(() => null),
+          fetchCounterfactual(activeSensorId).catch(() => null),
+          fetchEvidenceChain(activeSensorId).catch(() => null),
+          fetchSensorJury(activeSensorId, timeIndex).catch(() => null),
+          fetchPhysicsGate(activeSensorId, timeIndex).catch(() => null),
+          fetchSpatialSpeedConsistency(activeSensorId, activeSensorId === "767541" ? "773869" : "767541").catch(() => null)
         ]);
         if (isMounted) {
           if (score) setNeedScoreData(score);
@@ -110,7 +149,7 @@ export default function DecisionIntelligence() {
     }
     loadSensorIntelligence();
     return () => { isMounted = false; };
-  }, [selectedSensorId, timeIndex]);
+  }, [activeSensorId, timeIndex]);
 
   const handleQuery = async (queryItem) => {
     const id = queryItem.sensorId || queryItem.sensor || queryItem;
@@ -121,7 +160,10 @@ export default function DecisionIntelligence() {
         bytes: res.bytesTransferred || '187 B (compact) / ~4.2 KB (proxy)',
         benefit: res.expectedBenefit || '+18.2%'
       });
-      setTimeout(() => setQueryAlert(null), 6000);
+      if (queryAlertTimerRef.current) clearTimeout(queryAlertTimerRef.current);
+      queryAlertTimerRef.current = setTimeout(() => setQueryAlert(null), 6000);
+
+      handleSelectSensor(id);
 
       // Refresh calculations synchronously
       const [score, cf, ev, cands] = await Promise.all([
@@ -141,7 +183,7 @@ export default function DecisionIntelligence() {
 
   const handleSelectFromTable = (row) => {
     const id = typeof row === 'string' ? row : (row.sensorId || row.sensor || "773869");
-    setSelectedSensorId(id);
+    handleSelectSensor(id);
   };
 
   // Synchronized authoritative need score: STRICT SINGLE SOURCE OF TRUTH
@@ -150,13 +192,17 @@ export default function DecisionIntelligence() {
     ? authoritativeNeedScore.toFixed(2)
     : parseFloat(authoritativeNeedScore || 0.58).toFixed(2);
 
+  const activeRegionName = SENSOR_REGION_MAP[activeSensorId]
+    || (needScoreData?.regionId ? needScoreData.regionId.replace('REGION_', 'Region ') : 'Region C');
+  const activeRegionCode = activeRegionName.toUpperCase().replace(' ', '_');
+
   // Exactly FOUR Main KPIs matching Prompt Section 6
   const decisionKPIs = [
     {
       id: "selected-sensor",
       label: "Selected Sensor",
-      value: selectedSensorId,
-      subtext: "REGION_C • Primary Target",
+      value: activeSensorId,
+      subtext: `${activeRegionCode} • Target Sensor`,
       iconType: "sensor",
       variant: "blue"
     },
@@ -187,7 +233,7 @@ export default function DecisionIntelligence() {
   ];
 
   return (
-    <div className="space-y-5 pb-10">
+    <div className="space-y-5 pb-10 animate-page-enter">
       {/* 1. Header & Replay Context */}
       <div className="relative overflow-hidden rounded-2xl bg-white dark:bg-[#071727] border border-slate-200 dark:border-[#17364E] p-5 lg:p-6 shadow-xs dark:shadow-md transition-colors">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -208,9 +254,15 @@ export default function DecisionIntelligence() {
                 Live Optimization
               </span>
               <span>&bull;</span>
-              <span className="font-semibold text-slate-800 dark:text-white">Sensor {selectedSensorId}</span>
+              <span className="font-semibold text-slate-800 dark:text-white">Sensor {activeSensorId}</span>
+              {sensorLocationNames[activeSensorId]?.locationName && (
+                <>
+                  <span>&bull;</span>
+                  <span className="text-cyan-600 dark:text-cyan-400 font-semibold">{sensorLocationNames[activeSensorId]?.locationName}</span>
+                </>
+              )}
               <span>&bull;</span>
-              <span>Region C</span>
+              <span>{activeRegionName}</span>
               <span>&bull;</span>
               <span>Window: {timestampStr ? timestampStr.substring(11, 16) : '00:00'}</span>
             </div>
@@ -225,10 +277,10 @@ export default function DecisionIntelligence() {
               {CANONICAL_REPRESENTATIVES.map((s) => (
                 <button
                   key={s.id}
-                  onClick={() => setSelectedSensorId(s.id)}
+                  onClick={() => handleSelectSensor(s.id)}
                   title={s.sublabel}
                   className={`px-2.5 py-1 text-xs font-mono font-bold rounded transition-all cursor-pointer ${
-                    selectedSensorId === s.id
+                    activeSensorId === s.id
                       ? "bg-blue-600 text-white shadow-xs"
                       : "text-slate-600 dark:text-[#B8C7D8] hover:text-slate-900 dark:hover:text-[#F5F8FC]"
                   }`}
@@ -274,18 +326,40 @@ export default function DecisionIntelligence() {
         </div>
       </div>
 
-      {/* Query Notification Alert */}
+      {/* Query Notification Alert & Floating Toast */}
       {queryAlert && (
-        <div className="p-3.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-600 text-emerald-800 dark:text-emerald-300 flex items-center justify-between text-xs shadow-md animate-fade-in font-mono">
-          <div className="flex items-center gap-2">
-            <Zap className="w-4 h-4 text-emerald-500 fill-emerald-500" />
-            <span>Telemetry Evidence Query Dispatched for <strong>{queryAlert.sensorId}</strong></span>
+        <>
+          <div className="p-3.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-600 text-emerald-800 dark:text-emerald-300 flex items-center justify-between text-xs shadow-md animate-fade-in font-mono">
+            <div className="flex items-center gap-2">
+              <Zap className="w-4 h-4 text-emerald-500 fill-emerald-500" />
+              <span>Telemetry Evidence Query Dispatched for <strong>{queryAlert.sensorId}</strong></span>
+            </div>
+            <div className="flex items-center gap-4">
+              <span>Payload: {queryAlert.bytes}</span>
+              <span>Forecast Error Reduction: <strong>{queryAlert.benefit}</strong></span>
+            </div>
           </div>
-          <div className="flex items-center gap-4">
-            <span>Payload: {queryAlert.bytes}</span>
-            <span>Forecast Error Reduction: <strong>{queryAlert.benefit}</strong></span>
+
+          <div className="fixed bottom-6 right-6 z-[9999] max-w-sm p-4 rounded-2xl bg-white dark:bg-[#071727] border-2 border-emerald-500 text-slate-900 dark:text-white shadow-2xl flex items-start gap-3 backdrop-blur-xl animate-fade-in">
+            <div className="p-2 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 shrink-0">
+              <CheckCircle2 className="w-5 h-5 text-emerald-500" />
+            </div>
+            <div className="space-y-1 flex-1 font-mono text-xs">
+              <div className="font-bold text-sm text-emerald-700 dark:text-emerald-400 flex items-center justify-between">
+                <span>Query Dispatched</span>
+                <span className="text-[10px] font-normal px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-600 dark:text-emerald-300">ACTIVE</span>
+              </div>
+              <p className="text-slate-600 dark:text-slate-300 text-xs font-sans">
+                Sensor <strong>{queryAlert.sensorId}</strong> ({sensorLocationNames[queryAlert.sensorId]?.locationName || 'Caltrans PeMS'})
+              </p>
+              <div className="flex items-center gap-2 pt-0.5 text-[11px] text-slate-500 dark:text-slate-400">
+                <span>Bytes: <strong className="text-slate-800 dark:text-white">{queryAlert.bytes.split('/')[0]}</strong></span>
+                <span>&bull;</span>
+                <span>Gain: <strong className="text-emerald-600 dark:text-emerald-400">{queryAlert.benefit}</strong></span>
+              </div>
+            </div>
           </div>
-        </div>
+        </>
       )}
 
       {/* 2. Exactly FOUR KPI Cards (Section 6) */}
@@ -307,7 +381,7 @@ export default function DecisionIntelligence() {
         <div className="lg:col-span-6">
           <NeedScoreBreakdown
             data={needScoreData}
-            sensorId={selectedSensorId}
+            sensorId={activeSensorId}
           />
         </div>
 
@@ -325,13 +399,14 @@ export default function DecisionIntelligence() {
         <div className="lg:col-span-6">
           <EvidenceChain
             data={evidenceData}
-            targetSensorId={selectedSensorId}
+            targetSensorId={activeSensorId}
           />
         </div>
 
         <div className="lg:col-span-6">
           <CounterfactualQueryCard
             data={counterfactualData}
+            sensorId={activeSensorId}
             onExecuteQuery={handleQuery}
           />
         </div>
@@ -343,7 +418,7 @@ export default function DecisionIntelligence() {
           juryData={juryData}
           physicsData={physicsData}
           spatialData={spatialConsistencyData}
-          selectedSensorId={selectedSensorId}
+          selectedSensorId={activeSensorId}
         />
       </div>
 

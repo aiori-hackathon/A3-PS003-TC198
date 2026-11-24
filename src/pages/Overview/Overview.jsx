@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { useReplay } from '../../context/ReplayContext';
 import { fetchForecast, fetchNeedScore, fetchSensorById } from '../../services/api';
+import sensorLocationNames from '../../data/sensor_location_names.json';
 
 import OverviewHeroConsole from '../../components/overview/OverviewHeroConsole';
 import CurrentSensorStateCard from '../../components/overview/CurrentSensorStateCard';
@@ -11,21 +13,30 @@ import NeighborConsensusCard from '../../components/overview/NeighborConsensusCa
 import TrafficOutlookTimelineCard from '../../components/overview/TrafficOutlookTimelineCard';
 import WhatToWatchCard from '../../components/overview/WhatToWatchCard';
 
-const REPRESENTATIVE_SENSORS = [
-  { id: '773869', name: 'Sensor 773869 (Region C)', region: 'REGION_C' },
-  { id: '773975', name: 'Sensor 773975 (Region A)', region: 'REGION_A' },
-  { id: '773927', name: 'Sensor 773927 (Region A)', region: 'REGION_A' },
-  { id: '767573', name: 'Sensor 767573 (Region A)', region: 'REGION_A' },
-  { id: '767541', name: 'Sensor 767541 (Region B)', region: 'REGION_B' },
-  { id: '717458', name: 'Sensor 717458 (Region B)', region: 'REGION_B' },
-  { id: '718045', name: 'Sensor 718045 (Region B)', region: 'REGION_B' },
-  { id: '717447', name: 'Sensor 717447 (Region C)', region: 'REGION_C' },
-  { id: '717816', name: 'Sensor 717816 (Region C)', region: 'REGION_C' },
-  { id: '717468', name: 'Sensor 717468 (Region C)', region: 'REGION_C' },
-  { id: '765171', name: 'Sensor 765171 (Region D)', region: 'REGION_D' },
-  { id: '769431', name: 'Sensor 769431 (Region D)', region: 'REGION_D' },
-  { id: '767350', name: 'Sensor 767350 (Region D)', region: 'REGION_D' }
+const RAW_REPRESENTATIVE_SENSORS = [
+  { id: '773869', region: 'REGION_C' },
+  { id: '773975', region: 'REGION_A' },
+  { id: '773927', region: 'REGION_A' },
+  { id: '767573', region: 'REGION_A' },
+  { id: '767541', region: 'REGION_B' },
+  { id: '717458', region: 'REGION_B' },
+  { id: '718045', region: 'REGION_B' },
+  { id: '717447', region: 'REGION_B' },
+  { id: '717468', region: 'REGION_C' },
+  { id: '717816', region: 'REGION_D' },
+  { id: '765171', region: 'REGION_D' },
+  { id: '769431', region: 'REGION_D' },
+  { id: '767350', region: 'REGION_D' }
 ];
+
+const REPRESENTATIVE_SENSORS = RAW_REPRESENTATIVE_SENSORS.map((s) => {
+  const loc = sensorLocationNames[s.id]?.locationName || '';
+  return {
+    ...s,
+    name: loc ? `${s.id} • ${loc}` : `Sensor ${s.id}`,
+    locationName: loc
+  };
+});
 
 const INITIAL_PREDICTIONS = [
   { horizonMinutes: 5, horizonLabel: '+5 min', predictedSpeedMph: 62.4, actualSpeedMph: 62.8 },
@@ -34,18 +45,33 @@ const INITIAL_PREDICTIONS = [
   { horizonMinutes: 60, horizonLabel: '+60 min', predictedSpeedMph: 60.5, actualSpeedMph: 60.1 }
 ];
 
+/**
+ * Overview Page Component
+ * Executive traffic operations overview displaying real-time detector status,
+ * 60-minute multi-horizon speed forecast, directional indicators, and neighbor consensus.
+ */
 export default function Overview() {
-  const { timeIndex: globalTimeIndex, timestampStr } = useReplay();
+  const { timeIndex: globalTimeIndex, selectedSensorId, setSelectedSensorId } = useReplay();
+  const [searchParams] = useSearchParams();
   const effectiveTimeIndex = Math.max(12, globalTimeIndex);
 
-  const [selectedSensor, setSelectedSensor] = useState('773869');
-  const [selectedRegion, setSelectedRegion] = useState('REGION_C');
+  const timestampStr = useMemo(() => {
+    const ms = new Date('2012-03-01T00:00:00Z').getTime() + effectiveTimeIndex * 5 * 60 * 1000;
+    return new Date(ms).toISOString().replace('T', ' ').substring(0, 19);
+  }, [effectiveTimeIndex]);
+
+  // Initial sensor resolution: URL param > ReplayContext > default '773869'
+  const initialSensorId = searchParams.get('sensor') || selectedSensorId || '773869';
+  const initialMeta = REPRESENTATIVE_SENSORS.find(s => s.id === initialSensorId);
+
+  const [selectedSensor, setSelectedSensor] = useState(initialSensorId);
+  const [selectedRegion, setSelectedRegion] = useState(initialMeta ? initialMeta.region : 'REGION_C');
 
   // Sensor state
   const [currentSpeed, setCurrentSpeed] = useState(62.0);
   const [recentMean, setRecentMean] = useState(62.8);
   const [driftState, setDriftState] = useState('normal');
-  const [sensorRegion, setSensorRegion] = useState('REGION_C');
+  const [sensorRegion, setSensorRegion] = useState(initialMeta ? initialMeta.region : 'REGION_C');
 
   // Forecast state
   const [predictions, setPredictions] = useState(INITIAL_PREDICTIONS);
@@ -55,6 +81,19 @@ export default function Overview() {
   const [needScore, setNeedScore] = useState(0.42);
   const [neighborCount, setNeighborCount] = useState(6);
   const [neighborMeanSpeed, setNeighborMeanSpeed] = useState(63.4);
+
+  // Sync with URL query parameter changes if navigated from other routes
+  useEffect(() => {
+    const qSensor = searchParams.get('sensor');
+    if (qSensor && qSensor !== selectedSensor) {
+      setSelectedSensor(qSensor);
+      const meta = REPRESENTATIVE_SENSORS.find(s => s.id === qSensor);
+      if (meta) {
+        setSensorRegion(meta.region);
+        setSelectedRegion(meta.region);
+      }
+    }
+  }, [searchParams, selectedSensor]);
 
   // Filter sensor list by region if not 'ALL'
   const filteredSensors = useMemo(() => {
@@ -66,13 +105,16 @@ export default function Overview() {
     setSelectedRegion(region);
     const matching = region === 'ALL' ? REPRESENTATIVE_SENSORS : REPRESENTATIVE_SENSORS.filter((s) => s.region === region);
     if (matching.length > 0 && !matching.some((s) => s.id === selectedSensor)) {
-      setSelectedSensor(matching[0].id);
+      const nextSensor = matching[0].id;
+      setSelectedSensor(nextSensor);
       setSensorRegion(matching[0].region);
+      setSelectedSensorId?.(nextSensor);
     }
   };
 
   const handleSelectSensor = (sensorId) => {
     setSelectedSensor(sensorId);
+    setSelectedSensorId?.(sensorId);
     const meta = REPRESENTATIVE_SENSORS.find((s) => s.id === sensorId);
     if (meta) {
       setSensorRegion(meta.region);
@@ -118,31 +160,38 @@ export default function Overview() {
         }
       }
 
-      // 3. Process Sensor Detail & Neighbors
+      // 3. Process Sensor Detail & Real METR-LA Graph Neighbors
       if (sensorRes.status === 'fulfilled' && sensorRes.value) {
         const s = sensorRes.value;
         const nbrs = s.graphNeighbors || s.graph?.neighbors || [];
-        const count = nbrs.length > 0 ? nbrs.length : 6;
-        setNeighborCount(count);
+        const validCount = typeof s.validNeighborCount === 'number'
+          ? s.validNeighborCount
+          : (typeof s.graph?.validNeighborCount === 'number' ? s.graph.validNeighborCount : nbrs.length);
+        setNeighborCount(validCount);
 
-        // Compute simulated or recorded neighbor mean speed with minor natural delta
-        const measuredSpeed = s.measurements?.speed || currentSpeed;
-        const offset = (Number(selectedSensor) % 3 === 0 ? 1.4 : -1.2);
-        setNeighborMeanSpeed(Number((measuredSpeed + offset).toFixed(1)));
+        const realNbrMean = typeof s.neighborMeanSpeed === 'number'
+          ? s.neighborMeanSpeed
+          : (typeof s.graph?.neighborMeanSpeed === 'number' ? s.graph.neighborMeanSpeed : null);
+        setNeighborMeanSpeed(realNbrMean);
       }
     } catch {
       // Graceful fallback to initial values
     }
-  }, [effectiveTimeIndex, selectedSensor, currentSpeed]);
+  }, [effectiveTimeIndex, selectedSensor]);
 
   useEffect(() => {
     loadSensorData();
   }, [loadSensorData]);
 
-  const neighborDiff = Number(Math.abs(currentSpeed - neighborMeanSpeed).toFixed(1));
+  const neighborDiff = useMemo(() => {
+    if (typeof neighborMeanSpeed === 'number' && neighborCount > 0) {
+      return Number(Math.abs(currentSpeed - neighborMeanSpeed).toFixed(1));
+    }
+    return 1.4;
+  }, [currentSpeed, neighborMeanSpeed, neighborCount]);
 
   return (
-    <div className="space-y-6 pb-12 w-full">
+    <div className="space-y-6 pb-12 w-full animate-page-enter">
 
       {/* SECTION 1: TOP HERO OPERATIONAL BRIEFING */}
       <OverviewHeroConsole
@@ -160,6 +209,7 @@ export default function Overview() {
         <div className="lg:col-span-4 flex flex-col">
           <CurrentSensorStateCard
             sensorId={selectedSensor}
+            locationName={sensorLocationNames[selectedSensor]?.locationName || ''}
             regionId={sensorRegion}
             currentSpeed={currentSpeed}
             recentMean={recentMean}

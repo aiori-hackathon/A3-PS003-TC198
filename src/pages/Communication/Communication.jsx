@@ -2,9 +2,8 @@ import React, { useState, useEffect, useMemo } from 'react';
 import {
   Radio,
   AlertTriangle,
-  Clock
+  Leaf
 } from 'lucide-react';
-import { useReplay } from '../../context/ReplayContext';
 import {
   fetchFederatedCommunication,
   fetchPhase9Selection,
@@ -76,7 +75,6 @@ const STRATEGIES_MAP = {
 };
 
 export default function Communication() {
-  const { timestampStr } = useReplay();
   const [commData, setCommData] = useState(null);
   const [error, setError] = useState(null);
 
@@ -121,12 +119,37 @@ export default function Communication() {
     return 11468184;
   }, [isMeasuredMode, accountingReport]);
 
-  // Load baseline communication stats and experimental trade-offs cleanly
+  const [projectionDays, setProjectionDays] = useState(30);
+
+  const projectionMetrics = useMemo(() => {
+    const cyclesPerDay = 288 / 13;
+    const bytesSavedPerCycle = Math.max(0, effectiveBaselineTotalBytes - activeStrategyObj.totalBytes);
+    const mbSavedPerCycle = bytesSavedPerCycle / (1024 * 1024);
+    const mbSavedTotal = mbSavedPerCycle * cyclesPerDay * projectionDays;
+    const gbSavedTotal = mbSavedTotal / 1024;
+    const costSavedUsd = mbSavedTotal * 0.08;
+    const costSavedInr = mbSavedTotal * 6.5;
+    const co2KgSaved = (mbSavedTotal * 0.015) / 1000;
+
+    return {
+      mbSaved: mbSavedTotal.toFixed(1),
+      gbSaved: gbSavedTotal.toFixed(2),
+      usd: Math.round(costSavedUsd).toLocaleString(),
+      inr: Math.round(costSavedInr).toLocaleString(),
+      co2: co2KgSaved.toFixed(2)
+    };
+  }, [effectiveBaselineTotalBytes, activeStrategyObj, projectionDays]);
+
+  // Load baseline communication stats & experimental models
   useEffect(() => {
     let isMounted = true;
     fetchFederatedCommunication()
-      .then((res) => { if (isMounted) setCommData(res); })
-      .catch((err) => { if (isMounted) setError(err.message || 'Failed to connect to backend communication service.'); });
+      .then((res) => {
+        if (isMounted) setCommData(res);
+      })
+      .catch((err) => {
+        if (isMounted) setError(err.message || 'Failed to connect to backend communication service.');
+      });
 
     fetchPhase9Experiments()
       .then((res) => { if (isMounted) setPhase9Experiments(res); })
@@ -164,7 +187,7 @@ export default function Communication() {
   }, [activeHistoryPolicy]);
 
   return (
-    <div className="space-y-6 pb-12">
+    <div className="space-y-6 pb-12 animate-page-enter">
 
       {/* ==================================================================== */}
       {/* 1. CINEMATIC HEADER STRIP                                            */}
@@ -172,11 +195,11 @@ export default function Communication() {
       <div className="relative overflow-hidden rounded-2xl bg-white dark:bg-[#071727] border border-slate-200 dark:border-[#17364E] p-5 lg:p-6 shadow-xs dark:shadow-md transition-colors">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="space-y-1">
-            <div className="flex items-center gap-3">
+            <div className="flex flex-wrap items-center gap-3">
               <div className="p-2 rounded-xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20">
                 <Radio className="w-5 h-5" />
               </div>
-              <h1 className="text-xl lg:text-2xl font-black text-slate-900 dark:text-[#F5F8FC] tracking-tight">
+              <h1 className="text-xl lg:text-2xl font-bold text-slate-900 dark:text-[#F5F8FC] tracking-tight">
                 Communication Intelligence
               </h1>
             </div>
@@ -228,10 +251,6 @@ export default function Communication() {
               </button>
             </div>
 
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-mono font-semibold bg-blue-500/10 text-blue-700 dark:text-cyan-400 border border-blue-500/30">
-              <Clock className="w-3.5 h-3.5" />
-              Replay: {timestampStr ? timestampStr.substring(0, 16) : 'Active'}
-            </span>
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-mono font-semibold bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
               Selective Optimization Active
@@ -306,6 +325,99 @@ export default function Communication() {
         activeStrategy={activeStrategy}
         onSelectStrategy={setActiveStrategy}
       />
+
+      {/* ==================================================================== */}
+      {/* D2. MUNICIPAL FLEET BANDWIDTH & AIRTIME COST PROJECTION              */}
+      {/* ==================================================================== */}
+      <div className="p-5 rounded-2xl bg-white dark:bg-[#071727] border border-slate-200 dark:border-[#17364E] shadow-sm transition-colors">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-100 dark:border-[#17364E]/80">
+          <div className="flex items-center gap-2.5">
+            <div className="p-2 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+              <Leaf className="w-5 h-5" />
+            </div>
+            <div>
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+                Municipal Fleet Bandwidth & Airtime Cost Projection
+              </h3>
+              <p className="text-xs text-slate-500 dark:text-[#8295A8]">
+                Estimated long-term deployment savings under {activeStrategyObj.name} (-{activeStrategyObj.reductionPercent}%)
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-1 bg-slate-100 dark:bg-[#0B2033] p-1 rounded-xl border border-slate-200 dark:border-[#17364E] text-xs font-semibold">
+            {[
+              { days: 7, label: '7 Days' },
+              { days: 30, label: '30 Days' },
+              { days: 90, label: 'Quarter' },
+              { days: 365, label: '1 Year' }
+            ].map((p) => (
+              <button
+                key={p.days}
+                onClick={() => setProjectionDays(p.days)}
+                type="button"
+                className={`px-2.5 py-1 rounded-lg transition-all cursor-pointer ${
+                  projectionDays === p.days
+                    ? 'bg-emerald-600 text-white font-bold shadow-xs'
+                    : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
+                }`}
+              >
+                {p.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5 pt-4">
+          <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-[#0B2033] border border-slate-200/80 dark:border-[#17364E]">
+            <span className="text-[11px] font-medium text-slate-500 dark:text-[#8295A8] block uppercase">
+              Cellular Data Saved
+            </span>
+            <span className="text-xl sm:text-2xl font-black font-mono text-emerald-600 dark:text-emerald-400">
+              {projectionMetrics.gbSaved} GB
+            </span>
+            <span className="text-[10px] text-slate-500 block font-mono mt-0.5">
+              ({projectionMetrics.mbSaved} MB)
+            </span>
+          </div>
+
+          <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-[#0B2033] border border-slate-200/80 dark:border-[#17364E]">
+            <span className="text-[11px] font-medium text-slate-500 dark:text-[#8295A8] block uppercase">
+              Est. LTE Airtime Savings (USD)
+            </span>
+            <span className="text-xl sm:text-2xl font-black font-mono text-cyan-600 dark:text-cyan-400">
+              ${projectionMetrics.usd}
+            </span>
+            <span className="text-[10px] text-slate-500 block font-mono mt-0.5">
+              @ $0.08 / MB industrial SIM
+            </span>
+          </div>
+
+          <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-[#0B2033] border border-slate-200/80 dark:border-[#17364E]">
+            <span className="text-[11px] font-medium text-slate-500 dark:text-[#8295A8] block uppercase">
+              Indian Municipal Equivalent
+            </span>
+            <span className="text-xl sm:text-2xl font-black font-mono text-purple-600 dark:text-purple-400">
+              ₹{projectionMetrics.inr}
+            </span>
+            <span className="text-[10px] text-slate-500 block font-mono mt-0.5">
+              Smart-City IoT tariff model
+            </span>
+          </div>
+
+          <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-[#0B2033] border border-slate-200/80 dark:border-[#17364E]">
+            <span className="text-[11px] font-medium text-slate-500 dark:text-[#8295A8] block uppercase">
+              Edge Carbon Reduction
+            </span>
+            <span className="text-xl sm:text-2xl font-black font-mono text-emerald-600 dark:text-emerald-400">
+              {projectionMetrics.co2} kg
+            </span>
+            <span className="text-[10px] text-slate-500 block font-mono mt-0.5">
+              RF cellular emissions avoided
+            </span>
+          </div>
+        </div>
+      </div>
 
       {/* ==================================================================== */}
       {/* E. REGIONAL COMMUNICATION + RECENT EVENTS                            */}

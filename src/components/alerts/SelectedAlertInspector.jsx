@@ -58,7 +58,7 @@ export default function SelectedAlertInspector({ alert }) {
   return (
     <SectionCard
       title={`Alert Context — Sensor ${alert.sensorId}`}
-      subtitle={`${alert.condition} • ${alert.regionId}`}
+      subtitle={`${alert.locationName ? `${alert.locationName} • ` : ''}${alert.condition} • ${alert.regionId}`}
       icon={FileText}
       action={
         <div className="flex items-center gap-2">
@@ -291,14 +291,32 @@ export default function SelectedAlertInspector({ alert }) {
               </div>
             </div>
 
-            {/* Quick Link to Decision Console */}
-            <Link
-              to={`/decision?sensor=${alert.sensorId}`}
-              className="w-full flex items-center justify-center gap-1.5 p-2 rounded-lg bg-purple-600 hover:bg-purple-500 text-white font-semibold text-xs transition-colors shadow-2xs"
-            >
-              <span>Open in Decision Intelligence</span>
-              <ExternalLink className="w-3.5 h-3.5" />
-            </Link>
+            {/* Quick Investigation Links */}
+            <div className="space-y-2 pt-1">
+              <Link
+                to={`/network?sensor=${alert.sensorId}`}
+                className="w-full flex items-center justify-center gap-1.5 p-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs transition-colors shadow-2xs"
+              >
+                <span>View on Traffic Network</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </Link>
+
+              <Link
+                to={`/predictions?sensor=${alert.sensorId}`}
+                className="w-full flex items-center justify-center gap-1.5 p-2 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white font-semibold text-xs transition-colors shadow-2xs"
+              >
+                <span>Inspect Forecast on Prediction</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </Link>
+
+              <Link
+                to={`/decision?sensor=${alert.sensorId}`}
+                className="w-full flex items-center justify-center gap-1.5 p-2 rounded-lg bg-purple-600 hover:bg-purple-500 text-white font-semibold text-xs transition-colors shadow-2xs"
+              >
+                <span>Open in Decision Intelligence</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </Link>
+            </div>
           </div>
         )}
       </div>

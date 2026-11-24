@@ -73,6 +73,20 @@ export default function FederatedCommunicationSummaryCard() {
         </div>
       </div>
 
+      {/* Mathematical Accounting Equation Box */}
+      <div className="mt-3.5 p-3 rounded-lg bg-slate-50 dark:bg-[#0B2033] border border-slate-200 dark:border-[#17364E] text-xs font-mono space-y-1.5">
+        <div className="flex items-center justify-between text-slate-500 text-[11px]">
+          <span>Byte Transmission Accounting Formulation:</span>
+          <span className="text-cyan-600 dark:text-cyan-400 font-bold">Total Bytes = R &times; K &times; (Down + Up) &times; S</span>
+        </div>
+        <div className="p-2 rounded bg-white dark:bg-[#071624] border border-slate-200/80 dark:border-[#17364E]/80 text-[11px] text-slate-600 dark:text-[#CBDDF0] space-y-0.5">
+          <div>13 Rounds &times; 4 Clients &times; 2 Transfers &times; 110,271 Bytes = <strong className="text-purple-600 dark:text-purple-400">11,468,184 Bytes (~11.47 MB)</strong></div>
+          <div className="text-[10px] text-slate-400 pt-0.5 border-t border-slate-100 dark:border-[#17364E]">
+            Model Size: 26,596 FP32 params &times; 4B = 106,384B uncompressed + 3,887B PyTorch state_dict framing = 110,271B/transfer.
+          </div>
+        </div>
+      </div>
+
       <div className="mt-3.5 text-[11px] text-slate-500 dark:text-[#7F96AA] flex items-center justify-between pt-2 border-t border-slate-100 dark:border-[#17364E]">
         <span>Scope: Application payload accounting (PyTorch serialized state_dict tensors).</span>
         <span className="font-mono text-slate-400">Physical transport overhead omitted</span>

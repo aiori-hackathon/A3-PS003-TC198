@@ -3,22 +3,22 @@ import { Clock } from 'lucide-react';
 import { useReplay } from '../../context/ReplayContext';
 
 export default function RecentCommunicationEvents() {
-  const { timeIndex, timestampStr } = useReplay();
+  const { timeIndex } = useReplay();
 
-  // Derive synchronized event timestamps relative to active replay window
-  const baseDate = timestampStr ? new Date(timestampStr.replace(' ', 'T') + 'Z') : new Date('2012-03-01T00:00:00Z');
-  const formatOffset = (minusMinutes) => {
-    const d = new Date(baseDate.getTime() - minusMinutes * 60 * 1000);
-    return `${String(d.getUTCHours()).padStart(2, '0')}:${String(d.getUTCMinutes()).padStart(2, '0')}`;
+  const formatOffsetTime = (offsetMins) => {
+    const totalMinutes = Math.max(0, (timeIndex || 0) * 5 - offsetMins);
+    const h = String(Math.floor((totalMinutes / 60) % 24)).padStart(2, '0');
+    const m = String(totalMinutes % 60).padStart(2, '0');
+    return `${h}:${m}`;
   };
 
   const events = [
     {
       id: 'e1',
-      time: formatOffset(0),
+      time: formatOffsetTime(0),
       type: 'EVIDENCE',
       title: 'Detailed Evidence Batch',
-      target: 'Sensor 773869 (Region C)',
+      target: 'Sensor 773869 • SR-134 (Ventura Fwy)',
       payload: '~4.2 KB',
       reason: 'Residual uncertainty exceeded dynamic query threshold (u > 2.8)',
       dotColor: 'bg-emerald-500',
@@ -26,7 +26,7 @@ export default function RecentCommunicationEvents() {
     },
     {
       id: 'e2',
-      time: formatOffset(5),
+      time: formatOffsetTime(5),
       type: 'UPLOAD',
       title: 'Regional Model Upload',
       target: 'Region B (South-East)',
@@ -37,7 +37,7 @@ export default function RecentCommunicationEvents() {
     },
     {
       id: 'e3',
-      time: formatOffset(5),
+      time: formatOffsetTime(5),
       type: 'UPLOAD',
       title: 'Regional Model Upload',
       target: 'Region C (Central-West)',
@@ -48,7 +48,7 @@ export default function RecentCommunicationEvents() {
     },
     {
       id: 'e4',
-      time: formatOffset(5),
+      time: formatOffsetTime(5),
       type: 'DEFERRED',
       title: 'Regional Client Deferred',
       target: 'Region A & Region D',
@@ -59,7 +59,7 @@ export default function RecentCommunicationEvents() {
     },
     {
       id: 'e5',
-      time: formatOffset(10),
+      time: formatOffsetTime(10),
       type: 'DOWNLOAD',
       title: 'Global Model Download',
       target: 'All 4 Regional Clients',
@@ -70,10 +70,10 @@ export default function RecentCommunicationEvents() {
     },
     {
       id: 'e6',
-      time: formatOffset(20),
+      time: formatOffsetTime(20),
       type: 'HEARTBEAT',
       title: 'Compact Telemetry Polled',
-      target: 'Sensor 767541 (Region C)',
+      target: 'Sensor 767541 • SR-2 (Glendale Fwy)',
       payload: '187 B',
       reason: 'Spatial speed consistency verification with neighbor node',
       dotColor: 'bg-cyan-500',
@@ -156,7 +156,7 @@ export default function RecentCommunicationEvents() {
 
       {/* Footer Callout */}
       <div className="pt-2 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-[10px] text-slate-500 dark:text-[#A3B8CC] font-mono">
-        <span>Telemetry Window: {timestampStr ? timestampStr.substring(0, 16) : 'Active'} &bull; METR-LA Grid</span>
+        <span>Telemetry Window: Active &bull; METR-LA Grid</span>
         <span>High-fidelity on-demand telemetry</span>
       </div>
 

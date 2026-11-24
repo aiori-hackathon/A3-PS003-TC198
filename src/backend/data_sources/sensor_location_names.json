@@ -1,0 +1,1865 @@
+{
+  "773869": {
+    "sensorId": "773869",
+    "route": "SR-134 (Ventura Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Los Feliz",
+    "locationName": "SR-134 (Ventura Fwy) (Los Feliz)",
+    "latitude": 34.15497,
+    "longitude": -118.31829
+  },
+  "767541": {
+    "sensorId": "767541",
+    "route": "SR-2 (Glendale Fwy)",
+    "crossStreet": "Estara Avenue",
+    "area": "Los Angeles",
+    "locationName": "SR-2 (Glendale Fwy) @ Estara Avenue (Los Angeles)",
+    "latitude": 34.11621,
+    "longitude": -118.23799
+  },
+  "767542": {
+    "sensorId": "767542",
+    "route": "SR-2 (Glendale Fwy)",
+    "crossStreet": "Estara Avenue",
+    "area": "Los Angeles",
+    "locationName": "SR-2 (Glendale Fwy) @ Estara Avenue (Los Angeles)",
+    "latitude": 34.11641,
+    "longitude": -118.23819
+  },
+  "717447": {
+    "sensorId": "717447",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "Hollywood Freeway",
+    "area": "Westlake",
+    "locationName": "US-101 (Hollywood Fwy) (Westlake)",
+    "latitude": 34.07248,
+    "longitude": -118.26772
+  },
+  "717446": {
+    "sensorId": "717446",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "Hollywood Freeway",
+    "area": "Echo Park",
+    "locationName": "US-101 (Hollywood Fwy) (Echo Park)",
+    "latitude": 34.07142,
+    "longitude": -118.26572
+  },
+  "717445": {
+    "sensorId": "717445",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "Hollywood Freeway",
+    "area": "Echo Park",
+    "locationName": "US-101 (Hollywood Fwy) (Echo Park)",
+    "latitude": 34.06913,
+    "longitude": -118.25932
+  },
+  "773062": {
+    "sensorId": "773062",
+    "route": "I-110 (Harbor Fwy)",
+    "crossStreet": "Santa Ana Freeway",
+    "area": "Chinatown",
+    "locationName": "I-110 (Harbor Fwy) @ Santa Ana Freeway (Chinatown)",
+    "latitude": 34.05368,
+    "longitude": -118.23369
+  },
+  "767620": {
+    "sensorId": "767620",
+    "route": "SR-2 (Glendale Fwy)",
+    "crossStreet": "Glendale Freeway",
+    "area": "Eagle Rock",
+    "locationName": "SR-2 (Glendale Fwy) (Eagle Rock)",
+    "latitude": 34.13486,
+    "longitude": -118.22932
+  },
+  "737529": {
+    "sensorId": "737529",
+    "route": "I-210 (Foothill Fwy)",
+    "crossStreet": "San Diego Freeway",
+    "area": "Lake Balboa",
+    "locationName": "I-210 (Foothill Fwy) (Lake Balboa)",
+    "latitude": 34.20264,
+    "longitude": -118.47352
+  },
+  "717816": {
+    "sensorId": "717816",
+    "route": "I-405 (San Diego Fwy)",
+    "crossStreet": "San Diego Freeway",
+    "area": "Encino",
+    "locationName": "I-405 (San Diego Fwy) (Encino)",
+    "latitude": 34.15562,
+    "longitude": -118.4686
+  },
+  "765604": {
+    "sensorId": "765604",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "Hollywood Freeway",
+    "area": "Valley Village",
+    "locationName": "US-101 (Hollywood Fwy) (Valley Village)",
+    "latitude": 34.16415,
+    "longitude": -118.38223
+  },
+  "767471": {
+    "sensorId": "767471",
+    "route": "SR-2 (Glendale Fwy)",
+    "crossStreet": "Glendale Freeway",
+    "area": "Glendale",
+    "locationName": "SR-2 (Glendale Fwy) (Glendale)",
+    "latitude": 34.15691,
+    "longitude": -118.22469
+  },
+  "716339": {
+    "sensorId": "716339",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "Hollywood Freeway",
+    "area": "Westlake",
+    "locationName": "US-101 (Hollywood Fwy) (Westlake)",
+    "latitude": 34.07821,
+    "longitude": -118.28795
+  },
+  "773906": {
+    "sensorId": "773906",
+    "route": "SR-134 (Ventura Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Los Feliz",
+    "locationName": "SR-134 (Ventura Fwy) (Los Feliz)",
+    "latitude": 34.1566,
+    "longitude": -118.30266
+  },
+  "765273": {
+    "sensorId": "765273",
+    "route": "I-405 (San Diego Fwy)",
+    "crossStreet": "San Diego Freeway",
+    "area": "Lake Balboa",
+    "locationName": "I-405 (San Diego Fwy) (Lake Balboa)",
+    "latitude": 34.18949,
+    "longitude": -118.47437
+  },
+  "716331": {
+    "sensorId": "716331",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "Hollywood Freeway",
+    "area": "Echo Park",
+    "locationName": "US-101 (Hollywood Fwy) (Echo Park)",
+    "latitude": 34.07006,
+    "longitude": -118.26246
+  },
+  "771667": {
+    "sensorId": "771667",
+    "route": "SR-110 (Pasadena Fwy)",
+    "crossStreet": "Arroyo Seco Parkway",
+    "area": "Chinatown",
+    "locationName": "SR-110 (Pasadena Fwy) @ Arroyo Seco Parkway (Chinatown)",
+    "latitude": 34.07314,
+    "longitude": -118.23388
+  },
+  "716337": {
+    "sensorId": "716337",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "Hollywood Freeway",
+    "area": "Westlake",
+    "locationName": "US-101 (Hollywood Fwy) (Westlake)",
+    "latitude": 34.07732,
+    "longitude": -118.28186
+  },
+  "769953": {
+    "sensorId": "769953",
+    "route": "I-210 (Foothill Fwy)",
+    "crossStreet": "Foothill Freeway",
+    "area": "La Ca\u00f1ada Flintridge",
+    "locationName": "I-210 (Foothill Fwy) (La Ca\u00f1ada Flintridge)",
+    "latitude": 34.20672,
+    "longitude": -118.19992
+  },
+  "769402": {
+    "sensorId": "769402",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "Hollywood Freeway",
+    "area": "Hollywood Hills",
+    "locationName": "US-101 (Hollywood Fwy) (Hollywood Hills)",
+    "latitude": 34.12095,
+    "longitude": -118.33911
+  },
+  "769403": {
+    "sensorId": "769403",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "Hollywood Freeway",
+    "area": "Hollywood Hills",
+    "locationName": "US-101 (Hollywood Fwy) (Hollywood Hills)",
+    "latitude": 34.12073,
+    "longitude": -118.33928
+  },
+  "769819": {
+    "sensorId": "769819",
+    "route": "I-210 (Foothill Fwy)",
+    "crossStreet": "Foothill Freeway",
+    "area": "La Ca\u00f1ada Flintridge",
+    "locationName": "I-210 (Foothill Fwy) (La Ca\u00f1ada Flintridge)",
+    "latitude": 34.20584,
+    "longitude": -118.19803
+  },
+  "769405": {
+    "sensorId": "769405",
+    "route": "US-101 (Ventura Fwy)",
+    "crossStreet": "Cahuenga Boulevard West",
+    "area": "Hollywood Hills",
+    "locationName": "US-101 (Ventura Fwy) @ Cahuenga Boulevard West (Hollywood Hills)",
+    "latitude": 34.12634,
+    "longitude": -118.34482
+  },
+  "716941": {
+    "sensorId": "716941",
+    "route": "I-5 (Golden State Fwy)",
+    "crossStreet": "Golden State Freeway",
+    "area": "Boyle Heights",
+    "locationName": "I-5 (Golden State Fwy) (Boyle Heights)",
+    "latitude": 34.05767,
+    "longitude": -118.21435
+  },
+  "717578": {
+    "sensorId": "717578",
+    "route": "SR-134 (Ventura Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Glendale",
+    "locationName": "SR-134 (Ventura Fwy) (Glendale)",
+    "latitude": 34.15478,
+    "longitude": -118.27076
+  },
+  "716960": {
+    "sensorId": "716960",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "Los Feliz Boulevard",
+    "area": "Atwater Village",
+    "locationName": "US-101 (Hollywood Fwy) @ Los Feliz Boulevard (Atwater Village)",
+    "latitude": 34.12121,
+    "longitude": -118.27164
+  },
+  "717804": {
+    "sensorId": "717804",
+    "route": "I-405 (San Diego Fwy)",
+    "crossStreet": "San Diego Freeway",
+    "area": "Los Angeles",
+    "locationName": "I-405 (San Diego Fwy) (Los Angeles)",
+    "latitude": 34.09478,
+    "longitude": -118.47605
+  },
+  "767572": {
+    "sensorId": "767572",
+    "route": "SR-2 (Glendale Fwy)",
+    "crossStreet": "West Avenue 42",
+    "area": "Eagle Rock",
+    "locationName": "SR-2 (Glendale Fwy) @ West Avenue 42 (Eagle Rock)",
+    "latitude": 34.12967,
+    "longitude": -118.22871
+  },
+  "767573": {
+    "sensorId": "767573",
+    "route": "SR-2 (Glendale Fwy)",
+    "crossStreet": "West Avenue 42",
+    "area": "Eagle Rock",
+    "locationName": "SR-2 (Glendale Fwy) @ West Avenue 42 (Eagle Rock)",
+    "latitude": 34.12964,
+    "longitude": -118.22901
+  },
+  "773012": {
+    "sensorId": "773012",
+    "route": "SR-110 (Pasadena Fwy)",
+    "crossStreet": "Arroyo Seco Parkway",
+    "area": "Lincoln Heights",
+    "locationName": "SR-110 (Pasadena Fwy) @ Arroyo Seco Parkway (Lincoln Heights)",
+    "latitude": 34.0839,
+    "longitude": -118.22086
+  },
+  "773013": {
+    "sensorId": "773013",
+    "route": "SR-110 (Pasadena Fwy)",
+    "crossStreet": "Arroyo Seco Parkway",
+    "area": "Lincoln Heights",
+    "locationName": "SR-110 (Pasadena Fwy) @ Arroyo Seco Parkway (Lincoln Heights)",
+    "latitude": 34.08374,
+    "longitude": -118.22076
+  },
+  "764424": {
+    "sensorId": "764424",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "Hollywood Freeway",
+    "area": "Greater Valley Glen",
+    "locationName": "US-101 (Hollywood Fwy) (Greater Valley Glen)",
+    "latitude": 34.17878,
+    "longitude": -118.39469
+  },
+  "769388": {
+    "sensorId": "769388",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "Odin Street",
+    "area": "Hollywood",
+    "locationName": "US-101 (Hollywood Fwy) @ Odin Street (Hollywood)",
+    "latitude": 34.11027,
+    "longitude": -118.33441
+  },
+  "716328": {
+    "sensorId": "716328",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "W Temple St",
+    "area": "Echo Park",
+    "locationName": "US-101 (Hollywood Fwy) @ W Temple St (Echo Park)",
+    "latitude": 34.06664,
+    "longitude": -118.25397
+  },
+  "717819": {
+    "sensorId": "717819",
+    "route": "I-405 (San Diego Fwy)",
+    "crossStreet": "San Diego Freeway",
+    "area": "Van Nuys",
+    "locationName": "I-405 (San Diego Fwy) (Van Nuys)",
+    "latitude": 34.18784,
+    "longitude": -118.47407
+  },
+  "769941": {
+    "sensorId": "769941",
+    "route": "I-210 (Foothill Fwy)",
+    "crossStreet": "Foothill Freeway",
+    "area": "La Ca\u00f1ada Flintridge",
+    "locationName": "I-210 (Foothill Fwy) (La Ca\u00f1ada Flintridge)",
+    "latitude": 34.20699,
+    "longitude": -118.20237
+  },
+  "760987": {
+    "sensorId": "760987",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Burbank",
+    "locationName": "US-101 (Hollywood Fwy) (Burbank)",
+    "latitude": 34.15359,
+    "longitude": -118.34043
+  },
+  "718204": {
+    "sensorId": "718204",
+    "route": "SR-134 (Ventura Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Los Feliz",
+    "locationName": "SR-134 (Ventura Fwy) (Los Feliz)",
+    "latitude": 34.15541,
+    "longitude": -118.29575
+  },
+  "718045": {
+    "sensorId": "718045",
+    "route": "US-101 (Ventura Fwy)",
+    "crossStreet": "Yale Street Pedestrian Overcrossing",
+    "area": "Chinatown",
+    "locationName": "US-101 (Ventura Fwy) @ Yale Street Pedestrian Overcrossing (Chinatown)",
+    "latitude": 34.06712,
+    "longitude": -118.23973
+  },
+  "769418": {
+    "sensorId": "769418",
+    "route": "US-101 (Ventura Fwy)",
+    "crossStreet": "Cahuenga Boulevard East",
+    "area": "Hollywood Hills",
+    "locationName": "US-101 (Ventura Fwy) @ Cahuenga Boulevard East (Hollywood Hills)",
+    "latitude": 34.12659,
+    "longitude": -118.34465
+  },
+  "768066": {
+    "sensorId": "768066",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "Hollywood Freeway",
+    "area": "Studio City",
+    "locationName": "US-101 (Hollywood Fwy) (Studio City)",
+    "latitude": 34.15118,
+    "longitude": -118.3748
+  },
+  "772140": {
+    "sensorId": "772140",
+    "route": "I-405 (San Diego Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Encino",
+    "locationName": "I-405 (San Diego Fwy) (Encino)",
+    "latitude": 34.16498,
+    "longitude": -118.47493
+  },
+  "773927": {
+    "sensorId": "773927",
+    "route": "SR-134 (Ventura Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Glendale",
+    "locationName": "SR-134 (Ventura Fwy) (Glendale)",
+    "latitude": 34.15262,
+    "longitude": -118.28034
+  },
+  "760024": {
+    "sensorId": "760024",
+    "route": "I-405 (San Diego Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Sherman Oaks",
+    "locationName": "I-405 (San Diego Fwy) (Sherman Oaks)",
+    "latitude": 34.1593,
+    "longitude": -118.46483
+  },
+  "774012": {
+    "sensorId": "774012",
+    "route": "SR-2 (Glendale Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Eagle Rock",
+    "locationName": "SR-2 (Glendale Fwy) (Eagle Rock)",
+    "latitude": 34.14769,
+    "longitude": -118.20137
+  },
+  "774011": {
+    "sensorId": "774011",
+    "route": "SR-2 (Glendale Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Eagle Rock",
+    "locationName": "SR-2 (Glendale Fwy) (Eagle Rock)",
+    "latitude": 34.14747,
+    "longitude": -118.20123
+  },
+  "767609": {
+    "sensorId": "767609",
+    "route": "SR-2 (Glendale Fwy)",
+    "crossStreet": "Glendale Freeway",
+    "area": "Glendale",
+    "locationName": "SR-2 (Glendale Fwy) (Glendale)",
+    "latitude": 34.18555,
+    "longitude": -118.21733
+  },
+  "769359": {
+    "sensorId": "769359",
+    "route": "US-101 (Ventura Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Sherman Oaks",
+    "locationName": "US-101 (Ventura Fwy) (Sherman Oaks)",
+    "latitude": 34.1566,
+    "longitude": -118.42216
+  },
+  "760650": {
+    "sensorId": "760650",
+    "route": "SR-110 (Pasadena Fwy)",
+    "crossStreet": "Arroyo Seco Parkway",
+    "area": "Chinatown",
+    "locationName": "SR-110 (Pasadena Fwy) @ Arroyo Seco Parkway (Chinatown)",
+    "latitude": 34.07505,
+    "longitude": -118.23256
+  },
+  "716956": {
+    "sensorId": "716956",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "Fletcher Drive",
+    "area": "Los Angeles",
+    "locationName": "US-101 (Hollywood Fwy) @ Fletcher Drive (Los Angeles)",
+    "latitude": 34.10658,
+    "longitude": -118.25544
+  },
+  "769831": {
+    "sensorId": "769831",
+    "route": "I-210 (Foothill Fwy)",
+    "crossStreet": "Angeles Crest Highway",
+    "area": "La Ca\u00f1ada Flintridge",
+    "locationName": "I-210 (Foothill Fwy) @ Angeles Crest Highway (La Ca\u00f1ada Flintridge)",
+    "latitude": 34.20663,
+    "longitude": -118.20101
+  },
+  "761604": {
+    "sensorId": "761604",
+    "route": "I-5 (Golden State Fwy)",
+    "crossStreet": "Golden State Freeway",
+    "area": "Los Feliz",
+    "locationName": "I-5 (Golden State Fwy) (Los Feliz)",
+    "latitude": 34.15407,
+    "longitude": -118.28711
+  },
+  "717495": {
+    "sensorId": "717495",
+    "route": "US-101 (Ventura Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Sherman Oaks",
+    "locationName": "US-101 (Ventura Fwy) (Sherman Oaks)",
+    "latitude": 34.15664,
+    "longitude": -118.41326
+  },
+  "716554": {
+    "sensorId": "716554",
+    "route": "SR-134 (Ventura Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "North Glendale",
+    "locationName": "SR-134 (Ventura Fwy) (North Glendale)",
+    "latitude": 34.15597,
+    "longitude": -118.2666
+  },
+  "773953": {
+    "sensorId": "773953",
+    "route": "SR-134 (Ventura Fwy)",
+    "crossStreet": "Riverside Drive",
+    "area": "Los Feliz",
+    "locationName": "SR-134 (Ventura Fwy) @ Riverside Drive (Los Feliz)",
+    "latitude": 34.15522,
+    "longitude": -118.29344
+  },
+  "767470": {
+    "sensorId": "767470",
+    "route": "SR-2 (Glendale Fwy)",
+    "crossStreet": "Glendale Freeway",
+    "area": "Glendale",
+    "locationName": "SR-2 (Glendale Fwy) (Glendale)",
+    "latitude": 34.15699,
+    "longitude": -118.22436
+  },
+  "716955": {
+    "sensorId": "716955",
+    "route": "I-5 (Golden State Fwy)",
+    "crossStreet": "Golden State Freeway",
+    "area": "Echo Park",
+    "locationName": "I-5 (Golden State Fwy) (Echo Park)",
+    "latitude": 34.09579,
+    "longitude": -118.24427
+  },
+  "764949": {
+    "sensorId": "764949",
+    "route": "US-101 (Ventura Fwy)",
+    "crossStreet": "Barham Boulevard",
+    "area": "Hollywood Hills",
+    "locationName": "US-101 (Ventura Fwy) @ Barham Boulevard (Hollywood Hills)",
+    "latitude": 34.12881,
+    "longitude": -118.34684
+  },
+  "773954": {
+    "sensorId": "773954",
+    "route": "SR-134 (Ventura Fwy)",
+    "crossStreet": "Los Angeles River Bike Path",
+    "area": "Los Feliz",
+    "locationName": "SR-134 (Ventura Fwy) @ Los Angeles River Bike Path (Los Feliz)",
+    "latitude": 34.15544,
+    "longitude": -118.29344
+  },
+  "767366": {
+    "sensorId": "767366",
+    "route": "I-210 (Foothill Fwy)",
+    "crossStreet": "San Diego Freeway",
+    "area": "Lake Balboa",
+    "locationName": "I-210 (Foothill Fwy) (Lake Balboa)",
+    "latitude": 34.21216,
+    "longitude": -118.47341
+  },
+  "769444": {
+    "sensorId": "769444",
+    "route": "US-101 (Ventura Fwy)",
+    "crossStreet": "Hazeltine Avenue",
+    "area": "Sherman Oaks",
+    "locationName": "US-101 (Ventura Fwy) @ Hazeltine Avenue (Sherman Oaks)",
+    "latitude": 34.15555,
+    "longitude": -118.43908
+  },
+  "773939": {
+    "sensorId": "773939",
+    "route": "US-101 (Ventura Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Greater Toluca Lake",
+    "locationName": "US-101 (Ventura Fwy) (Greater Toluca Lake)",
+    "latitude": 34.15297,
+    "longitude": -118.37226
+  },
+  "774067": {
+    "sensorId": "774067",
+    "route": "SR-134 (Ventura Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Los Feliz",
+    "locationName": "SR-134 (Ventura Fwy) (Los Feliz)",
+    "latitude": 34.15362,
+    "longitude": -118.28441
+  },
+  "769443": {
+    "sensorId": "769443",
+    "route": "US-101 (Ventura Fwy)",
+    "crossStreet": "Hazeltine Avenue",
+    "area": "Sherman Oaks",
+    "locationName": "US-101 (Ventura Fwy) @ Hazeltine Avenue (Sherman Oaks)",
+    "latitude": 34.15574,
+    "longitude": -118.43931
+  },
+  "767750": {
+    "sensorId": "767750",
+    "route": "US-101 (Ventura Fwy)",
+    "crossStreet": "Avenue 43",
+    "area": "Montecito Heights",
+    "locationName": "US-101 (Ventura Fwy) @ Avenue 43 (Montecito Heights)",
+    "latitude": 34.09335,
+    "longitude": -118.20635
+  },
+  "767751": {
+    "sensorId": "767751",
+    "route": "US-101 (Ventura Fwy)",
+    "crossStreet": "Avenue 43",
+    "area": "Montecito Heights",
+    "locationName": "US-101 (Ventura Fwy) @ Avenue 43 (Montecito Heights)",
+    "latitude": 34.09335,
+    "longitude": -118.20616
+  },
+  "767610": {
+    "sensorId": "767610",
+    "route": "SR-2 (Glendale Fwy)",
+    "crossStreet": "Glendale Freeway",
+    "area": "Glendale",
+    "locationName": "SR-2 (Glendale Fwy) (Glendale)",
+    "latitude": 34.18555,
+    "longitude": -118.21766
+  },
+  "773880": {
+    "sensorId": "773880",
+    "route": "US-101 (Ventura Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Burbank",
+    "locationName": "US-101 (Ventura Fwy) (Burbank)",
+    "latitude": 34.15367,
+    "longitude": -118.3484
+  },
+  "764766": {
+    "sensorId": "764766",
+    "route": "US-101 (Ventura Fwy)",
+    "crossStreet": "Universal Studios Boulevard",
+    "area": "Los Angeles",
+    "locationName": "US-101 (Ventura Fwy) @ Universal Studios Boulevard (Los Angeles)",
+    "latitude": 34.13338,
+    "longitude": -118.3535
+  },
+  "717497": {
+    "sensorId": "717497",
+    "route": "US-101 (Ventura Fwy)",
+    "crossStreet": "Alley 86114",
+    "area": "Sherman Oaks",
+    "locationName": "US-101 (Ventura Fwy) @ Alley 86114 (Sherman Oaks)",
+    "latitude": 34.15685,
+    "longitude": -118.41456
+  },
+  "717490": {
+    "sensorId": "717490",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "Hollywood Freeway",
+    "area": "Greater Toluca Lake",
+    "locationName": "US-101 (Hollywood Fwy) (Greater Toluca Lake)",
+    "latitude": 34.14745,
+    "longitude": -118.37124
+  },
+  "717491": {
+    "sensorId": "717491",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "Hollywood Freeway",
+    "area": "Greater Toluca Lake",
+    "locationName": "US-101 (Hollywood Fwy) (Greater Toluca Lake)",
+    "latitude": 34.14761,
+    "longitude": -118.3711
+  },
+  "717492": {
+    "sensorId": "717492",
+    "route": "US-101 (Ventura Fwy)",
+    "crossStreet": "Tujunga Avenue",
+    "area": "Studio City",
+    "locationName": "US-101 (Ventura Fwy) @ Tujunga Avenue (Studio City)",
+    "latitude": 34.15459,
+    "longitude": -118.37935
+  },
+  "717493": {
+    "sensorId": "717493",
+    "route": "US-101 (Ventura Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Studio City",
+    "locationName": "US-101 (Ventura Fwy) (Studio City)",
+    "latitude": 34.15434,
+    "longitude": -118.39618
+  },
+  "765176": {
+    "sensorId": "765176",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "Hollywood Freeway",
+    "area": "Hollywood Hills",
+    "locationName": "US-101 (Hollywood Fwy) (Hollywood Hills)",
+    "latitude": 34.13286,
+    "longitude": -118.35135
+  },
+  "717498": {
+    "sensorId": "717498",
+    "route": "US-101 (Ventura Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Sherman Oaks",
+    "locationName": "US-101 (Ventura Fwy) (Sherman Oaks)",
+    "latitude": 34.15571,
+    "longitude": -118.43273
+  },
+  "717499": {
+    "sensorId": "717499",
+    "route": "I-405 (San Diego Fwy)",
+    "crossStreet": "Van Nuys Boulevard",
+    "area": "Sherman Oaks",
+    "locationName": "I-405 (San Diego Fwy) @ Van Nuys Boulevard (Sherman Oaks)",
+    "latitude": 34.15666,
+    "longitude": -118.44808
+  },
+  "765171": {
+    "sensorId": "765171",
+    "route": "I-405 (San Diego Fwy)",
+    "crossStreet": "San Diego Freeway",
+    "area": "Encino",
+    "locationName": "I-405 (San Diego Fwy) (Encino)",
+    "latitude": 34.16789,
+    "longitude": -118.46896
+  },
+  "718064": {
+    "sensorId": "718064",
+    "route": "SR-2 (Glendale Fwy)",
+    "crossStreet": "Glendale Freeway",
+    "area": "Los Angeles",
+    "locationName": "SR-2 (Glendale Fwy) (Los Angeles)",
+    "latitude": 34.11296,
+    "longitude": -118.24489
+  },
+  "718066": {
+    "sensorId": "718066",
+    "route": "SR-2 (Glendale Fwy)",
+    "crossStreet": "Glendale Freeway",
+    "area": "Eagle Rock",
+    "locationName": "SR-2 (Glendale Fwy) (Eagle Rock)",
+    "latitude": 34.12302,
+    "longitude": -118.22889
+  },
+  "765164": {
+    "sensorId": "765164",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "Hollywood Freeway",
+    "area": "Westlake",
+    "locationName": "US-101 (Hollywood Fwy) (Westlake)",
+    "latitude": 34.07898,
+    "longitude": -118.28911
+  },
+  "769431": {
+    "sensorId": "769431",
+    "route": "I-405 (San Diego Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Sherman Oaks",
+    "locationName": "I-405 (San Diego Fwy) (Sherman Oaks)",
+    "latitude": 34.15843,
+    "longitude": -118.45664
+  },
+  "769430": {
+    "sensorId": "769430",
+    "route": "I-405 (San Diego Fwy)",
+    "crossStreet": "Kester Avenue",
+    "area": "Sherman Oaks",
+    "locationName": "I-405 (San Diego Fwy) @ Kester Avenue (Sherman Oaks)",
+    "latitude": 34.15818,
+    "longitude": -118.45658
+  },
+  "717610": {
+    "sensorId": "717610",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "Hollywood Freeway",
+    "area": "Greater Valley Glen",
+    "locationName": "US-101 (Hollywood Fwy) (Greater Valley Glen)",
+    "latitude": 34.17886,
+    "longitude": -118.39497
+  },
+  "767053": {
+    "sensorId": "767053",
+    "route": "I-405 (San Diego Fwy)",
+    "crossStreet": "San Diego Freeway",
+    "area": "Sherman Oaks",
+    "locationName": "I-405 (San Diego Fwy) (Sherman Oaks)",
+    "latitude": 34.17091,
+    "longitude": -118.46775
+  },
+  "767621": {
+    "sensorId": "767621",
+    "route": "SR-2 (Glendale Fwy)",
+    "crossStreet": "Glendale Freeway",
+    "area": "Eagle Rock",
+    "locationName": "SR-2 (Glendale Fwy) (Eagle Rock)",
+    "latitude": 34.13486,
+    "longitude": -118.22969
+  },
+  "772596": {
+    "sensorId": "772596",
+    "route": "I-405 (San Diego Fwy)",
+    "crossStreet": "Edward Everett Horton Lane",
+    "area": "Encino",
+    "locationName": "I-405 (San Diego Fwy) @ Edward Everett Horton Lane (Encino)",
+    "latitude": 34.17126,
+    "longitude": -118.50495
+  },
+  "772597": {
+    "sensorId": "772597",
+    "route": "I-405 (San Diego Fwy)",
+    "crossStreet": "Albers Street",
+    "area": "Encino",
+    "locationName": "I-405 (San Diego Fwy) @ Albers Street (Encino)",
+    "latitude": 34.17109,
+    "longitude": -118.50495
+  },
+  "767350": {
+    "sensorId": "767350",
+    "route": "I-405 (San Diego Fwy)",
+    "crossStreet": "San Diego Freeway",
+    "area": "Van Nuys",
+    "locationName": "I-405 (San Diego Fwy) (Van Nuys)",
+    "latitude": 34.18011,
+    "longitude": -118.47045
+  },
+  "767351": {
+    "sensorId": "767351",
+    "route": "I-405 (San Diego Fwy)",
+    "crossStreet": "San Diego Freeway",
+    "area": "Van Nuys",
+    "locationName": "I-405 (San Diego Fwy) (Van Nuys)",
+    "latitude": 34.18022,
+    "longitude": -118.47022
+  },
+  "716571": {
+    "sensorId": "716571",
+    "route": "I-5 (Golden State Fwy)",
+    "crossStreet": "Hollywood Freeway",
+    "area": "North Hollywood Northeast",
+    "locationName": "I-5 (Golden State Fwy) (North Hollywood Northeast)",
+    "latitude": 34.2,
+    "longitude": -118.40337
+  },
+  "773023": {
+    "sensorId": "773023",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "North Hill Street",
+    "area": "Chinatown",
+    "locationName": "US-101 (Hollywood Fwy) @ North Hill Street (Chinatown)",
+    "latitude": 34.05773,
+    "longitude": -118.24348
+  },
+  "767585": {
+    "sensorId": "767585",
+    "route": "SR-2 (Glendale Fwy)",
+    "crossStreet": "Glendale Freeway",
+    "area": "Rancho San Rafael",
+    "locationName": "SR-2 (Glendale Fwy) (Rancho San Rafael)",
+    "latitude": 34.16556,
+    "longitude": -118.22432
+  },
+  "773024": {
+    "sensorId": "773024",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "North Hill Street",
+    "area": "Chinatown",
+    "locationName": "US-101 (Hollywood Fwy) @ North Hill Street (Chinatown)",
+    "latitude": 34.05759,
+    "longitude": -118.24357
+  },
+  "717483": {
+    "sensorId": "717483",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "Hollywood Freeway",
+    "area": "Hollywood",
+    "locationName": "US-101 (Hollywood Fwy) (Hollywood)",
+    "latitude": 34.11684,
+    "longitude": -118.33698
+  },
+  "718379": {
+    "sensorId": "718379",
+    "route": "SR-134 (Ventura Fwy)",
+    "crossStreet": "Colorado Freeway",
+    "area": "Los Feliz",
+    "locationName": "SR-134 (Ventura Fwy) @ Colorado Freeway (Los Feliz)",
+    "latitude": 34.14224,
+    "longitude": -118.27812
+  },
+  "717481": {
+    "sensorId": "717481",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "Ivar Avenue",
+    "area": "Hollywood",
+    "locationName": "US-101 (Hollywood Fwy) @ Ivar Avenue (Hollywood)",
+    "latitude": 34.10634,
+    "longitude": -118.32826
+  },
+  "717480": {
+    "sensorId": "717480",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "Hollywood Freeway",
+    "area": "Hollywood",
+    "locationName": "US-101 (Hollywood Fwy) (Hollywood)",
+    "latitude": 34.10478,
+    "longitude": -118.32497
+  },
+  "717486": {
+    "sensorId": "717486",
+    "route": "US-101 (Ventura Fwy)",
+    "crossStreet": "W.C. Fields Drive",
+    "area": "Hollywood Hills",
+    "locationName": "US-101 (Ventura Fwy) @ W.C. Fields Drive (Hollywood Hills)",
+    "latitude": 34.12974,
+    "longitude": -118.34809
+  },
+  "764120": {
+    "sensorId": "764120",
+    "route": "I-210 (Foothill Fwy)",
+    "crossStreet": "Hollywood Freeway",
+    "area": "North Hollywood Northeast",
+    "locationName": "I-210 (Foothill Fwy) (North Hollywood Northeast)",
+    "latitude": 34.20164,
+    "longitude": -118.40366
+  },
+  "772151": {
+    "sensorId": "772151",
+    "route": "I-405 (San Diego Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Encino",
+    "locationName": "I-405 (San Diego Fwy) (Encino)",
+    "latitude": 34.16928,
+    "longitude": -118.49872
+  },
+  "718371": {
+    "sensorId": "718371",
+    "route": "I-5 (Golden State Fwy)",
+    "crossStreet": "Golden State Freeway",
+    "area": "Echo Park",
+    "locationName": "I-5 (Golden State Fwy) (Echo Park)",
+    "latitude": 34.09017,
+    "longitude": -118.23849
+  },
+  "717489": {
+    "sensorId": "717489",
+    "route": "US-101 (Ventura Fwy)",
+    "crossStreet": "Ventura Boulevard",
+    "area": "Studio City",
+    "locationName": "US-101 (Ventura Fwy) @ Ventura Boulevard (Studio City)",
+    "latitude": 34.13876,
+    "longitude": -118.36438
+  },
+  "717488": {
+    "sensorId": "717488",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "Hollywood Freeway",
+    "area": "Los Angeles",
+    "locationName": "US-101 (Hollywood Fwy) (Los Angeles)",
+    "latitude": 34.13561,
+    "longitude": -118.36006
+  },
+  "717818": {
+    "sensorId": "717818",
+    "route": "I-405 (San Diego Fwy)",
+    "crossStreet": "Burbank Boulevard",
+    "area": "Sherman Oaks",
+    "locationName": "I-405 (San Diego Fwy) @ Burbank Boulevard (Sherman Oaks)",
+    "latitude": 34.1722,
+    "longitude": -118.46753
+  },
+  "718076": {
+    "sensorId": "718076",
+    "route": "SR-2 (Glendale Fwy)",
+    "crossStreet": "Glendale Freeway",
+    "area": "Glendale",
+    "locationName": "SR-2 (Glendale Fwy) (Glendale)",
+    "latitude": 34.16339,
+    "longitude": -118.2253
+  },
+  "718072": {
+    "sensorId": "718072",
+    "route": "SR-2 (Glendale Fwy)",
+    "crossStreet": "Glendale Freeway",
+    "area": "Eagle Rock",
+    "locationName": "SR-2 (Glendale Fwy) (Eagle Rock)",
+    "latitude": 34.1491,
+    "longitude": -118.2257
+  },
+  "767455": {
+    "sensorId": "767455",
+    "route": "SR-2 (Glendale Fwy)",
+    "crossStreet": "Glendale Freeway",
+    "area": "Eagle Rock",
+    "locationName": "SR-2 (Glendale Fwy) (Eagle Rock)",
+    "latitude": 34.14347,
+    "longitude": -118.22704
+  },
+  "767454": {
+    "sensorId": "767454",
+    "route": "SR-2 (Glendale Fwy)",
+    "crossStreet": "Glendale Freeway",
+    "area": "Eagle Rock",
+    "locationName": "SR-2 (Glendale Fwy) (Eagle Rock)",
+    "latitude": 34.14352,
+    "longitude": -118.22733
+  },
+  "761599": {
+    "sensorId": "761599",
+    "route": "SR-134 (Ventura Fwy)",
+    "crossStreet": "Colorado Freeway",
+    "area": "Los Feliz",
+    "locationName": "SR-134 (Ventura Fwy) @ Colorado Freeway (Los Feliz)",
+    "latitude": 34.14226,
+    "longitude": -118.27786
+  },
+  "717099": {
+    "sensorId": "717099",
+    "route": "SR-2 (Glendale Fwy)",
+    "crossStreet": "Geneva Street",
+    "area": "Glendale City Center",
+    "locationName": "SR-2 (Glendale Fwy) @ Geneva Street (Glendale City Center)",
+    "latitude": 34.15648,
+    "longitude": -118.24674
+  },
+  "773916": {
+    "sensorId": "773916",
+    "route": "SR-134 (Ventura Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Los Feliz",
+    "locationName": "SR-134 (Ventura Fwy) (Los Feliz)",
+    "latitude": 34.15247,
+    "longitude": -118.2852
+  },
+  "716968": {
+    "sensorId": "716968",
+    "route": "I-5 (Golden State Fwy)",
+    "crossStreet": "Golden State Freeway",
+    "area": "Glendale",
+    "locationName": "I-5 (Golden State Fwy) (Glendale)",
+    "latitude": 34.16588,
+    "longitude": -118.29809
+  },
+  "769467": {
+    "sensorId": "769467",
+    "route": "US-101 (Ventura Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Valley Village",
+    "locationName": "US-101 (Ventura Fwy) (Valley Village)",
+    "latitude": 34.15451,
+    "longitude": -118.39699
+  },
+  "717576": {
+    "sensorId": "717576",
+    "route": "SR-134 (Ventura Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Los Feliz",
+    "locationName": "SR-134 (Ventura Fwy) (Los Feliz)",
+    "latitude": 34.15559,
+    "longitude": -118.2957
+  },
+  "717573": {
+    "sensorId": "717573",
+    "route": "SR-134 (Ventura Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Los Feliz",
+    "locationName": "SR-134 (Ventura Fwy) (Los Feliz)",
+    "latitude": 34.15384,
+    "longitude": -118.325
+  },
+  "717572": {
+    "sensorId": "717572",
+    "route": "SR-134 (Ventura Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Burbank",
+    "locationName": "SR-134 (Ventura Fwy) (Burbank)",
+    "latitude": 34.15351,
+    "longitude": -118.32751
+  },
+  "717571": {
+    "sensorId": "717571",
+    "route": "US-101 (Ventura Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Greater Toluca Lake",
+    "locationName": "US-101 (Ventura Fwy) (Greater Toluca Lake)",
+    "latitude": 34.15326,
+    "longitude": -118.35921
+  },
+  "717570": {
+    "sensorId": "717570",
+    "route": "US-101 (Ventura Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Greater Toluca Lake",
+    "locationName": "US-101 (Ventura Fwy) (Greater Toluca Lake)",
+    "latitude": 34.15302,
+    "longitude": -118.35921
+  },
+  "764760": {
+    "sensorId": "764760",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "Hollywood Freeway",
+    "area": "Los Angeles",
+    "locationName": "US-101 (Hollywood Fwy) (Los Angeles)",
+    "latitude": 34.13401,
+    "longitude": -118.35506
+  },
+  "718089": {
+    "sensorId": "718089",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "Main Trail",
+    "area": "Los Feliz",
+    "locationName": "US-101 (Hollywood Fwy) @ Main Trail (Los Feliz)",
+    "latitude": 34.12769,
+    "longitude": -118.27372
+  },
+  "769847": {
+    "sensorId": "769847",
+    "route": "I-210 (Foothill Fwy)",
+    "crossStreet": "Foothill Freeway",
+    "area": "Montrose",
+    "locationName": "I-210 (Foothill Fwy) (Montrose)",
+    "latitude": 34.20983,
+    "longitude": -118.22351
+  },
+  "717608": {
+    "sensorId": "717608",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "Hollywood Freeway",
+    "area": "North Hollywood",
+    "locationName": "US-101 (Hollywood Fwy) (North Hollywood)",
+    "latitude": 34.17154,
+    "longitude": -118.38812
+  },
+  "767523": {
+    "sensorId": "767523",
+    "route": "SR-2 (Glendale Fwy)",
+    "crossStreet": "Glendale Freeway",
+    "area": "Los Angeles",
+    "locationName": "SR-2 (Glendale Fwy) (Los Angeles)",
+    "latitude": 34.11439,
+    "longitude": -118.24209
+  },
+  "716942": {
+    "sensorId": "716942",
+    "route": "I-5 (Golden State Fwy)",
+    "crossStreet": "Golden State Freeway",
+    "area": "Lincoln Heights",
+    "locationName": "I-5 (Golden State Fwy) (Lincoln Heights)",
+    "latitude": 34.0593,
+    "longitude": -118.21451
+  },
+  "718090": {
+    "sensorId": "718090",
+    "route": "I-5 (Golden State Fwy)",
+    "crossStreet": "Golden State Freeway",
+    "area": "Los Feliz",
+    "locationName": "I-5 (Golden State Fwy) (Los Feliz)",
+    "latitude": 34.14847,
+    "longitude": -118.27969
+  },
+  "769867": {
+    "sensorId": "769867",
+    "route": "I-210 (Foothill Fwy)",
+    "crossStreet": "La Crescenta Avenue",
+    "area": "Verdugo City",
+    "locationName": "I-210 (Foothill Fwy) @ La Crescenta Avenue (Verdugo City)",
+    "latitude": 34.21846,
+    "longitude": -118.23931
+  },
+  "717472": {
+    "sensorId": "717472",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "Canyon Drive",
+    "area": "Hollywood",
+    "locationName": "US-101 (Hollywood Fwy) @ Canyon Drive (Hollywood)",
+    "latitude": 34.10045,
+    "longitude": -118.31601
+  },
+  "717473": {
+    "sensorId": "717473",
+    "route": "SR-2 (Glendale Fwy)",
+    "crossStreet": "Alley \u200e87829",
+    "area": "Hollywood",
+    "locationName": "SR-2 (Glendale Fwy) @ Alley \u200e87829 (Hollywood)",
+    "latitude": 34.10054,
+    "longitude": -118.31581
+  },
+  "759591": {
+    "sensorId": "759591",
+    "route": "I-5 (Golden State Fwy)",
+    "crossStreet": "Golden State Freeway",
+    "area": "Atwater Village",
+    "locationName": "I-5 (Golden State Fwy) (Atwater Village)",
+    "latitude": 34.11521,
+    "longitude": -118.26825
+  },
+  "764781": {
+    "sensorId": "764781",
+    "route": "I-405 (San Diego Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Encino",
+    "locationName": "I-405 (San Diego Fwy) (Encino)",
+    "latitude": 34.16037,
+    "longitude": -118.47012
+  },
+  "765099": {
+    "sensorId": "765099",
+    "route": "I-405 (San Diego Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Encino",
+    "locationName": "I-405 (San Diego Fwy) (Encino)",
+    "latitude": 34.16378,
+    "longitude": -118.47224
+  },
+  "762329": {
+    "sensorId": "762329",
+    "route": "SR-2 (Glendale Fwy)",
+    "crossStreet": "Glendale Freeway",
+    "area": "Eagle Rock",
+    "locationName": "SR-2 (Glendale Fwy) (Eagle Rock)",
+    "latitude": 34.13904,
+    "longitude": -118.22862
+  },
+  "716953": {
+    "sensorId": "716953",
+    "route": "I-5 (Golden State Fwy)",
+    "crossStreet": "Golden State Freeway",
+    "area": "Echo Park",
+    "locationName": "I-5 (Golden State Fwy) (Echo Park)",
+    "latitude": 34.09458,
+    "longitude": -118.24279
+  },
+  "716951": {
+    "sensorId": "716951",
+    "route": "I-5 (Golden State Fwy)",
+    "crossStreet": "Golden State Freeway",
+    "area": "Lincoln Heights",
+    "locationName": "I-5 (Golden State Fwy) (Lincoln Heights)",
+    "latitude": 34.08581,
+    "longitude": -118.23182
+  },
+  "767509": {
+    "sensorId": "767509",
+    "route": "SR-2 (Glendale Fwy)",
+    "crossStreet": "Glendale Freeway",
+    "area": "Los Angeles",
+    "locationName": "SR-2 (Glendale Fwy) (Los Angeles)",
+    "latitude": 34.11059,
+    "longitude": -118.24819
+  },
+  "765182": {
+    "sensorId": "765182",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "Santa Ana Freeway",
+    "area": "Echo Park",
+    "locationName": "US-101 (Hollywood Fwy) @ Santa Ana Freeway (Echo Park)",
+    "latitude": 34.06491,
+    "longitude": -118.25126
+  },
+  "769358": {
+    "sensorId": "769358",
+    "route": "US-101 (Ventura Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Sherman Oaks",
+    "locationName": "US-101 (Ventura Fwy) (Sherman Oaks)",
+    "latitude": 34.15679,
+    "longitude": -118.42222
+  },
+  "772513": {
+    "sensorId": "772513",
+    "route": "SR-110 (Pasadena Fwy)",
+    "crossStreet": "Arroyo Seco Parkway",
+    "area": "Chinatown",
+    "locationName": "SR-110 (Pasadena Fwy) @ Arroyo Seco Parkway (Chinatown)",
+    "latitude": 34.06871,
+    "longitude": -118.23661
+  },
+  "716958": {
+    "sensorId": "716958",
+    "route": "I-5 (Golden State Fwy)",
+    "crossStreet": "Golden State Freeway",
+    "area": "Los Feliz",
+    "locationName": "I-5 (Golden State Fwy) (Los Feliz)",
+    "latitude": 34.11167,
+    "longitude": -118.26501
+  },
+  "718496": {
+    "sensorId": "718496",
+    "route": "US-101 (Ventura Fwy)",
+    "crossStreet": "West Alameda Avenue",
+    "area": "Burbank",
+    "locationName": "US-101 (Ventura Fwy) @ West Alameda Avenue (Burbank)",
+    "latitude": 34.15403,
+    "longitude": -118.34232
+  },
+  "769346": {
+    "sensorId": "769346",
+    "route": "US-101 (Ventura Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Studio City",
+    "locationName": "US-101 (Ventura Fwy) (Studio City)",
+    "latitude": 34.15677,
+    "longitude": -118.40424
+  },
+  "773904": {
+    "sensorId": "773904",
+    "route": "SR-134 (Ventura Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Los Feliz",
+    "locationName": "SR-134 (Ventura Fwy) (Los Feliz)",
+    "latitude": 34.15641,
+    "longitude": -118.30266
+  },
+  "718499": {
+    "sensorId": "718499",
+    "route": "SR-134 (Ventura Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Burbank",
+    "locationName": "SR-134 (Ventura Fwy) (Burbank)",
+    "latitude": 34.15469,
+    "longitude": -118.31253
+  },
+  "764853": {
+    "sensorId": "764853",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "Santa Ana Freeway",
+    "area": "Echo Park",
+    "locationName": "US-101 (Hollywood Fwy) @ Santa Ana Freeway (Echo Park)",
+    "latitude": 34.06461,
+    "longitude": -118.25102
+  },
+  "761003": {
+    "sensorId": "761003",
+    "route": "SR-134 (Ventura Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Los Feliz",
+    "locationName": "SR-134 (Ventura Fwy) (Los Feliz)",
+    "latitude": 34.15546,
+    "longitude": -118.30841
+  },
+  "717502": {
+    "sensorId": "717502",
+    "route": "I-405 (San Diego Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Encino",
+    "locationName": "I-405 (San Diego Fwy) (Encino)",
+    "latitude": 34.16521,
+    "longitude": -118.47484
+  },
+  "759602": {
+    "sensorId": "759602",
+    "route": "I-5 (Golden State Fwy)",
+    "crossStreet": "Golden State Freeway",
+    "area": "Atwater Village",
+    "locationName": "I-5 (Golden State Fwy) (Atwater Village)",
+    "latitude": 34.12199,
+    "longitude": -118.27178
+  },
+  "717504": {
+    "sensorId": "717504",
+    "route": "I-405 (San Diego Fwy)",
+    "crossStreet": "Hayvenhurst Avenue",
+    "area": "Encino",
+    "locationName": "I-405 (San Diego Fwy) @ Hayvenhurst Avenue (Encino)",
+    "latitude": 34.16519,
+    "longitude": -118.49166
+  },
+  "763995": {
+    "sensorId": "763995",
+    "route": "I-210 (Foothill Fwy)",
+    "crossStreet": "Hollywood Freeway",
+    "area": "North Hollywood West",
+    "locationName": "I-210 (Foothill Fwy) (North Hollywood West)",
+    "latitude": 34.21979,
+    "longitude": -118.40931
+  },
+  "717508": {
+    "sensorId": "717508",
+    "route": "I-405 (San Diego Fwy)",
+    "crossStreet": "White Oak Avenue",
+    "area": "Encino",
+    "locationName": "I-405 (San Diego Fwy) @ White Oak Avenue (Encino)",
+    "latitude": 34.17112,
+    "longitude": -118.51814
+  },
+  "765265": {
+    "sensorId": "765265",
+    "route": "I-405 (San Diego Fwy)",
+    "crossStreet": "San Diego Freeway",
+    "area": "Lake Balboa",
+    "locationName": "I-405 (San Diego Fwy) (Lake Balboa)",
+    "latitude": 34.18529,
+    "longitude": -118.47395
+  },
+  "773996": {
+    "sensorId": "773996",
+    "route": "SR-2 (Glendale Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Eagle Rock",
+    "locationName": "SR-2 (Glendale Fwy) (Eagle Rock)",
+    "latitude": 34.14511,
+    "longitude": -118.21587
+  },
+  "773995": {
+    "sensorId": "773995",
+    "route": "SR-2 (Glendale Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Eagle Rock",
+    "locationName": "SR-2 (Glendale Fwy) (Eagle Rock)",
+    "latitude": 34.14483,
+    "longitude": -118.21587
+  },
+  "717469": {
+    "sensorId": "717469",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "North Wilton Place",
+    "area": "Hollywood",
+    "locationName": "US-101 (Hollywood Fwy) @ North Wilton Place (Hollywood)",
+    "latitude": 34.0971,
+    "longitude": -118.31366
+  },
+  "717468": {
+    "sensorId": "717468",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "North Wilton Place",
+    "area": "Hollywood",
+    "locationName": "US-101 (Hollywood Fwy) @ North Wilton Place (Hollywood)",
+    "latitude": 34.09699,
+    "longitude": -118.31381
+  },
+  "764106": {
+    "sensorId": "764106",
+    "route": "US-101 (Ventura Fwy)",
+    "crossStreet": "Colfax Avenue",
+    "area": "North Hollywood",
+    "locationName": "US-101 (Ventura Fwy) @ Colfax Avenue (North Hollywood)",
+    "latitude": 34.17169,
+    "longitude": -118.38801
+  },
+  "717465": {
+    "sensorId": "717465",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "Hollywood Freeway",
+    "area": "Hollywood",
+    "locationName": "US-101 (Hollywood Fwy) (Hollywood)",
+    "latitude": 34.09373,
+    "longitude": -118.30907
+  },
+  "764794": {
+    "sensorId": "764794",
+    "route": "I-405 (San Diego Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Sherman Oaks",
+    "locationName": "I-405 (San Diego Fwy) (Sherman Oaks)",
+    "latitude": 34.16028,
+    "longitude": -118.46808
+  },
+  "717466": {
+    "sensorId": "717466",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "North Western Avenue",
+    "area": "Hollywood",
+    "locationName": "US-101 (Hollywood Fwy) @ North Western Avenue (Hollywood)",
+    "latitude": 34.09359,
+    "longitude": -118.30918
+  },
+  "717461": {
+    "sensorId": "717461",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "Hollywood Freeway",
+    "area": "East Hollywood",
+    "locationName": "US-101 (Hollywood Fwy) (East Hollywood)",
+    "latitude": 34.08558,
+    "longitude": -118.30174
+  },
+  "717460": {
+    "sensorId": "717460",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "Hollywood Freeway",
+    "area": "East Hollywood",
+    "locationName": "US-101 (Hollywood Fwy) (East Hollywood)",
+    "latitude": 34.08571,
+    "longitude": -118.30161
+  },
+  "717463": {
+    "sensorId": "717463",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "Hollywood Freeway",
+    "area": "East Hollywood",
+    "locationName": "US-101 (Hollywood Fwy) (East Hollywood)",
+    "latitude": 34.09004,
+    "longitude": -118.3059
+  },
+  "717462": {
+    "sensorId": "717462",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "Hollywood Freeway",
+    "area": "East Hollywood",
+    "locationName": "US-101 (Hollywood Fwy) (East Hollywood)",
+    "latitude": 34.08993,
+    "longitude": -118.30607
+  },
+  "769345": {
+    "sensorId": "769345",
+    "route": "US-101 (Ventura Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Studio City",
+    "locationName": "US-101 (Ventura Fwy) (Studio City)",
+    "latitude": 34.15655,
+    "longitude": -118.40441
+  },
+  "716943": {
+    "sensorId": "716943",
+    "route": "I-5 (Golden State Fwy)",
+    "crossStreet": "Golden State Freeway",
+    "area": "Lincoln Heights",
+    "locationName": "I-5 (Golden State Fwy) (Lincoln Heights)",
+    "latitude": 34.05987,
+    "longitude": -118.21492
+  },
+  "772669": {
+    "sensorId": "772669",
+    "route": "SR-110 (Pasadena Fwy)",
+    "crossStreet": "Arroyo Seco Parkway",
+    "area": "Chinatown",
+    "locationName": "SR-110 (Pasadena Fwy) @ Arroyo Seco Parkway (Chinatown)",
+    "latitude": 34.07828,
+    "longitude": -118.22834
+  },
+  "717582": {
+    "sensorId": "717582",
+    "route": "SR-134 (Ventura Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "North Glendale",
+    "locationName": "SR-134 (Ventura Fwy) (North Glendale)",
+    "latitude": 34.15646,
+    "longitude": -118.26092
+  },
+  "717583": {
+    "sensorId": "717583",
+    "route": "SR-134 (Ventura Fwy)",
+    "crossStreet": "North Brand Boulevard",
+    "area": "Glendale City Center",
+    "locationName": "SR-134 (Ventura Fwy) @ North Brand Boulevard (Glendale City Center)",
+    "latitude": 34.15627,
+    "longitude": -118.25506
+  },
+  "717580": {
+    "sensorId": "717580",
+    "route": "SR-134 (Ventura Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "North Glendale",
+    "locationName": "SR-134 (Ventura Fwy) (North Glendale)",
+    "latitude": 34.1562,
+    "longitude": -118.26359
+  },
+  "716949": {
+    "sensorId": "716949",
+    "route": "I-5 (Golden State Fwy)",
+    "crossStreet": "Golden State Freeway",
+    "area": "Lincoln Heights",
+    "locationName": "I-5 (Golden State Fwy) (Lincoln Heights)",
+    "latitude": 34.08406,
+    "longitude": -118.22974
+  },
+  "717587": {
+    "sensorId": "717587",
+    "route": "SR-2 (Glendale Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Glendale",
+    "locationName": "SR-2 (Glendale Fwy) (Glendale)",
+    "latitude": 34.15402,
+    "longitude": -118.23893
+  },
+  "772178": {
+    "sensorId": "772178",
+    "route": "I-405 (San Diego Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Encino",
+    "locationName": "I-405 (San Diego Fwy) (Encino)",
+    "latitude": 34.16903,
+    "longitude": -118.49885
+  },
+  "717585": {
+    "sensorId": "717585",
+    "route": "SR-2 (Glendale Fwy)",
+    "crossStreet": "North Glendale Avenue",
+    "area": "Glendale",
+    "locationName": "SR-2 (Glendale Fwy) @ North Glendale Avenue (Glendale)",
+    "latitude": 34.15564,
+    "longitude": -118.24188
+  },
+  "716939": {
+    "sensorId": "716939",
+    "route": "I-5 (Golden State Fwy)",
+    "crossStreet": "Golden State Freeway",
+    "area": "Boyle Heights",
+    "locationName": "I-5 (Golden State Fwy) (Boyle Heights)",
+    "latitude": 34.04301,
+    "longitude": -118.21724
+  },
+  "768469": {
+    "sensorId": "768469",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "Hollywood Freeway",
+    "area": "Los Angeles",
+    "locationName": "US-101 (Hollywood Fwy) (Los Angeles)",
+    "latitude": 34.13583,
+    "longitude": -118.35993
+  },
+  "764101": {
+    "sensorId": "764101",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "Hollywood Freeway",
+    "area": "North Hollywood",
+    "locationName": "US-101 (Hollywood Fwy) (North Hollywood)",
+    "latitude": 34.16421,
+    "longitude": -118.38246
+  },
+  "767554": {
+    "sensorId": "767554",
+    "route": "SR-2 (Glendale Fwy)",
+    "crossStreet": "Eagle Rock Boulevard",
+    "area": "Glassell Park",
+    "locationName": "SR-2 (Glendale Fwy) @ Eagle Rock Boulevard (Glassell Park)",
+    "latitude": 34.11966,
+    "longitude": -118.23143
+  },
+  "773975": {
+    "sensorId": "773975",
+    "route": "SR-2 (Glendale Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Eagle Rock",
+    "locationName": "SR-2 (Glendale Fwy) (Eagle Rock)",
+    "latitude": 34.14584,
+    "longitude": -118.22251
+  },
+  "773974": {
+    "sensorId": "773974",
+    "route": "SR-2 (Glendale Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Eagle Rock",
+    "locationName": "SR-2 (Glendale Fwy) (Eagle Rock)",
+    "latitude": 34.14559,
+    "longitude": -118.22251
+  },
+  "717510": {
+    "sensorId": "717510",
+    "route": "I-405 (San Diego Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Encino",
+    "locationName": "I-405 (San Diego Fwy) (Encino)",
+    "latitude": 34.17128,
+    "longitude": -118.51976
+  },
+  "717513": {
+    "sensorId": "717513",
+    "route": "I-405 (San Diego Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Tarzana",
+    "locationName": "I-405 (San Diego Fwy) (Tarzana)",
+    "latitude": 34.17339,
+    "longitude": -118.5368
+  },
+  "717825": {
+    "sensorId": "717825",
+    "route": "I-210 (Foothill Fwy)",
+    "crossStreet": "San Diego Freeway",
+    "area": "North Hills East",
+    "locationName": "I-210 (Foothill Fwy) (North Hills East)",
+    "latitude": 34.22164,
+    "longitude": -118.47307
+  },
+  "767495": {
+    "sensorId": "767495",
+    "route": "SR-2 (Glendale Fwy)",
+    "crossStreet": "Glendale Freeway",
+    "area": "Elysian Valley",
+    "locationName": "SR-2 (Glendale Fwy) (Elysian Valley)",
+    "latitude": 34.10377,
+    "longitude": -118.24992
+  },
+  "767494": {
+    "sensorId": "767494",
+    "route": "SR-2 (Glendale Fwy)",
+    "crossStreet": "Glendale Freeway",
+    "area": "Elysian Valley",
+    "locationName": "SR-2 (Glendale Fwy) (Elysian Valley)",
+    "latitude": 34.10377,
+    "longitude": -118.24962
+  },
+  "717821": {
+    "sensorId": "717821",
+    "route": "I-210 (Foothill Fwy)",
+    "crossStreet": "Sherman Way",
+    "area": "Van Nuys",
+    "locationName": "I-210 (Foothill Fwy) @ Sherman Way (Van Nuys)",
+    "latitude": 34.20112,
+    "longitude": -118.47361
+  },
+  "717823": {
+    "sensorId": "717823",
+    "route": "I-210 (Foothill Fwy)",
+    "crossStreet": "San Diego Freeway",
+    "area": "Lake Balboa",
+    "locationName": "I-210 (Foothill Fwy) (Lake Balboa)",
+    "latitude": 34.20264,
+    "longitude": -118.47326
+  },
+  "717458": {
+    "sensorId": "717458",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "Hollywood Freeway",
+    "area": "Bicycle District",
+    "locationName": "US-101 (Hollywood Fwy) (Bicycle District)",
+    "latitude": 34.08265,
+    "longitude": -118.29755
+  },
+  "717459": {
+    "sensorId": "717459",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "Hollywood Freeway",
+    "area": "Bicycle District",
+    "locationName": "US-101 (Hollywood Fwy) (Bicycle District)",
+    "latitude": 34.08294,
+    "longitude": -118.29729
+  },
+  "769926": {
+    "sensorId": "769926",
+    "route": "I-210 (Foothill Fwy)",
+    "crossStreet": "Foothill Freeway",
+    "area": "Montrose",
+    "locationName": "I-210 (Foothill Fwy) (Montrose)",
+    "latitude": 34.21356,
+    "longitude": -118.23113
+  },
+  "764858": {
+    "sensorId": "764858",
+    "route": "US-101 (Ventura Fwy)",
+    "crossStreet": "Central Branch Tujunga Wash",
+    "area": "Greater Toluca Lake",
+    "locationName": "US-101 (Ventura Fwy) @ Central Branch Tujunga Wash (Greater Toluca Lake)",
+    "latitude": 34.1527,
+    "longitude": -118.3754
+  },
+  "717450": {
+    "sensorId": "717450",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "Hollywood Freeway",
+    "area": "Westlake",
+    "locationName": "US-101 (Hollywood Fwy) (Westlake)",
+    "latitude": 34.07488,
+    "longitude": -118.27362
+  },
+  "717452": {
+    "sensorId": "717452",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "Hollywood Freeway",
+    "area": "Westlake",
+    "locationName": "US-101 (Hollywood Fwy) (Westlake)",
+    "latitude": 34.07502,
+    "longitude": -118.27356
+  },
+  "717453": {
+    "sensorId": "717453",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "Silver Lake Boulevard",
+    "area": "Westlake",
+    "locationName": "US-101 (Hollywood Fwy) @ Silver Lake Boulevard (Westlake)",
+    "latitude": 34.07696,
+    "longitude": -118.28093
+  },
+  "759772": {
+    "sensorId": "759772",
+    "route": "I-5 (Golden State Fwy)",
+    "crossStreet": "Golden State Freeway",
+    "area": "Burbank",
+    "locationName": "I-5 (Golden State Fwy) (Burbank)",
+    "latitude": 34.17115,
+    "longitude": -118.30539
+  },
+  "717456": {
+    "sensorId": "717456",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "North Heliotrope Drive",
+    "area": "Koreatown",
+    "locationName": "US-101 (Hollywood Fwy) @ North Heliotrope Drive (Koreatown)",
+    "latitude": 34.08102,
+    "longitude": -118.29325
+  },
+  "771673": {
+    "sensorId": "771673",
+    "route": "SR-110 (Pasadena Fwy)",
+    "crossStreet": "Arroyo Seco Parkway",
+    "area": "Chinatown",
+    "locationName": "SR-110 (Pasadena Fwy) @ Arroyo Seco Parkway (Chinatown)",
+    "latitude": 34.07787,
+    "longitude": -118.22871
+  },
+  "772167": {
+    "sensorId": "772167",
+    "route": "I-405 (San Diego Fwy)",
+    "crossStreet": "Magnolia Boulevard",
+    "area": "Encino",
+    "locationName": "I-405 (San Diego Fwy) @ Magnolia Boulevard (Encino)",
+    "latitude": 34.16526,
+    "longitude": -118.47985
+  },
+  "769372": {
+    "sensorId": "769372",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "Carlos Avenue",
+    "area": "Hollywood",
+    "locationName": "US-101 (Hollywood Fwy) @ Carlos Avenue (Hollywood)",
+    "latitude": 34.1027,
+    "longitude": -118.3173
+  },
+  "774204": {
+    "sensorId": "774204",
+    "route": "US-101 (Ventura Fwy)",
+    "crossStreet": "West Alameda Avenue",
+    "area": "Burbank",
+    "locationName": "US-101 (Ventura Fwy) @ West Alameda Avenue (Burbank)",
+    "latitude": 34.15397,
+    "longitude": -118.34172
+  },
+  "769806": {
+    "sensorId": "769806",
+    "route": "I-210 (Foothill Fwy)",
+    "crossStreet": "Foothill Freeway",
+    "area": "La Ca\u00f1ada Flintridge",
+    "locationName": "I-210 (Foothill Fwy) (La Ca\u00f1ada Flintridge)",
+    "latitude": 34.19638,
+    "longitude": -118.18442
+  },
+  "717590": {
+    "sensorId": "717590",
+    "route": "SR-2 (Glendale Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Glendale",
+    "locationName": "SR-2 (Glendale Fwy) (Glendale)",
+    "latitude": 34.14929,
+    "longitude": -118.23182
+  },
+  "717592": {
+    "sensorId": "717592",
+    "route": "SR-2 (Glendale Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Eagle Rock",
+    "locationName": "SR-2 (Glendale Fwy) (Eagle Rock)",
+    "latitude": 34.14604,
+    "longitude": -118.2243
+  },
+  "717595": {
+    "sensorId": "717595",
+    "route": "SR-134 (Ventura Fwy)",
+    "crossStreet": "Ventura Freeway",
+    "area": "Los Angeles",
+    "locationName": "SR-134 (Ventura Fwy) (Los Angeles)",
+    "latitude": 34.14163,
+    "longitude": -118.1829
+  },
+  "772168": {
+    "sensorId": "772168",
+    "route": "I-405 (San Diego Fwy)",
+    "crossStreet": "Magnolia Boulevard",
+    "area": "Encino",
+    "locationName": "I-405 (San Diego Fwy) @ Magnolia Boulevard (Encino)",
+    "latitude": 34.16542,
+    "longitude": -118.47985
+  },
+  "718141": {
+    "sensorId": "718141",
+    "route": "US-101 (Ventura Fwy)",
+    "crossStreet": "Central Branch Tujunga Wash",
+    "area": "Greater Toluca Lake",
+    "locationName": "US-101 (Ventura Fwy) @ Central Branch Tujunga Wash (Greater Toluca Lake)",
+    "latitude": 34.15133,
+    "longitude": -118.37456
+  },
+  "769373": {
+    "sensorId": "769373",
+    "route": "US-101 (Hollywood Fwy)",
+    "crossStreet": "Carlos Avenue",
+    "area": "Hollywood",
+    "locationName": "US-101 (Hollywood Fwy) @ Carlos Avenue (Hollywood)",
+    "latitude": 34.10262,
+    "longitude": -118.31747
+  }
+}

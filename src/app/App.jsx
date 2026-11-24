@@ -1,12 +1,30 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import TopNavigation from '../components/common/TopNavigation';
 import ScrollToTop from '../components/common/ScrollToTop';
 import AppRoutes from './routes';
 import { ReplayProvider } from '../context/ReplayContext';
 import OpeningExperience from '../components/intro/OpeningExperience';
 import FloatingAssistant from '../components/assistant/FloatingAssistant';
+import GlobalActionModal from '../components/common/GlobalActionModal';
 
 export default function App() {
+  const [globalModal, setGlobalModal] = useState(null);
+
+  // Intercept native browser alert() to guarantee modern custom modal popup
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const nativeAlert = window.alert;
+    window.alert = (message) => {
+      setGlobalModal({
+        isOpen: true,
+        message: String(message || '')
+      });
+    };
+    return () => {
+      window.alert = nativeAlert;
+    };
+  }, []);
+
   const [showIntro, setShowIntro] = useState(() => {
     if (typeof window === 'undefined') return false;
     const urlParams = new URLSearchParams(window.location.search);
@@ -40,6 +58,7 @@ export default function App() {
     <ReplayProvider>
       <ScrollToTop />
       {showIntro && <OpeningExperience onComplete={handleIntroComplete} />}
+      <GlobalActionModal modal={globalModal} onClose={() => setGlobalModal(null)} />
       <div className="min-h-screen bg-[#F4F7FB] dark:bg-[#06111D] text-slate-900 dark:text-[#F7FAFF] flex flex-col font-sans selection:bg-blue-600 selection:text-white transition-colors duration-150">
         {/* Top Horizontal Navigation */}
         <TopNavigation />
@@ -57,12 +76,12 @@ export default function App() {
           <div className="max-w-[1720px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-2.5">
             <div className="flex items-center gap-2">
               <span className="font-bold text-slate-800 dark:text-[#F7FAFF]">TrafficPulse-X</span>
-              <span> </span>
+              <span>&bull;</span>
               <span className="text-slate-600 dark:text-[#BCD0E2]">Federated Traffic Intelligence Platform</span>
             </div>
             <div className="flex items-center gap-3 font-mono text-[11px]">
               <span>Live Fleet (207 Sensors)</span>
-              <span> </span>
+              <span>&bull;</span>
               <span className="text-emerald-600 dark:text-emerald-400 font-semibold">System Status: Operational</span>
             </div>
           </div>

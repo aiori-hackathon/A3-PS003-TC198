@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Cpu, CheckCircle2, AlertTriangle, AlertCircle, HelpCircle } from 'lucide-react';
 import SectionCard from '../common/SectionCard';
 import ScientificBadge from '../common/ScientificBadge';
+import sensorLocationNames from '../../data/sensor_location_names.json';
 
 const FACTOR_DEFINITIONS = {
   "Spatial Influence": {
@@ -61,7 +62,7 @@ export default function NeedScoreBreakdown({ data, onClose, sensorId: propSensor
   const rawScore = data?.needScore ?? data?.finalNeedScore;
   const scoreNum = typeof rawScore === 'number' ? rawScore : (parseFloat(rawScore) || 0.58);
   const clampedScore = Math.min(1.0, Math.max(0.05, scoreNum));
-  const sensorId = propSensorId || data?.sensorId || "767620";
+  const sensorId = propSensorId || data?.sensorId || "773869";
 
   // Priority classification
   let priorityLabel = 'LOW QUERY PRIORITY';
@@ -134,7 +135,7 @@ export default function NeedScoreBreakdown({ data, onClose, sensorId: propSensor
 
   return (
     <SectionCard
-      title={`Need Analysis — Sensor ${sensorId}`}
+      title={`Need Analysis — Sensor ${sensorId}${sensorLocationNames[sensorId]?.locationName ? ' • ' + sensorLocationNames[sensorId].locationName : ''}`}
       subtitle="Derived 9-factor urgency assessment determining communication necessity"
       icon={Cpu}
       action={

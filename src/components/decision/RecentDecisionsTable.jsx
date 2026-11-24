@@ -2,68 +2,79 @@ import React from 'react';
 import { History, CheckCircle2, XCircle } from 'lucide-react';
 import SectionCard from '../common/SectionCard';
 import ScientificBadge from '../common/ScientificBadge';
-
-const DEFAULT_RECENT_DECISIONS = [
-  {
-    time: "18:42:00",
-    sensor: "773869",
-    needScore: 0.58,
-    decision: "QUERY",
-    evidence: "3 Nodes",
-    reason: "Spatial speed disagreement across adjacent corridor"
-  },
-  {
-    time: "18:40:00",
-    sensor: "767541",
-    needScore: 0.74,
-    decision: "QUERY",
-    evidence: "2 Nodes",
-    reason: "Downstream arterial speed validation"
-  },
-  {
-    time: "18:35:00",
-    sensor: "717445",
-    needScore: 0.28,
-    decision: "SKIP",
-    evidence: "0 Nodes",
-    reason: "Nominal conditions; low query priority"
-  },
-  {
-    time: "18:30:00",
-    sensor: "765171",
-    needScore: 0.83,
-    decision: "QUERY",
-    evidence: "3 Nodes",
-    reason: "Valley chokepoint residual uncertainty elevated"
-  },
-  {
-    time: "18:25:00",
-    sensor: "717447",
-    needScore: 0.69,
-    decision: "QUERY",
-    evidence: "2 Nodes",
-    reason: "Information debt accumulation from skip cycle"
-  },
-  {
-    time: "18:20:00",
-    sensor: "717816",
-    needScore: 0.32,
-    decision: "SKIP",
-    evidence: "0 Nodes",
-    reason: "Corridor telemetry within stable confidence band"
-  },
-  {
-    time: "18:15:00",
-    sensor: "767350",
-    needScore: 0.82,
-    decision: "QUERY",
-    evidence: "3 Nodes",
-    reason: "Regional boundary deficit; cross-validation acquired"
-  }
-];
+import { useReplay } from '../../context/ReplayContext';
+import sensorLocationNames from '../../data/sensor_location_names.json';
 
 export default function RecentDecisionsTable({ data, onSelectSensor }) {
-  const list = (Array.isArray(data) && data.length > 0) ? data : DEFAULT_RECENT_DECISIONS;
+  const { timeIndex } = useReplay();
+
+  const formatOffsetTime = (offsetMins) => {
+    const totalMinutes = Math.max(0, (timeIndex || 0) * 5 - offsetMins);
+    const h = String(Math.floor((totalMinutes / 60) % 24)).padStart(2, '0');
+    const m = String(totalMinutes % 60).padStart(2, '0');
+    return `${h}:${m}:00`;
+  };
+
+  const defaultDecisions = [
+    {
+      time: formatOffsetTime(0),
+      sensor: "773869",
+      needScore: 0.58,
+      decision: "QUERY",
+      evidence: "3 Nodes",
+      reason: "Spatial speed disagreement across adjacent corridor"
+    },
+    {
+      time: formatOffsetTime(2),
+      sensor: "767541",
+      needScore: 0.74,
+      decision: "QUERY",
+      evidence: "2 Nodes",
+      reason: "Downstream arterial speed validation"
+    },
+    {
+      time: formatOffsetTime(7),
+      sensor: "717445",
+      needScore: 0.28,
+      decision: "SKIP",
+      evidence: "0 Nodes",
+      reason: "Nominal conditions; low query priority"
+    },
+    {
+      time: formatOffsetTime(12),
+      sensor: "765171",
+      needScore: 0.83,
+      decision: "QUERY",
+      evidence: "3 Nodes",
+      reason: "Valley chokepoint residual uncertainty elevated"
+    },
+    {
+      time: formatOffsetTime(17),
+      sensor: "717447",
+      needScore: 0.69,
+      decision: "QUERY",
+      evidence: "2 Nodes",
+      reason: "Information debt accumulation from skip cycle"
+    },
+    {
+      time: formatOffsetTime(22),
+      sensor: "717816",
+      needScore: 0.32,
+      decision: "SKIP",
+      evidence: "0 Nodes",
+      reason: "Corridor telemetry within stable confidence band"
+    },
+    {
+      time: formatOffsetTime(27),
+      sensor: "767350",
+      needScore: 0.82,
+      decision: "QUERY",
+      evidence: "3 Nodes",
+      reason: "Regional boundary deficit; cross-validation acquired"
+    }
+  ];
+
+  const list = (Array.isArray(data) && data.length > 0) ? data : defaultDecisions;
 
   return (
     <SectionCard
@@ -98,10 +109,15 @@ export default function RecentDecisionsTable({ data, onSelectSensor }) {
                     className="hover:bg-slate-50 dark:hover:bg-slate-800/40 cursor-pointer transition-colors"
                   >
                     <td className="py-2 px-3 text-slate-500 dark:text-[#8295A8] whitespace-nowrap">
-                      {row.time || "18:42:00"}
+                      {row.time || formatOffsetTime(idx * 5)}
                     </td>
-                    <td className="py-2 px-3 font-bold text-slate-900 dark:text-white whitespace-nowrap">
-                      {row.sensor || row.sensorId}
+                    <td className="py-2 px-3 whitespace-nowrap">
+                      <span className="font-bold text-slate-900 dark:text-white block">{row.sensor || row.sensorId}</span>
+                      {sensorLocationNames[row.sensor || row.sensorId]?.locationName && (
+                        <span className="text-[10px] text-slate-400 font-sans truncate block max-w-[150px]">
+                          {sensorLocationNames[row.sensor || row.sensorId].locationName}
+                        </span>
+                      )}
                     </td>
                     <td className="py-2 px-3 text-right font-bold text-cyan-600 dark:text-cyan-400 tabular-nums whitespace-nowrap">
                       {score}

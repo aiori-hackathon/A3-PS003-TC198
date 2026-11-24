@@ -78,18 +78,16 @@ class PredictionService:
                 a_norm_np = calculate_normalized_adjacency(adj_mx, is_identity=False)
                 self.a_norm_tensor = torch.tensor(a_norm_np, dtype=torch.float32, device=self.device)
 
-        # 3. Load HDF5 Speed Matrix in memory once for instant sub-millisecond inference
+        # 3. Inspect HDF5 Speed Matrix dimensions without loading 34k steps into RAM
+        self.total_timesteps = 0
         if os.path.exists(self.h5_path):
             try:
                 import h5py
                 with h5py.File(self.h5_path, "r") as hf:
                     df_grp = hf["df"]
-                    self.speed_matrix = np.array(df_grp["block0_values"][:], dtype=np.float32)
-                    if "axis1" in df_grp:
-                        raw_ts = df_grp["axis1"][:]
-                        self.timestamps = [pd.to_datetime(t).isoformat() for t in raw_ts]
+                    self.total_timesteps = int(df_grp["block0_values"].shape[0])
             except Exception as e:
-                print(f"Warning: Could not load HDF5 speed matrix into PredictionService memory: {e}")
+                print(f"Warning: Could not inspect HDF5 speed matrix dimensions: {e}")
 
         # 4. Load Model Checkpoint
         if os.path.exists(self.checkpoint_path) and self.a_norm_tensor is not None:
@@ -137,16 +135,19 @@ class PredictionService:
         if not self.model_loaded or self.model is None or self.a_norm_tensor is None:
             raise RuntimeError("MODEL_NOT_READY: Graph+LSTM model checkpoint is not loaded")
 
-        if self.speed_matrix is None or self.speed_matrix.shape[0] == 0:
+        if self.total_timesteps <= 0:
             raise RuntimeError("DATA_NOT_READY: Speed matrix is not loaded")
 
-        num_steps = self.speed_matrix.shape[0]
+        num_steps = self.total_timesteps
         if time_index < 11 or time_index >= num_steps:
             raise ValueError(f"INSUFFICIENT_HISTORY: Request time_index={time_index} requires history window [t-11:t+1] (valid range: 11 to {num_steps - 1})")
 
-        # Extract 12 historical speed steps ending at time_index
-        raw_window = self.speed_matrix[time_index - 11: time_index + 1, :]  # [12, 207]
-        input_ts = self.timestamps[time_index] if time_index < len(self.timestamps) else "2012-03-01T00:55:00"
+        # Extract 12 historical speed steps ending at time_index on-demand
+        import h5py
+        with h5py.File(self.h5_path, "r") as hf:
+            df_grp = hf["df"]
+            raw_window = np.array(df_grp["block0_values"][time_index - 11: time_index + 1, :], dtype=np.float32)
+            input_ts = pd.to_datetime(df_grp["axis1"][time_index]).isoformat() if "axis1" in df_grp else "2012-03-01T00:55:00"
 
         # Channel 0: Normalized speed (for non-zero valid observations)
         norm_speed = np.zeros_like(raw_window)
@@ -193,7 +194,15 @@ class PredictionService:
         ]
 
         predictions = []
-        num_steps = self.speed_matrix.shape[0] if self.speed_matrix is not None else 0
+        num_steps = self.total_timesteps
+        gt_vals = {}
+        if os.path.exists(self.h5_path) and num_steps > 0:
+            import h5py
+            with h5py.File(self.h5_path, "r") as hf:
+                for h_min, offset_step, h_label in horizons_map:
+                    t_idx = time_index + offset_step
+                    if 0 <= t_idx < num_steps:
+                        gt_vals[t_idx] = float(hf["df"]["block0_values"][t_idx, s_idx])
 
         for h_min, offset_step, h_label in horizons_map:
             p_val = round(float(pred_raw[horizons_map.index((h_min, offset_step, h_label)), s_idx]), 2)
@@ -201,8 +210,8 @@ class PredictionService:
             abs_err = None
 
             target_idx = time_index + offset_step
-            if self.speed_matrix is not None and 0 <= target_idx < num_steps:
-                gt = float(self.speed_matrix[target_idx, s_idx])
+            if target_idx in gt_vals:
+                gt = gt_vals[target_idx]
                 if gt > 0.0 and not np.isnan(gt):
                     act_val = round(gt, 2)
                     abs_err = round(abs(p_val - act_val), 2)

@@ -1,24 +1,57 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { BarChart3, ChevronDown, ChevronUp, Layers, Activity, AlertTriangle, Zap } from 'lucide-react';
 import ScientificBadge from '../common/ScientificBadge';
 
-const REGIONAL_ALERT_COUNTS = [
+const FALLBACK_REGIONAL_COUNTS = [
   { region: 'REGION_A', count: 3, percent: 30 },
   { region: 'REGION_B', count: 3, percent: 30 },
   { region: 'REGION_C', count: 2, percent: 20 },
   { region: 'REGION_D', count: 2, percent: 20 }
 ];
 
-const TOP_ALERT_SENSORS = [
-  { sensorId: '773869', region: 'REGION_A', count: 3, utility: 0.98 },
+const FALLBACK_TOP_ALERT_SENSORS = [
+  { sensorId: '773869', region: 'REGION_C', count: 3, utility: 0.98 },
   { sensorId: '767541', region: 'REGION_B', count: 2, utility: 0.88 },
   { sensorId: '765171', region: 'REGION_D', count: 2, utility: 0.85 },
-  { sensorId: '717447', region: 'REGION_C', count: 1, utility: 0.79 },
+  { sensorId: '717447', region: 'REGION_B', count: 1, utility: 0.79 },
   { sensorId: '717458', region: 'REGION_B', count: 1, utility: 0.72 }
 ];
 
 export default function AlertSecondaryAnalytics({ alerts = [] }) {
   const [isOpen, setIsOpen] = useState(true);
+
+  // Dynamically compute regional counts from alerts dataset
+  const regionalAlertCounts = useMemo(() => {
+    if (!alerts || alerts.length === 0) return FALLBACK_REGIONAL_COUNTS;
+    const counts = { REGION_A: 0, REGION_B: 0, REGION_C: 0, REGION_D: 0 };
+    alerts.forEach((a) => {
+      if (counts[a.regionId] !== undefined) {
+        counts[a.regionId]++;
+      }
+    });
+    const total = alerts.length || 1;
+    return Object.entries(counts).map(([region, count]) => ({
+      region,
+      count,
+      percent: Math.round((count / total) * 100)
+    }));
+  }, [alerts]);
+
+  // Dynamically compute top alert sources from alerts dataset
+  const topAlertSensors = useMemo(() => {
+    if (!alerts || alerts.length === 0) return FALLBACK_TOP_ALERT_SENSORS;
+    const map = {};
+    alerts.forEach((a) => {
+      const sid = a.sensorId;
+      if (!map[sid]) {
+        map[sid] = { sensorId: sid, region: a.regionId, count: 0 };
+      }
+      map[sid].count++;
+    });
+    return Object.values(map)
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 5);
+  }, [alerts]);
 
   // Compute stats
   const queriesCount = alerts.filter(a => (a.actionState || '').toLowerCase().includes('query')).length;
@@ -70,7 +103,7 @@ export default function AlertSecondaryAnalytics({ alerts = [] }) {
               </div>
 
               <div className="space-y-2">
-                {REGIONAL_ALERT_COUNTS.map((r) => (
+                {regionalAlertCounts.map((r) => (
                   <div key={r.region} className="space-y-1">
                     <div className="flex justify-between text-[11px]">
                       <span className="text-slate-600 dark:text-[#B8C7D8]">{r.region}</span>
@@ -119,7 +152,7 @@ export default function AlertSecondaryAnalytics({ alerts = [] }) {
               </div>
 
               <div className="space-y-1.5 text-[11px]">
-                {TOP_ALERT_SENSORS.map((s) => (
+                {topAlertSensors.map((s) => (
                   <div key={s.sensorId} className="flex items-center justify-between p-1 rounded bg-white/70 dark:bg-[#0B2033] border border-slate-100 dark:border-[#17364E]">
                     <div className="flex items-center gap-1.5">
                       <span className="font-bold text-slate-900 dark:text-white">{s.sensorId}</span>

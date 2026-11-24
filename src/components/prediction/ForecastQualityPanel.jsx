@@ -156,7 +156,9 @@ export default function ForecastQualityPanel({
               stroke="#A855F7"
               strokeWidth={2.5}
               fill="url(#uncertaintyGradient)"
-              isAnimationActive={false}
+              isAnimationActive={true}
+              animationDuration={500}
+              animationEasing="ease-out"
               dot={(props) => {
                 const { cx, cy, payload } = props;
                 return (

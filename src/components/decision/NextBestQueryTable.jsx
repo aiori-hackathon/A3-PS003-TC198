@@ -3,6 +3,7 @@ import { Sparkles, Zap, ChevronDown, ChevronUp, Layers } from 'lucide-react';
 import SectionCard from '../common/SectionCard';
 import ScientificBadge from '../common/ScientificBadge';
 import Button from '../common/Button';
+import sensorLocationNames from '../../data/sensor_location_names.json';
 
 export default function NextBestQueryTable({ onQuery, onSelectSensor, data }) {
   const [showFullRanking, setShowFullRanking] = useState(true);
@@ -74,7 +75,7 @@ export default function NextBestQueryTable({ onQuery, onSelectSensor, data }) {
         {
           rank: 5,
           sensorId: "717447",
-          regionId: "REGION_C",
+          regionId: "REGION_B",
           needScore: 0.69,
           queryUtility: 0.82,
           expectedBenefit: "+29.0%",
@@ -101,13 +102,18 @@ export default function NextBestQueryTable({ onQuery, onSelectSensor, data }) {
         {/* Best Next Query Highlight Callout */}
         <div className="p-4 rounded-xl bg-gradient-to-r from-blue-50/80 to-cyan-50/80 dark:from-[#0B2033] dark:to-[#091E2F] border border-blue-200 dark:border-[#1E4364] shadow-2xs transition-colors">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-2.5">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap">
               <span className="text-[11px] font-bold uppercase tracking-wider text-blue-700 dark:text-cyan-400 bg-blue-100/80 dark:bg-blue-900/40 px-2 py-0.5 rounded border border-blue-300 dark:border-blue-700/50">
                 BEST CANDIDATE
               </span>
               <span className="font-mono text-base font-extrabold text-slate-900 dark:text-white">
                 Sensor {bestCandidate.sensorId}
               </span>
+              {sensorLocationNames[bestCandidate.sensorId]?.locationName && (
+                <span className="text-xs font-sans text-cyan-700 dark:text-cyan-400 font-semibold truncate max-w-[220px]">
+                  {sensorLocationNames[bestCandidate.sensorId].locationName}
+                </span>
+              )}
               <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
                 ({bestCandidate.regionId})
               </span>
@@ -258,7 +264,14 @@ export default function NextBestQueryTable({ onQuery, onSelectSensor, data }) {
                         className="hover:bg-slate-50 dark:hover:bg-slate-800/40 cursor-pointer"
                       >
                         <td className="py-1.5 px-2.5 text-slate-400">{c.rank}</td>
-                        <td className="py-1.5 px-2.5 font-bold text-slate-900 dark:text-white">{c.sensorId}</td>
+                        <td className="py-1.5 px-2.5">
+                          <span className="font-bold text-slate-900 dark:text-white block">{c.sensorId}</span>
+                          {sensorLocationNames[c.sensorId]?.locationName && (
+                            <span className="text-[10px] text-slate-400 font-sans truncate block max-w-[160px]">
+                              {sensorLocationNames[c.sensorId].locationName}
+                            </span>
+                          )}
+                        </td>
                         <td className="py-1.5 px-2.5 text-slate-500">{c.regionId}</td>
                         <td className="py-1.5 px-2.5 text-right font-bold text-cyan-600 dark:text-cyan-400">{c.queryUtility.toFixed(2)}</td>
                         <td className="py-1.5 px-2.5 text-right">{c.needScore.toFixed(2)}</td>

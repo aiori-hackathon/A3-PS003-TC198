@@ -20,7 +20,7 @@ import {
 import ScientificBadge from '../common/ScientificBadge';
 import { useTheme } from '../../context/ThemeContext';
 
-export const REGIONAL_METRICS = [
+const REGIONAL_METRICS = [
   {
     id: 'REGION_A',
     label: 'Region A',

@@ -79,10 +79,10 @@ export default function ScientificBadge({ type = 'REAL', label, showDot = true, 
   const displayText = label || type;
 
   const sizeClasses = size === 'xs'
-    ? 'h-5 px-2 text-[11px] font-semibold tracking-wider'
+    ? 'h-5 px-2 text-[10.5px] font-semibold tracking-wide'
     : size === 'md'
-    ? 'h-7 px-3 text-[12.5px] font-semibold font-mono tracking-wider'
-    : 'h-6 px-2.5 text-[12px] font-semibold font-mono tracking-wider';
+    ? 'h-7 px-3 text-[12px] font-semibold tracking-wide'
+    : 'h-6 px-2.5 text-[11px] font-semibold tracking-wide';
 
   return (
     <span

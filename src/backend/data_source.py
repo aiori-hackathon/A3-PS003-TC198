@@ -169,6 +169,10 @@ class DataSourceManager:
         return result
 
     def get_sensor_by_id(self, sensor_id: str, time_index: int = 0) -> Optional[Dict[str, Any]]:
+        # Strict whitelist validation against 207 real METR-LA sensors
+        if self.sensor_ids and sensor_id not in self.sensor_ids:
+            return None
+
         rec = get_real_sensor_canonical(sensor_id=sensor_id, time_index=time_index, raw_dir=self.raw_dir, processed_dir=self.processed_dir)
         if not rec:
             return None
@@ -176,6 +180,10 @@ class DataSourceManager:
         raw_sp = rec["measurements"]["speed"]
         valid = rec["validity"]["speedValid"]
         self.state_mgr.update_sensor_telemetry(sensor_id, raw_sp, valid)
+
+        nbrs = rec.get("graphNeighbors") or []
+        nbr_mean = rec.get("neighborMeanSpeed")
+        valid_nbr_count = rec.get("validNeighborCount", len(nbrs))
 
         return {
             "sensorId": sensor_id,
@@ -198,11 +206,16 @@ class DataSourceManager:
             },
             "dataQuality": rec.get("dataQuality", 0.98),
             "timeSemantics": rec.get("timeSemantics"),
-            "graphNeighbors": rec.get("graphNeighbors"),
+            "graphNeighbors": nbrs,
+            "neighborMeanSpeed": nbr_mean,
+            "validNeighborCount": valid_nbr_count,
             "intraRegionNeighbors": rec.get("intraRegionNeighbors"),
             "crossRegionNeighbors": rec.get("crossRegionNeighbors"),
             "graph": {
-                "neighbors": rec.get("graphNeighbors", [])
+                "neighbors": nbrs,
+                "neighborCount": len(nbrs),
+                "validNeighborCount": valid_nbr_count,
+                "neighborMeanSpeed": nbr_mean
             }
         }
 
@@ -231,20 +244,26 @@ class DataSourceManager:
             }
         return res
 
-    def get_decision_need_score(self, sensor_id: str) -> Dict[str, Any]:
+    def get_decision_need_score(self, sensor_id: str) -> Optional[Dict[str, Any]]:
+        if self.sensor_ids and sensor_id not in self.sensor_ids:
+            return None
         cov_info = coverage_mod.calculate_network_coverage(self.raw_sensors, self.state_mgr)
         return need_mod.compute_sensor_need_score(sensor_id, self.graph, self.state_mgr, cov_info["sectorCoverageMap"])
 
-    def get_counterfactual(self, sensor_id: str) -> Dict[str, Any]:
+    def get_counterfactual(self, sensor_id: str) -> Optional[Dict[str, Any]]:
+        if self.sensor_ids and sensor_id not in self.sensor_ids:
+            return None
         need_res = self.get_decision_need_score(sensor_id)
         if not need_res:
-            return {}
+            return None
         return ranker_mod.compute_counterfactual_estimate(sensor_id, need_res, self.graph, self.state_mgr)
 
     def get_blind_spots(self) -> Dict[str, Any]:
         return coverage_mod.calculate_network_coverage(self.raw_sensors, self.state_mgr)
 
-    def get_evidence_chain(self, sensor_id: str) -> Dict[str, Any]:
+    def get_evidence_chain(self, sensor_id: str) -> Optional[Dict[str, Any]]:
+        if self.sensor_ids and sensor_id not in self.sensor_ids:
+            return None
         cov_info = coverage_mod.calculate_network_coverage(self.raw_sensors, self.state_mgr)
         return evidence_mod.generate_evidence_chain(sensor_id, self.graph, self.state_mgr, cov_info["sectorCoverageMap"])
 
@@ -267,7 +286,9 @@ class DataSourceManager:
             unresolved_blind_spots=unresolved
         )
 
-    def get_sensor_jury(self, sensor_id: str) -> Dict[str, Any]:
+    def get_sensor_jury(self, sensor_id: str) -> Optional[Dict[str, Any]]:
+        if self.sensor_ids and sensor_id not in self.sensor_ids:
+            return None
         cov_info = coverage_mod.calculate_network_coverage(self.raw_sensors, self.state_mgr)
         need_res = need_mod.compute_sensor_need_score(sensor_id, self.graph, self.state_mgr, cov_info["sectorCoverageMap"])
         s_base = self.graph.sensors.get(sensor_id, {})
@@ -287,7 +308,9 @@ class DataSourceManager:
             pred_confidence_contract=pred_contract
         )
 
-    def get_physics_gate(self, sensor_id: str) -> Dict[str, Any]:
+    def get_physics_gate(self, sensor_id: str) -> Optional[Dict[str, Any]]:
+        if self.sensor_ids and sensor_id not in self.sensor_ids:
+            return None
         st = self.state_mgr.get_state(sensor_id)
         curr_speed = st.get("speed")
         recent = st.get("recentSpeeds", [])

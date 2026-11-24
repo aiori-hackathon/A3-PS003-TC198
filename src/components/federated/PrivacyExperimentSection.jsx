@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   ShieldCheck,
   ChevronDown,
@@ -17,9 +17,8 @@ export default function PrivacyExperimentSection() {
   const [loading, setLoading] = useState(true);
   const [_error, setError] = useState(null);
 
-  const loadData = async () => {
+  const loadData = useCallback(async () => {
     setLoading(true);
-    setError(null);
     try {
       const res = await fetchPrivacyResults();
       setData(res);
@@ -28,11 +27,20 @@ export default function PrivacyExperimentSection() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
-    loadData();
-  }, []);
+    let isMounted = true;
+    async function init() {
+      if (isMounted) {
+        await loadData();
+      }
+    }
+    init();
+    return () => {
+      isMounted = false;
+    };
+  }, [loadData]);
 
   const isEvaluated = data?.status === 'COMPLETED' && data?.evaluated === true;
   const spec = data?.privacySpecification;
@@ -62,7 +70,7 @@ export default function PrivacyExperimentSection() {
               </span>
             </div>
             <p className="text-xs text-slate-500 dark:text-[#7F96AA]">
-              Formal Differential Privacy (DP-FedAvg) and Secure Aggregation Simulation
+              Empirical Gradient-Clipping &amp; Gaussian-Perturbation Experiment (Client-Side Noise Injection)
             </p>
           </div>
         </div>
@@ -71,7 +79,7 @@ export default function PrivacyExperimentSection() {
           {isEvaluated ? (
             <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-mono font-semibold bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20">
               <CheckCircle2 className="w-3 h-3" />
-              (ε={spec?.epsilon?.toFixed(2) || '?'}, δ={spec?.delta || '1e-5'})-DP Evaluated
+              Empirical DP Experiment (Accountant Projection &epsilon;={spec?.epsilon?.toFixed(2) || '?'}, &delta;={spec?.delta || '1e-5'})
             </span>
           ) : (
             <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-mono font-semibold bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
@@ -123,11 +131,10 @@ export default function PrivacyExperimentSection() {
               <div className="p-3.5 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-start gap-2.5 text-xs text-cyan-900 dark:text-cyan-200">
                 <ShieldCheck className="w-4 h-4 text-cyan-500 shrink-0 mt-0.5" />
                 <div>
-                  <strong>Formal Differential Privacy Experiment:</strong> Evaluated under client-side gradient clipping and calibrated Gaussian perturbation. Guarantees{' '}
+                  <strong>Differential Privacy Experiment (Empirical Gradient Clipping &amp; Perturbation):</strong> Evaluated under client-side batch gradient norm clipping (C = {spec?.maxGradNorm || 1.0}) and Gaussian perturbation (&sigma; = {spec?.noiseMultiplier || 0.5}) across 13 federated rounds. Note: The Opacus RDP accountant projects a theoretical budget of{' '}
                   <span className="font-mono font-bold text-cyan-600 dark:text-cyan-300">
-                    ({spec?.epsilon?.toFixed(2)}, {spec?.delta})-DP
-                  </span>{' '}
-                  under the evaluated training configuration via Opacus Rényi Differential Privacy (RDP) accounting. No unverified privacy guarantees are claimed.
+                    &epsilon; = {spec?.epsilon?.toFixed(2) || '5.31'} (&delta; = {spec?.delta || '1e-5'})
+                  </span>; because clipping is applied at the batch level rather than per-example, this represents a theoretical accountant projection rather than a formally validated (&epsilon;, &delta;)-DP guarantee.
                 </div>
               </div>
 
@@ -183,7 +190,7 @@ export default function PrivacyExperimentSection() {
                       Privacy-Preserving
                     </span>
                     <span className="px-2 py-0.5 rounded text-[11px] font-mono bg-cyan-500/10 text-cyan-600 dark:text-cyan-300 border border-cyan-500/20">
-                      Opacus RDP Verified
+                      Accountant Projection
                     </span>
                   </div>
                   <h4 className="text-sm font-bold text-slate-900 dark:text-white">
@@ -205,9 +212,9 @@ export default function PrivacyExperimentSection() {
                   </div>
                   <div className="pt-2 border-t border-slate-100 dark:border-[#17364E] space-y-1 text-[11px] font-mono text-slate-500 dark:text-[#7F96AA]">
                     <div className="flex justify-between">
-                      <span>Formal Privacy Budget:</span>
+                      <span>Accountant Projected Budget:</span>
                       <span className="text-cyan-600 dark:text-cyan-400 font-bold">
-                        ε = {spec?.epsilon?.toFixed(4)}, δ = {spec?.delta}
+                        &epsilon; = {spec?.epsilon?.toFixed(4)}, &delta; = {spec?.delta}
                       </span>
                     </div>
                     <div className="flex justify-between">
@@ -232,7 +239,7 @@ export default function PrivacyExperimentSection() {
                       <span className="font-mono font-bold text-amber-500">
                         +{tradeoff.maeDelta?.toFixed(4)} mph (+{tradeoff.maeDeltaPercent}%)
                       </span>{' '}
-                      to provide formal information-theoretic gradient protection.
+                      under empirical gradient clipping and Gaussian noise perturbation.
                     </span>
                   </div>
                   <span className="font-mono text-[11px] px-2 py-0.5 rounded bg-slate-100 dark:bg-[#0B2033] text-slate-600 dark:text-slate-300 shrink-0">
@@ -244,7 +251,7 @@ export default function PrivacyExperimentSection() {
               {/* Row 4: Hyperparameter Configuration & Provenance */}
               <div className="p-4 rounded-xl bg-white dark:bg-[#081827] border border-slate-200 dark:border-[#17364E] space-y-3">
                 <h5 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-[#7F96AA]">
-                  Formal DP Configuration & Provenance
+                  DP Experiment Parameters &amp; Accountant Projection
                 </h5>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-mono">
                   <div className="p-2.5 rounded-lg bg-slate-50 dark:bg-[#0B2033] border border-slate-200 dark:border-[#17364E]">

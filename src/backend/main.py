@@ -1,16 +1,6 @@
 # TrafficPulse-X FastAPI Backend Server (Real-Data-Only METR-LA Benchmark Architecture)
 
 import os
-import sys
-from pathlib import Path
-
-# Deterministic root discovery for src/-centered layout
-PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
-SRC_ROOT = PROJECT_ROOT / "src"
-for p in [str(PROJECT_ROOT), str(SRC_ROOT)]:
-    if p not in sys.path:
-        sys.path.insert(0, p)
-
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Dict, Any, List, Optional
@@ -19,19 +9,6 @@ from pydantic import BaseModel
 from backend.data_source import DataSourceManager
 from backend.prediction import get_prediction_service
 from backend.federated import get_federated_service
-from backend.prediction.schemas import (
-    PredictionStatusResponse,
-    ForecastResponse,
-    PredictionMetricsResponse,
-    PredictionModelsResponse
-)
-from backend.federated.schemas import (
-    FederatedStatusResponse,
-    ClientPartitionInfo,
-    FederatedRoundsResponse,
-    FederatedMetricsResponse,
-    FederatedCommunicationResponse
-)
 from backend.datasets.metr_la import (
     inspect_metr_la_dataset,
     get_real_sensor_canonical,
@@ -67,17 +44,15 @@ from backend.data_sources.streaming_adapter import (
     get_streaming_manager,
 )
 
-from backend.config import settings
-
 app = FastAPI(
-    title=settings.PROJECT_NAME,
-    description=settings.DESCRIPTION,
-    version=settings.VERSION,
+    title="TrafficPulse-X API",
+    description="Evidence-on-Demand Spatio-Temporal Traffic Prediction Backend (Real METR-LA Benchmark)",
+    version="1.0.0"
 )
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.CORS_ORIGINS,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -93,6 +68,17 @@ comm_intel_service = get_comm_intel_service()
 class HeartbeatPayload(BaseModel):
     speed: float | None = None
 
+
+
+@app.get("/")
+def root():
+    return {
+        "status": "ONLINE",
+        "service": "TrafficPulse-X Backend API",
+        "version": "1.0.0",
+        "health": "/api/health",
+        "docs": "/docs"
+    }
 
 
 @app.get("/api/health")
@@ -141,7 +127,10 @@ def get_blind_spots():
 
 @app.get("/api/decision/evidence/{sensor_id}")
 def get_evidence_chain(sensor_id: str):
-    return data_source_mgr.get_evidence_chain(sensor_id)
+    res = data_source_mgr.get_evidence_chain(sensor_id)
+    if not res:
+        raise HTTPException(status_code=404, detail=f"Sensor '{sensor_id}' not found")
+    return res
 
 
 @app.get("/api/decision/query-candidates")
@@ -326,13 +315,13 @@ def get_metr_la_ml_ready_dataset_status():
 # Stage 6.7 Prediction Intelligence API Endpoints
 # =============================================================================
 
-@app.get("/api/prediction/status", response_model=PredictionStatusResponse)
+@app.get("/api/prediction/status")
 def get_prediction_status():
     """Returns Prediction Intelligence status and model checkpoint readiness."""
     return pred_service.get_status()
 
 
-@app.get("/api/prediction/forecast", response_model=ForecastResponse)
+@app.get("/api/prediction/forecast")
 def get_prediction_forecast(
     time_index: int = 12,
     sensor_id: str | None = None,
@@ -364,7 +353,7 @@ def get_prediction_forecast(
         raise HTTPException(status_code=500, detail=f"Prediction failed: {str(e)}")
 
 
-@app.get("/api/prediction/metrics", response_model=PredictionMetricsResponse)
+@app.get("/api/prediction/metrics")
 def get_prediction_metrics():
     """Returns frozen Stage 6.6 overall, horizon-wise, and region-wise metrics."""
     try:
@@ -373,7 +362,7 @@ def get_prediction_metrics():
         raise HTTPException(status_code=500, detail=f"Failed to load prediction metrics: {str(e)}")
 
 
-@app.get("/api/prediction/models", response_model=PredictionModelsResponse)
+@app.get("/api/prediction/models")
 def get_prediction_models():
     """Returns 7-model comparative benchmark table from authoritative Stage 6.6 summary."""
     try:
@@ -386,7 +375,7 @@ def get_prediction_models():
 # Stage 8.3 Federated Learning Read-Only API Endpoints
 # =============================================================================
 
-@app.get("/api/federated/status", response_model=FederatedStatusResponse)
+@app.get("/api/federated/status")
 def get_federated_status():
     """Returns overall Federated Learning status and checkpoint readiness."""
     try:
@@ -395,7 +384,7 @@ def get_federated_status():
         raise HTTPException(status_code=500, detail=f"Failed to load federated status: {str(e)}")
 
 
-@app.get("/api/federated/clients", response_model=List[ClientPartitionInfo])
+@app.get("/api/federated/clients")
 def get_federated_clients():
     """Returns 4 regional FL client partitions and FedAvg aggregation weights."""
     try:
@@ -406,7 +395,7 @@ def get_federated_clients():
         raise HTTPException(status_code=500, detail=f"Failed to load federated clients: {str(e)}")
 
 
-@app.get("/api/federated/rounds", response_model=FederatedRoundsResponse)
+@app.get("/api/federated/rounds")
 def get_federated_rounds():
     """Returns compact validation MAE history across all training rounds."""
     try:
@@ -417,7 +406,7 @@ def get_federated_rounds():
         raise HTTPException(status_code=500, detail=f"Failed to load federated rounds: {str(e)}")
 
 
-@app.get("/api/federated/metrics", response_model=FederatedMetricsResponse)
+@app.get("/api/federated/metrics")
 def get_federated_metrics():
     """Returns final FL test metrics and comparison against centralized baseline."""
     try:
@@ -428,7 +417,7 @@ def get_federated_metrics():
         raise HTTPException(status_code=500, detail=f"Failed to load federated metrics: {str(e)}")
 
 
-@app.get("/api/federated/communication", response_model=FederatedCommunicationResponse)
+@app.get("/api/federated/communication")
 def get_federated_communication():
     """Returns Stage 8.2 full-participation baseline communication payload accounting."""
     try:

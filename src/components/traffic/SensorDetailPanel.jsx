@@ -1,3 +1,4 @@
+import sensorLocationNames from '../../data/sensor_location_names.json';
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import {
@@ -164,8 +165,11 @@ export default function SensorDetailPanel({
               </span>
               <StatusBadge status={speedCondition} />
             </div>
-            <div className="text-xs text-slate-500 dark:text-[#8295A8] truncate mt-0.5">
-              {regionId} • Central Arterial Corridor
+            <div className="text-xs text-slate-600 dark:text-[#CBDDF0] font-medium truncate mt-0.5 flex items-center gap-1">
+              <MapPin className="w-3.5 h-3.5 text-rose-500 shrink-0" />
+              <span className="font-semibold text-cyan-700 dark:text-cyan-300">
+                {sensorLocationNames[sensorId]?.locationName || activeSensor.locationName || `${regionId} • Central Arterial Corridor`}
+              </span>
             </div>
           </div>
         </div>

@@ -17,7 +17,7 @@ export default function CollapsibleTechnicalDetails() {
             Technical Model Details
           </span>
           <span className="text-[11px] text-slate-400 font-mono hidden sm:inline">
-            Graph+LSTM Architecture &amp; Checkpoint Provenance (26,596 params)
+            2-layer Graph Convolution + 1-layer LSTM Architecture (26,596 parameters)
           </span>
         </div>
         {isOpen ? <ChevronUp className="w-4 h-4 text-slate-400" /> : <ChevronDown className="w-4 h-4 text-slate-400" />}
@@ -58,7 +58,7 @@ export default function CollapsibleTechnicalDetails() {
                 Layer Configuration &amp; Parameters
               </span>
               <span className="text-slate-800 dark:text-slate-200 font-semibold block">
-                GCN (64-dim) &rarr; LSTM (64-dim) &rarr; Linear (4)
+                2-layer GraphConv (32-dim) &rarr; 1-layer LSTM (64-dim) &rarr; Linear (4)
               </span>
               <span className="text-[10px] text-slate-400 block">
                 26,596 total parameters &bull; 12-step input window

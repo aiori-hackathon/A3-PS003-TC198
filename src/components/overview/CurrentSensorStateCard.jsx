@@ -1,9 +1,10 @@
 import React from 'react';
-import { Radio, Gauge, Activity, ShieldCheck, ArrowUpRight } from 'lucide-react';
+import { Radio, Gauge, Activity, ShieldCheck, ArrowUpRight, MapPin } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function CurrentSensorStateCard({
   sensorId = '773869',
+  locationName = '',
   regionId = 'REGION_C',
   currentSpeed = 62.0,
   recentMean = 62.8,
@@ -24,6 +25,9 @@ export default function CurrentSensorStateCard({
     trafficBadgeColor = 'amber';
   }
 
+  const speedDiff = Number((currentSpeed - recentMean).toFixed(1));
+  const isFaster = speedDiff > 0;
+
   return (
     <div className="flex flex-col justify-between h-full rounded-2xl bg-white dark:bg-[#071727] border border-slate-200 dark:border-[#17364E] p-5 shadow-xl transition-colors">
 
@@ -39,7 +43,7 @@ export default function CurrentSensorStateCard({
                 Current Sensor State
               </h3>
               <p className="text-[10px] text-slate-500 dark:text-[#8295A8]">
-                Detector status
+                Real-time detector status
               </p>
             </div>
           </div>
@@ -49,33 +53,51 @@ export default function CurrentSensorStateCard({
           </span>
         </div>
 
-        {/* Sensor ID Banner */}
-        <div className="flex items-center justify-between mb-4">
-          <div>
-            <span className="text-[10px] text-slate-400 dark:text-[#7F96AA] uppercase font-semibold block">
-              Loop Detector ID
-            </span>
-            <span className="text-xl font-black font-mono text-slate-900 dark:text-white">
-              {sensorId}
-            </span>
+        {/* Sensor ID & Authentic Location Banner */}
+        <div className="mb-4 p-3 rounded-xl bg-slate-50 dark:bg-[#0B2033]/80 border border-slate-200/80 dark:border-[#17364E]">
+          <div className="flex items-center justify-between mb-1.5">
+            <div>
+              <span className="text-[10px] text-slate-500 dark:text-[#7F96AA] uppercase font-semibold block">
+                Loop Detector ID
+              </span>
+              <span className="text-xl font-black font-mono text-slate-900 dark:text-white">
+                {sensorId}
+              </span>
+            </div>
+
+            <div className="text-right">
+              <span className="text-[10px] text-slate-500 dark:text-[#7F96AA] uppercase font-semibold block">
+                Network Region
+              </span>
+              <span className="text-xs font-bold font-mono px-2 py-0.5 rounded bg-blue-500/10 text-blue-700 dark:text-cyan-300 border border-blue-500/20">
+                {regionId.replace('REGION_', 'Region ')}
+              </span>
+            </div>
           </div>
 
-          <div className="text-right">
-            <span className="text-[10px] text-slate-400 dark:text-[#7F96AA] uppercase font-semibold block">
-              Network Region
-            </span>
-            <span className="text-sm font-bold font-mono text-slate-700 dark:text-[#BCD0E2]">
-              {regionId.replace('REGION_', 'Region ')}
-            </span>
-          </div>
+          {locationName && (
+            <div className="flex items-center gap-1.5 text-xs text-cyan-700 dark:text-cyan-300 font-semibold border-t border-slate-200/60 dark:border-[#17364E]/60 pt-2 mt-1">
+              <MapPin className="w-3.5 h-3.5 shrink-0 text-cyan-600 dark:text-cyan-400" />
+              <span className="truncate">{locationName}</span>
+            </div>
+          )}
         </div>
 
         {/* Speed Metrics Grid */}
         <div className="grid grid-cols-2 gap-3 mb-4">
           <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-[#0B2033] border border-slate-200/80 dark:border-[#17364E]">
-            <div className="flex items-center gap-1.5 text-slate-500 dark:text-[#7F96AA] text-[11px] mb-1 font-medium">
-              <Gauge className="w-3.5 h-3.5 text-cyan-500" />
-              <span>Current Speed</span>
+            <div className="flex items-center justify-between mb-1">
+              <div className="flex items-center gap-1.5 text-slate-500 dark:text-[#7F96AA] text-[11px] font-medium">
+                <Gauge className="w-3.5 h-3.5 text-cyan-500" />
+                <span>Current Speed</span>
+              </div>
+              {speedDiff !== 0 && (
+                <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded font-mono ${
+                  isFaster ? 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10' : 'text-rose-600 dark:text-rose-400 bg-rose-500/10'
+                }`}>
+                  {isFaster ? `+${speedDiff}` : speedDiff}
+                </span>
+              )}
             </div>
             <div className="flex items-baseline gap-1 font-mono">
               <span className="text-2xl font-black text-slate-900 dark:text-white tabular-nums">
@@ -126,13 +148,13 @@ export default function CurrentSensorStateCard({
         {/* Speed Drift & Telemetry Cadence */}
         <div className="grid grid-cols-2 gap-2.5 pt-2.5 text-xs font-mono">
           <div className="p-2.5 rounded-xl bg-slate-50/70 dark:bg-[#0B2033]/60 border border-slate-100 dark:border-[#17364E]/60">
-            <span className="text-slate-400 text-[10px] block uppercase font-medium">Mean Deviation</span>
+            <span className="text-slate-500 dark:text-slate-400 text-[10px] block uppercase font-medium">Mean Deviation</span>
             <span className={`font-bold tabular-nums ${Math.abs(currentSpeed - recentMean) > 2.0 ? 'text-amber-500' : 'text-slate-800 dark:text-white'}`}>
               {(currentSpeed - recentMean) >= 0 ? `+${(currentSpeed - recentMean).toFixed(1)}` : (currentSpeed - recentMean).toFixed(1)} mph
             </span>
           </div>
           <div className="p-2.5 rounded-xl bg-slate-50/70 dark:bg-[#0B2033]/60 border border-slate-100 dark:border-[#17364E]/60">
-            <span className="text-slate-400 text-[10px] block uppercase font-medium">Sampling Rate</span>
+            <span className="text-slate-500 dark:text-slate-400 text-[10px] block uppercase font-medium">Sampling Rate</span>
             <span className="font-bold text-emerald-600 dark:text-emerald-400">
               30s Cadence
             </span>
@@ -143,11 +165,11 @@ export default function CurrentSensorStateCard({
       {/* Footer Nav Link */}
       <div className="pt-3 mt-4 border-t border-slate-100 dark:border-[#17364E]/80">
         <Link
-          to="/network"
+          to={`/network?sensor=${sensorId}`}
           onClick={() => { window.scrollTo({ top: 0, left: 0, behavior: 'instant' }); if (document.documentElement) document.documentElement.scrollTop = 0; if (document.body) document.body.scrollTop = 0; }}
           className="inline-flex items-center gap-1.5 text-xs font-bold text-cyan-600 dark:text-cyan-400 hover:underline"
         >
-          <span>View Sensor on Network</span>
+          <span>View Sensor on Network Map</span>
           <ArrowUpRight className="w-3.5 h-3.5" />
         </Link>
       </div>

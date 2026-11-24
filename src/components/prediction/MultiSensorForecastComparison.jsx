@@ -193,7 +193,8 @@ export default function MultiSensorForecastComparison({
               fill={isDark ? "#2563EB" : "#3B82F6"}
               radius={[4, 4, 0, 0]}
               barSize={20}
-              isAnimationActive={false}
+              isAnimationActive={true}
+              animationDuration={400}
               onClick={(entry) => onSelectSensor && onSelectSensor(entry.id)}
               className="cursor-pointer"
             />
@@ -203,7 +204,8 @@ export default function MultiSensorForecastComparison({
               fill="#00D2FF"
               radius={[4, 4, 0, 0]}
               barSize={20}
-              isAnimationActive={false}
+              isAnimationActive={true}
+              animationDuration={400}
               onClick={(entry) => onSelectSensor && onSelectSensor(entry.id)}
               className="cursor-pointer"
             />

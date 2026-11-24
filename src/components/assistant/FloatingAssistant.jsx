@@ -82,7 +82,7 @@ export default function FloatingAssistant() {
       setError(err.message || 'Unable to contact assistant server.');
       setMessages([...updatedMessages, {
         role: 'assistant',
-        content: `Error connecting to assistant service: ${err.message || 'Server timeout'}. Please ensure the backend server is running on port 8000.`,
+        content: `Unable to connect to assistant service (${err.message || 'Server timeout'}). Please check your internet connection or verify the backend service is operational.`,
         isError: true
       }]);
     } finally {

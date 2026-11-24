@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Radio,
   Wifi,
@@ -36,6 +36,18 @@ export default function MetricCard({
   const config = iconConfig[iconType] || iconConfig.sensor;
   const CardIcon = config.Icon;
 
+  const [hasChanged, setHasChanged] = useState(false);
+  const prevValueRef = useRef(value);
+
+  useEffect(() => {
+    if (prevValueRef.current !== value) {
+      prevValueRef.current = value;
+      setHasChanged(true);
+      const timer = setTimeout(() => setHasChanged(false), 450);
+      return () => clearTimeout(timer);
+    }
+  }, [value]);
+
   return (
     <div className="bg-white dark:bg-[#081827] border border-slate-200 dark:border-[#17364E] rounded-xl p-4 sm:p-5 flex flex-col justify-between hover:border-slate-300 dark:hover:border-[#24506D] transition-colors duration-150 shadow-xs dark:shadow-md dark:shadow-black/25">
       <div className="flex items-center justify-between mb-2">
@@ -46,7 +58,11 @@ export default function MetricCard({
       </div>
 
       <div>
-        <div className="text-[28px] sm:text-[32px] font-bold font-mono tracking-tight text-slate-900 dark:text-[#F5F8FC] mb-1.5 tabular-nums leading-none whitespace-nowrap overflow-hidden text-ellipsis">
+        <div className={`text-[28px] sm:text-[32px] font-bold font-mono tracking-tight mb-1.5 tabular-nums leading-none whitespace-nowrap overflow-hidden text-ellipsis transition-colors duration-300 ${
+          hasChanged
+            ? 'text-cyan-600 dark:text-cyan-400'
+            : 'text-slate-900 dark:text-[#F5F8FC]'
+        }`}>
           {(() => {
             if (typeof value === 'string') {
               const parts = value.trim().split(/\s+/);

@@ -41,8 +41,6 @@ export default function DistributionReproducibilitySection() {
   const [_error, setError] = useState(null);
 
   const loadAllExperimentData = useCallback(async () => {
-    setLoading(true);
-    setError(null);
     try {
       const [compRes, seedRes, convRes] = await Promise.all([
         fetchDistributionComparison().catch(() => null),
@@ -60,7 +58,13 @@ export default function DistributionReproducibilitySection() {
   }, []);
 
   useEffect(() => {
-    loadAllExperimentData();
+    let isMounted = true;
+    async function init() {
+      if (isMounted) {
+        await loadAllExperimentData();
+      }
+    }
+    init();
     const interval = setInterval(() => {
       setComparison(curr => {
         if (!curr || curr.status === 'PENDING') {
@@ -69,7 +73,10 @@ export default function DistributionReproducibilitySection() {
         return curr;
       });
     }, 10000);
-    return () => clearInterval(interval);
+    return () => {
+      isMounted = false;
+      clearInterval(interval);
+    };
   }, [loadAllExperimentData]);
 
   const isCompleted = comparison?.status === 'COMPLETED' && comparison?.statisticalSummary;
@@ -160,7 +167,7 @@ export default function DistributionReproducibilitySection() {
           </div>
           <div>
             <h3 className="text-base font-semibold text-slate-900 dark:text-[#F5F8FC]">
-              Distribution & Reproducibility (3-Seed Evaluation)
+              Distribution &amp; Reproducibility (3-Seed Evaluation)
             </h3>
             <p className="text-xs text-slate-500 dark:text-[#7F96AA]">
               Statistical evaluation of IID vs Non-IID client heterogeneity across seeds 42, 123, 2026
@@ -176,6 +183,28 @@ export default function DistributionReproducibilitySection() {
           <span className="text-[11px] font-mono px-2.5 py-1 rounded-full bg-slate-100 dark:bg-[#0B2033] border border-slate-200 dark:border-[#17364E] text-slate-600 dark:text-[#BCD0E2]">
             Error Bars: &plusmn;1 Std Dev
           </span>
+        </div>
+      </div>
+
+      {/* Non-IID vs IID Definition & Challenge Mapping Strip */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3 rounded-xl bg-slate-50 dark:bg-[#071624] border border-slate-200 dark:border-[#17364E] text-xs">
+        <div className="flex items-start gap-2">
+          <div className="w-2 h-2 rounded-full bg-purple-500 shrink-0 mt-1" />
+          <div>
+            <strong className="text-purple-600 dark:text-purple-400 font-mono block">Non-IID Partition (Geographic):</strong>
+            <span className="text-slate-600 dark:text-[#CBDDF0]">
+              Sub-networks clustered by Caltrans freeway corridors (high variance across regional peak commute hours &amp; bottlenecks).
+            </span>
+          </div>
+        </div>
+        <div className="flex items-start gap-2">
+          <div className="w-2 h-2 rounded-full bg-cyan-500 shrink-0 mt-1" />
+          <div>
+            <strong className="text-cyan-600 dark:text-cyan-400 font-mono block">IID Partition (Uniform-Random):</strong>
+            <span className="text-slate-600 dark:text-[#CBDDF0]">
+              Sensors uniformly interleaved across 4 clients to synthetically balance speed distributions as a controlled scientific comparator.
+            </span>
+          </div>
         </div>
       </div>
 
@@ -333,10 +362,10 @@ export default function DistributionReproducibilitySection() {
                     }}
                   />
                   <Legend wrapperStyle={{ fontSize: '11px', paddingTop: '4px' }} iconSize={10} />
-                  <Bar dataKey="NonIID" name="Non-IID (Geographic)" fill="#9D5CFF" radius={[4, 4, 0, 0]}>
+                  <Bar dataKey="NonIID" name="Non-IID (Geographic)" fill="#9D5CFF" radius={[4, 4, 0, 0]} isAnimationActive={true} animationDuration={400}>
                     <ErrorBar dataKey="NonIID_error" width={4} strokeWidth={1.5} stroke={isDark ? "#E2E8F0" : "#334155"} />
                   </Bar>
-                  <Bar dataKey="IID" name="IID (Uniform-Random)" fill="#06B6D4" radius={[4, 4, 0, 0]}>
+                  <Bar dataKey="IID" name="IID (Uniform-Random)" fill="#06B6D4" radius={[4, 4, 0, 0]} isAnimationActive={true} animationDuration={400}>
                     <ErrorBar dataKey="IID_error" width={4} strokeWidth={1.5} stroke={isDark ? "#E2E8F0" : "#334155"} />
                   </Bar>
                 </BarChart>
@@ -396,6 +425,8 @@ export default function DistributionReproducibilitySection() {
                     stroke="#9D5CFF"
                     strokeWidth={2.2}
                     dot={{ r: 2.5, fill: '#9D5CFF' }}
+                    isAnimationActive={true}
+                    animationDuration={400}
                   />
                   <Line
                     type="monotone"
@@ -405,6 +436,8 @@ export default function DistributionReproducibilitySection() {
                     strokeWidth={2.2}
                     strokeDasharray="4 4"
                     dot={{ r: 2.5, fill: '#06B6D4' }}
+                    isAnimationActive={true}
+                    animationDuration={400}
                   />
                 </LineChart>
               </ResponsiveContainer>

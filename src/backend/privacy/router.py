@@ -38,8 +38,8 @@ def get_privacy_status() -> Dict[str, Any]:
     return {
         "status": "COMPLETED",
         "evaluated": True,
-        "heading": data.get("privacySpecification", {}).get("safeHeading", "Formal Differential Privacy Experiment"),
-        "claim": data.get("privacySpecification", {}).get("formalClaim", "(ε, δ)-DP under the evaluated training configuration"),
+        "heading": "Differential Privacy Experiment (Empirical Gradient Clipping & Perturbation)",
+        "claim": "Empirical Gradient-Clipped Perturbation (Accountant Projection ε=5.31, δ=1e-5)",
         "epsilon": data.get("privacySpecification", {}).get("epsilon"),
         "delta": data.get("privacySpecification", {}).get("delta"),
         "timestamp": data.get("provenance", {}).get("executionTimestamp")
@@ -57,7 +57,7 @@ def get_privacy_results() -> Dict[str, Any]:
             "status": "NOT_EVALUATED",
             "evaluated": False,
             "message": "Not Evaluated",
-            "safeHeading": "Formal Differential Privacy Experiment",
+            "safeHeading": "Differential Privacy Experiment (Empirical Gradient Clipping & Perturbation)",
             "standardBaseline": {
                 "framework": "Standard FedAvg (Non-IID Geographic)",
                 "testMAE": 3.5322,

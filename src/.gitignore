@@ -50,8 +50,7 @@ scratch_*
 *.bak
 
 # Data & Large Benchmark Artifacts (Raw & ML-Ready Binaries)
-data/raw/metr-la/metr-la.h5
-data/raw/metr-la/*.h5
+# metr-la.h5 (54MB) is included for cloud deployment (under GitHub 100MB limit)
 data/raw/metr-la/*.npz
 data/processed/metr-la/ml_ready/*.npz
 data/raw/pems08/*.zip

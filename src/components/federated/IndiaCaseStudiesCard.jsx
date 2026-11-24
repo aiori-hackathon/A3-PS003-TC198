@@ -7,7 +7,9 @@ import {
   Info,
   CheckCircle2,
   Camera,
-  Activity
+  Activity,
+  ChevronDown,
+  ChevronUp
 } from 'lucide-react';
 
 const INDIA_CASE_STUDIES = [
@@ -105,49 +107,62 @@ const INDIA_CASE_STUDIES = [
 ];
 
 export default function IndiaCaseStudiesCard() {
+  const [isOpen, setIsOpen] = useState(false);
   const [selectedCityId, setSelectedCityId] = useState('ranchi');
 
   const activeStudy = INDIA_CASE_STUDIES.find(c => c.id === selectedCityId) || INDIA_CASE_STUDIES[0];
 
   return (
-    <div className="bg-white dark:bg-[#071727] border border-slate-200 dark:border-[#17364E] rounded-2xl p-5 lg:p-6 shadow-xs dark:shadow-md transition-colors">
-
-      {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-4 border-b border-slate-100 dark:border-[#17364E]/70">
-        <div>
-          <div className="flex items-center gap-2.5">
-            <div className="p-1.5 rounded-lg bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20">
+    <div className="bg-white dark:bg-[#071727] border border-slate-200 dark:border-[#17364E] rounded-2xl p-4 lg:p-5 shadow-xs dark:shadow-md transition-colors">
+      {/* Interactive Accordion Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <button
+          type="button"
+          onClick={() => setIsOpen(!isOpen)}
+          className="flex-1 flex items-center justify-between text-left cursor-pointer group"
+        >
+          <div className="flex items-center gap-3">
+            <div className="p-2 rounded-xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20 group-hover:scale-105 transition-transform">
               <Building2 className="w-5 h-5" />
             </div>
-            <h2 className="text-lg lg:text-xl font-extrabold text-slate-900 dark:text-[#F7FAFF] tracking-tight">
-              SMART-MOBILITY DEPLOYMENT CASE STUDIES
-            </h2>
+            <div>
+              <div className="flex flex-wrap items-center gap-2">
+                <h3 className="text-sm lg:text-base font-extrabold text-slate-900 dark:text-[#F7FAFF] tracking-tight">
+                  Real-World Pilot Transferability: Indian Smart Cities Mission
+                </h3>
+                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/20">
+                  Ranchi &bull; Tumakuru &bull; Vizag
+                </span>
+              </div>
+              <p className="text-xs text-slate-500 dark:text-[#CBDDF0] mt-0.5 font-medium">
+                Municipal traffic architectures, junction telemetry systems, and cross-domain edge applicability
+              </p>
+            </div>
           </div>
-          <p className="text-xs sm:text-sm text-slate-600 dark:text-[#CBDDF0] mt-1 font-medium">
-            Real-world municipal traffic architectures, automated incident alerts, and multi-junction telemetry systems.
-          </p>
-        </div>
 
-        <div className="flex items-center gap-2">
-          <span className="text-[10px] font-sans font-bold px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/20">
-            MoHUA VERIFIED DEPLOYMENTS
-          </span>
-          <span className="text-[10px] font-mono font-bold px-2.5 py-1 rounded bg-blue-500/10 text-blue-700 dark:text-cyan-300 border border-blue-500/20">
-            ACTIVE ANOMALY INTELLIGENCE
-          </span>
-        </div>
+          <div className="flex items-center gap-2 shrink-0 ml-3">
+            <span className="text-xs font-semibold text-cyan-600 dark:text-cyan-400 hidden sm:inline">
+              {isOpen ? 'Collapse' : 'Expand Case Studies'}
+            </span>
+            <div className="p-1 rounded-lg bg-slate-100 dark:bg-[#0B2033] border border-slate-200 dark:border-[#17364E] text-slate-600 dark:text-slate-300">
+              {isOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+            </div>
+          </div>
+        </button>
       </div>
 
-      {/* Municipal Traffic Context Banner */}
-      <div className="my-4 p-3.5 rounded-xl bg-slate-50 dark:bg-[#081827] border border-slate-200 dark:border-[#17364E] flex items-start gap-3">
-        <Info className="w-4 h-4 text-cyan-500 shrink-0 mt-0.5" />
-        <div className="text-xs text-slate-700 dark:text-[#CBDDF0] leading-relaxed">
-          <strong className="text-slate-900 dark:text-white block mb-0.5">
-            Municipal Smart Cities Infrastructure &amp; Anomaly Detection:
-          </strong>
-          Documenting verified high-density municipal traffic implementations under India&apos;s Smart Cities Mission (MoHUA). These operational frameworks demonstrate how junction-level sensor telemetry feeds automated anomaly detection and adaptive signal control.
-        </div>
-      </div>
+      {isOpen && (
+        <div className="mt-4 pt-4 border-t border-slate-100 dark:border-[#17364E]/70 space-y-4 animate-fade-in">
+          {/* Municipal Traffic Context Banner */}
+          <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-[#081827] border border-slate-200 dark:border-[#17364E] flex items-start gap-3">
+            <Info className="w-4 h-4 text-cyan-500 shrink-0 mt-0.5" />
+            <div className="text-xs text-slate-700 dark:text-[#CBDDF0] leading-relaxed">
+              <strong className="text-slate-900 dark:text-white block mb-0.5">
+                Municipal Smart Cities Infrastructure &amp; Anomaly Detection:
+              </strong>
+              Documenting verified high-density municipal traffic implementations under India&apos;s Smart Cities Mission (MoHUA). These operational frameworks demonstrate how junction-level sensor telemetry feeds automated anomaly detection and adaptive signal control.
+            </div>
+          </div>
 
       {/* 3 City Selector Tabs */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
@@ -307,15 +322,16 @@ export default function IndiaCaseStudiesCard() {
 
         </div>
 
-        {/* Operational Architecture Callout */}
-        <div className="p-3 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-xs text-slate-700 dark:text-[#CBDDF0] flex items-center gap-2">
-          <CheckCircle2 className="w-4 h-4 text-cyan-500 shrink-0" />
-          <span className="font-semibold text-cyan-900 dark:text-cyan-300">
-            Operational Architecture: Junction-level sensor telemetry powers automated anomaly detection, incident alerting, and adaptive signal timing.
-          </span>
+          {/* Operational Architecture Callout */}
+          <div className="p-3 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-xs text-slate-700 dark:text-[#CBDDF0] flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4 text-cyan-500 shrink-0" />
+            <span className="font-semibold text-cyan-900 dark:text-cyan-300">
+              Operational Architecture: Junction-level sensor telemetry powers automated anomaly detection, incident alerting, and adaptive signal timing.
+            </span>
+          </div>
         </div>
-
       </div>
+      )}
 
     </div>
   );

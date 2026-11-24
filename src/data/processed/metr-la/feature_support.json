@@ -35,7 +35,7 @@
     "speedPredictionTarget": {
       "classification": "PREDICTION_TARGET_AVAILABLE",
       "available": true,
-      "description": "Speed time-series target for GNN/LSTM prediction models (Model training NOT_IMPLEMENTED)"
+      "description": "Speed time-series target for GNN/LSTM prediction models (SpatialGraphLSTM trained and evaluated on METR-LA)"
     },
     "freshness": {
       "classification": "STATE_SUPPORTED",

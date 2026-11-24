@@ -154,6 +154,9 @@ export default function Next60MinutesForecastCard({
                 strokeWidth={3}
                 dot={{ r: 5, fill: '#00D2FF', stroke: isDark ? '#071727' : '#ffffff', strokeWidth: 2 }}
                 activeDot={{ r: 7, fill: '#00D2FF' }}
+                isAnimationActive={true}
+                animationDuration={500}
+                animationEasing="ease-out"
               />
 
               {/* Lower Uncertainty Bound */}

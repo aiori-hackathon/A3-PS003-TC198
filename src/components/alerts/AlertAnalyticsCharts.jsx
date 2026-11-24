@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
   AreaChart,
   Area,
@@ -14,14 +14,6 @@ import { TrendingUp, PieChart as PieIcon } from 'lucide-react';
 import SectionCard from '../common/SectionCard';
 import ScientificBadge from '../common/ScientificBadge';
 
-const TREND_DATA = [
-  { time: '00:00', alerts: 2, uncertainty: 1, drift: 1 },
-  { time: '00:15', alerts: 4, uncertainty: 2, drift: 1 },
-  { time: '00:30', alerts: 5, uncertainty: 2, drift: 2 },
-  { time: '00:45', alerts: 8, uncertainty: 3, drift: 3 },
-  { time: '01:00', alerts: 10, uncertainty: 3, drift: 4 }
-];
-
 const CATEGORY_COLORS = {
   'Uncertainty': '#a855f7',      // purple
   'Drift': '#f59e0b',            // amber
@@ -33,18 +25,41 @@ const CATEGORY_COLORS = {
 };
 
 export default function AlertAnalyticsCharts({ alerts = [] }) {
-  // Compute category counts from actual active alerts
-  const categoryCounts = alerts.reduce((acc, curr) => {
-    const cat = curr.category || 'Other';
-    acc[cat] = (acc[cat] || 0) + 1;
-    return acc;
-  }, {});
+  // Dynamically compute cumulative alert trend across replay intervals
+  const trendData = useMemo(() => {
+    const timeSlots = ['00:00', '00:15', '00:30', '00:45', '01:00'];
+    return timeSlots.map((slot) => {
+      const matches = alerts.filter((a) => {
+        const timePart = a.timestamp ? a.timestamp.slice(11, 16) : '01:00';
+        return timePart <= slot;
+      });
+      const uncertainty = matches.filter((a) => a.category === 'Uncertainty').length;
+      const drift = matches.filter((a) => a.category === 'Drift').length;
+      return {
+        time: slot,
+        alerts: matches.length,
+        uncertainty,
+        drift
+      };
+    });
+  }, [alerts]);
 
-  const pieData = Object.entries(categoryCounts).map(([name, value]) => ({
-    name,
-    value,
-    color: CATEGORY_COLORS[name] || '#3b82f6'
-  }));
+  // Compute category counts from actual active alerts
+  const categoryCounts = useMemo(() => {
+    return alerts.reduce((acc, curr) => {
+      const cat = curr.category || 'Other';
+      acc[cat] = (acc[cat] || 0) + 1;
+      return acc;
+    }, {});
+  }, [alerts]);
+
+  const pieData = useMemo(() => {
+    return Object.entries(categoryCounts).map(([name, value]) => ({
+      name,
+      value,
+      color: CATEGORY_COLORS[name] || '#3b82f6'
+    }));
+  }, [categoryCounts]);
 
   const totalEvents = alerts.length;
 
@@ -62,7 +77,7 @@ export default function AlertAnalyticsCharts({ alerts = [] }) {
           <div className="space-y-3 flex-1 flex flex-col justify-between">
             <div className="h-44 w-full">
               <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={TREND_DATA} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                <AreaChart data={trendData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                   <defs>
                     <linearGradient id="alertGrad" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="5%" stopColor="#06b6d4" stopOpacity={0.4} />
@@ -105,6 +120,8 @@ export default function AlertAnalyticsCharts({ alerts = [] }) {
                     strokeWidth={2}
                     fillOpacity={1}
                     fill="url(#alertGrad)"
+                    isAnimationActive={true}
+                    animationDuration={400}
                   />
                 </AreaChart>
               </ResponsiveContainer>
@@ -112,7 +129,7 @@ export default function AlertAnalyticsCharts({ alerts = [] }) {
 
             <div className="flex items-center justify-between pt-2 border-t border-slate-100 dark:border-[#17364E] text-[11px] font-mono text-slate-600 dark:text-[#CBDDF0]">
               <span>Monitoring Window: 00:00 – 01:00</span>
-              <span>Peak Frequency: <strong className="text-slate-900 dark:text-white">10 Alerts</strong></span>
+              <span>Cumulative Count: <strong className="text-slate-900 dark:text-white">{totalEvents} Alert{totalEvents === 1 ? '' : 's'}</strong></span>
             </div>
           </div>
         </SectionCard>
@@ -141,6 +158,9 @@ export default function AlertAnalyticsCharts({ alerts = [] }) {
                       outerRadius={62}
                       paddingAngle={3}
                       dataKey="value"
+                      isAnimationActive={true}
+                      animationDuration={500}
+                      animationEasing="ease-out"
                     >
                       {pieData.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={entry.color} stroke="transparent" />

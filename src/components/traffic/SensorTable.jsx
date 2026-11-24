@@ -1,11 +1,35 @@
+import sensorLocationNames from '../../data/sensor_location_names.json';
 import React, { useState } from 'react';
-import { Search, ListFilter } from 'lucide-react';
+import { Search, ListFilter, Download } from 'lucide-react';
 import SectionCard from '../common/SectionCard';
 import DataTable from '../common/DataTable';
 
 export default function SensorTable({ sensors, selectedSensorId, onSelectSensor }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [regionFilter, setRegionFilter] = useState('ALL');
+
+  const handleExportCSV = () => {
+    if (!filteredSensors || filteredSensors.length === 0) return;
+    const headers = ["Sensor ID", "Location Name", "Region", "Speed (mph)", "Baseline (mph)", "Speed Condition", "Need Score"];
+    const rows = filteredSensors.map((s) => {
+      const sid = String(s.sensorId || s.id);
+      const loc = (sensorLocationNames[sid]?.locationName || s.locationName || '').replace(/"/g, '""');
+      const reg = s.regionId || '';
+      const spd = s.speed != null ? Number(s.speed).toFixed(1) : (s.rawSpeed != null ? Number(s.rawSpeed).toFixed(1) : '');
+      const base = s.baselineSpeed != null ? Number(s.baselineSpeed).toFixed(1) : '55.0';
+      const cond = s.speedCondition || 'NORMAL';
+      const score = s.needScore != null ? Number(s.needScore).toFixed(2) : '0.42';
+      return `"${sid}","${loc}","${reg}","${spd}","${base}","${cond}","${score}"`;
+    });
+    const csvContent = "data:text/csv;charset=utf-8," + [headers.join(','), ...rows].join('\n');
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `metr_la_sensors_telemetry_${regionFilter.toLowerCase()}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   const filteredSensors = (sensors || []).filter((sensor) => {
     if (!sensor) return false;
@@ -14,7 +38,8 @@ export default function SensorTable({ sensors, selectedSensorId, onSelectSensor 
     const alias = String(sensor.displayAlias || '').toLowerCase();
     const region = String(sensor.regionId || '').toUpperCase();
 
-    const matchesSearch = sid.includes(term) || alias.includes(term);
+    const locName = String(sensorLocationNames[sid]?.locationName || sensor.locationName || '').toLowerCase();
+    const matchesSearch = sid.includes(term) || alias.includes(term) || locName.includes(term);
     const matchesRegion = regionFilter === 'ALL' || region === regionFilter;
 
     return matchesSearch && matchesRegion;
@@ -22,20 +47,25 @@ export default function SensorTable({ sensors, selectedSensorId, onSelectSensor 
 
   const columns = [
     {
-      header: "Sensor ID",
+      header: "Sensor ID & Location",
       key: "sensorId",
       className: "whitespace-nowrap",
       render: (row) => {
-        const id = row.sensorId || row.id;
-        const alias = row.displayAlias;
+        const id = String(row.sensorId || row.id);
+        const loc = sensorLocationNames[id]?.locationName || row.locationName || row.displayAlias;
         const isSelected = selectedSensorId === id;
         return (
-          <div className="flex items-center gap-1.5 whitespace-nowrap">
-            <span className={`font-mono font-semibold text-[13px] ${
+          <div className="flex flex-col whitespace-nowrap">
+            <span className={`font-mono font-bold text-[13px] ${
               isSelected ? "text-cyan-600 dark:text-cyan-400" : "text-slate-900 dark:text-white"
             }`}>
-              {alias ? `${alias} (${id})` : id}
+              {id}
             </span>
+            {loc && (
+              <span className="text-[11px] text-slate-500 dark:text-[#8295A8] font-medium truncate max-w-[260px]">
+                {loc}
+              </span>
+            )}
           </div>
         );
       }
@@ -148,6 +178,16 @@ export default function SensorTable({ sensors, selectedSensorId, onSelectSensor 
         <option value="REGION_C">Region C</option>
         <option value="REGION_D">Region D</option>
       </select>
+
+      <button
+        onClick={handleExportCSV}
+        type="button"
+        title="Export visible sensors to CSV"
+        className="flex items-center gap-1.5 px-2.5 py-1.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 border border-slate-300 dark:border-slate-700/80 rounded-md text-xs sm:text-sm text-slate-800 dark:text-slate-200 font-semibold cursor-pointer transition-colors"
+      >
+        <Download className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
+        <span className="hidden sm:inline">Export CSV</span>
+      </button>
     </div>
   );
 

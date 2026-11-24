@@ -4,7 +4,7 @@ import SectionCard from '../common/SectionCard';
 import ScientificBadge from '../common/ScientificBadge';
 
 const DEFAULT_EVIDENCE_DATA = {
-  targetSensor: "767620",
+  targetSensor: "773869",
   currentConfidence: "86.4%",
   evidenceSufficient: "Yes",
   stoppingCondition: "Evidence confidence threshold met (Residual Uncertainty ≤ 15%)",
@@ -15,8 +15,9 @@ const DEFAULT_EVIDENCE_DATA = {
   ]
 };
 
-export default function EvidenceChain({ data, _onClose, _targetSensorId }) {
+export default function EvidenceChain({ data, targetSensorId, _onClose }) {
   const activeData = data || DEFAULT_EVIDENCE_DATA;
+  const targetSensor = targetSensorId || activeData.targetSensor || "773869";
   const sequence = (activeData.sequence && Array.isArray(activeData.sequence) && activeData.sequence.length > 0)
     ? activeData.sequence
     : DEFAULT_EVIDENCE_DATA.sequence;
@@ -30,7 +31,7 @@ export default function EvidenceChain({ data, _onClose, _targetSensorId }) {
 
   return (
     <SectionCard
-      title="Evidence Progression"
+      title={`Evidence Progression — Target ${targetSensor}`}
       subtitle="Sequential acquisition of sufficient neighborhood telemetry"
       icon={GitCommit}
       action={<ScientificBadge type="DERIVED" label="PROGRESSIVE CHAIN" size="xs" />}

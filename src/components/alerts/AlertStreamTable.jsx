@@ -146,8 +146,17 @@ export default function AlertStreamTable({
                           {alt.timestamp.slice(11)}
                         </td>
                         <td className="py-2.5 px-3 whitespace-nowrap">
-                          <span className="font-bold text-slate-900 dark:text-white">{alt.sensorId}</span>
-                          <span className="text-[10px] text-cyan-600 dark:text-cyan-400 ml-1">({alt.regionId})</span>
+                          <div className="flex flex-col">
+                            <div className="flex items-center gap-1">
+                              <span className="font-bold text-slate-900 dark:text-white">{alt.sensorId}</span>
+                              <span className="text-[10px] text-cyan-600 dark:text-cyan-400 font-semibold">({alt.regionId})</span>
+                            </div>
+                            {alt.locationName && (
+                              <span className="text-[10px] text-slate-500 dark:text-[#8295A8] truncate max-w-[200px] font-sans">
+                                {alt.locationName}
+                              </span>
+                            )}
+                          </div>
                         </td>
                         <td className="py-2.5 px-3 whitespace-nowrap">
                           <span className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[#06111D] border border-slate-200 dark:border-[#17364E] text-[11px]">
