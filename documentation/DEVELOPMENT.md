@@ -6,7 +6,7 @@ This guide outlines setup, execution, testing, and repository development conven
 
 ## 1. Environment Requirements
 
-- **Python**: Python 3.10+ (Tested on Python 3.14.7)
+- **Python**: Python 3.10+ (Tested on Python 3.12 / 3.14)
 - **Node.js**: Node.js v18+ / v20+ (Tested with npm & Vite v8.3.3)
 
 ---
@@ -48,6 +48,31 @@ python -m pip install -r backend/requirements.txt
 # 4. Install frontend JavaScript dependencies
 npm install
 ```
+
+### Step 2: Dataset Acquisition & Placement
+
+The primary METR-LA speed measurement binary (`data/raw/metr-la/metr-la.h5`, ~57 MB) is excluded from version control to maintain a lean repository size.
+
+1. **Obtain the Dataset**:
+   - Download `metr-la.h5` from the public DCRNN benchmark repository: [https://github.com/Li-Yaguang/DCRNN](https://github.com/Li-Yaguang/DCRNN)
+   - Or from the Zenodo traffic benchmark archive: [https://zenodo.org/record/4269677](https://zenodo.org/record/4269677)
+   - Or copy from existing local project storage: `data/raw/metr-la/metr-la.h5`
+
+2. **Place the File**:
+   - Save the file at: `data/raw/metr-la/metr-la.h5` (or `data/raw/metr-la/METR-LA.h5`).
+
+3. **Verify Dataset Loading**:
+   ```bash
+   python -m pytest backend/test_phase5_dataset.py -k "test_raw_hdf5_remains_unchanged"
+   ```
+   Or launch the backend server and query the health endpoint:
+   ```bash
+   curl http://127.0.0.1:8000/api/health
+   # Expected JSON: {"backendStatus": "OK", "realDatasetAvailability": "READY", "sensorsTotalReal": 207}
+   ```
+
+4. **Missing Dataset Behavior**:
+   - If `metr-la.h5` is absent, `backend/datasets/metr_la.py` raises `FileNotFoundError("METR-LA measurement file 'data/raw/metr-la/metr-la.h5' not found.")`. The system strictly prohibits synthetic or fabricated traffic fallback.
 
 ---
 
