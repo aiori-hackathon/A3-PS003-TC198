@@ -8,7 +8,6 @@ All comprehensive engineering specifications, mathematical formulations, API rou
 
 - **Master Technical Documentation (PDF)**: [`TrafficPulse-X_Complete_Documentation.pdf`](./TrafficPulse-X_Complete_Documentation.pdf)
 - **Complete Technical Manual (Markdown)**: [`TrafficPulse-X_Complete_Documentation.md`](./TrafficPulse-X_Complete_Documentation.md)
-- **AIORI Viva & Technical Evaluation Guide (PDF)**: [`AIORI_VIVA_AND_TECHNICAL_EVALUATION_GUIDE.pdf`](./AIORI_VIVA_AND_TECHNICAL_EVALUATION_GUIDE.pdf)
 - **Demo & Viva Preparation Runbook**: [`DEMO_VIVA.md`](./DEMO_VIVA.md)
 - **System Architecture & Data Flow**: [`ARCHITECTURE.md`](./ARCHITECTURE.md)
 - **Scientific Contracts & Methodology**: [`SCIENTIFIC_CONTRACT.md`](./SCIENTIFIC_CONTRACT.md)

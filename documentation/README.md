@@ -14,7 +14,6 @@ See also: [**Full Project Documentation**](./FULL_PROJECT_DOCUMENTATION.md)
 | :--- | :--- | :---: |
 | [**Master Technical Documentation (PDF)**](./TrafficPulse-X_Complete_Documentation.pdf) | Complete 27-section technical manual with embedded UI console screenshots. | All Reviewers & Evaluators |
 | [**Complete Technical Manual (Markdown)**](./TrafficPulse-X_Complete_Documentation.md) | Exhaustive 27-section engineering and scientific reference manual. | Research Evaluators |
-| [**AIORI Viva & Defense Guide (PDF)**](./AIORI_VIVA_AND_TECHNICAL_EVALUATION_GUIDE.pdf) | High-stakes viva questions, scoring rubrics, and bilingual defense scripts. | Presentation & Viva Panel |
 | [**Demo & Viva Preparation Runbook**](./DEMO_VIVA.md) | Live demo scripts, backup plans, and evaluation response guidelines. | Presentation Panel |
 | [**Architecture Specifications**](./ARCHITECTURE.md) | High-level system architecture, component decomposition, and end-to-end data pipelines. | Evaluators & System Architects |
 | [**Scientific Contracts & Provenance**](./SCIENTIFIC_CONTRACT.md) | Formal mathematical contracts, dataset provenance, and spatial non-IID graph formulation. | Research Evaluators |
