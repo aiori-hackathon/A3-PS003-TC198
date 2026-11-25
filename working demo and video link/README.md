@@ -8,7 +8,7 @@ This directory contains the working demo link, team introduction & problem state
 
 ## AIORI-3 Hackathon Submission Details
 
-- **Hackathon:** AIORI 3 (All India Open Research Initiative)
+- **Hackathon:** AIORI 3 (Advanced Internet Operations Research in India)
 - **Problem Statement ID:** PS-003
 - **Problem Statement:** Federated Traffic-Flow Prediction with Communication-Cost Evaluation
 - **Team Code:** A3-PS003-TC198
